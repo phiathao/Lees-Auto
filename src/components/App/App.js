@@ -14,8 +14,12 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
+import CarListPage from '../CarList/CarList';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ManagePage from '../ManagePage/ManagePage';
+import ShopServicesPage from '../ShopService/ShopService';
+import CarSalesPage from '../CarSales/CarSalesPage';
+
 
 import './App.css';
 
@@ -39,6 +43,11 @@ class App extends Component {
               path="/about"
               component={AboutPage}
             />
+            <Route
+              exact
+              path="/carList"
+              component={CarListPage}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -52,8 +61,18 @@ class App extends Component {
             they will see the info page instead. */}
             <ProtectedRoute
               exact
-              path="/info"
-              component={InfoPage}
+              path="/manage"
+              component={ManagePage}
+            />
+            <ProtectedRoute
+              exact
+              path="/shopService"
+              component={ShopServicesPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/carSales"
+              component={CarSalesPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
