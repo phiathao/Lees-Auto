@@ -18,6 +18,7 @@ class LoginPage extends Component {
           password: this.state.password,
         },
       });
+      this.props.history.push('/manage'); // redirect if successful
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
