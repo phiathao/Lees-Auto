@@ -1,0 +1,21 @@
+.service-item {
+    text-align: center;
+    background-color: #6a7b83;
+    margin: 0;
+    color: white;
+    overflow: hidden;
+}
+
+.service-item {
+    padding-bottom: 50px;
+    padding-top: 50px;
+    border-bottom: #2196f3 solid 3px;
+}
+.service-item p {
+    width: 90%;
+    margin: auto;
+}
+
+.service-item Button {
+    margin: 15px;
+}

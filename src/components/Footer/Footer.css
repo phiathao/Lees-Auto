@@ -2,8 +2,9 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #333333;
+    background-color: #455a64;
     color: #f2f2f2;
+    border-top: #2196f3 solid 3px;
 }
 
 .footer-content p {
@@ -19,4 +20,5 @@
 .footer-right {
     float: right;
     padding-right: 10px;
+    color: #2196f3
 }

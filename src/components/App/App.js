@@ -20,7 +20,6 @@ import ManagePage from '../ManagePage/ManagePage';
 import ShopServicesPage from '../ShopService/ShopService';
 import CarSalesPage from '../CarSales/CarSalesPage';
 
-
 import './App.css';
 
 class App extends Component {

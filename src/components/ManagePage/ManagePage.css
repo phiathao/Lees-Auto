@@ -1,0 +1,18 @@
+.component-header {
+    width: 100%;
+    text-align: center;
+    background-color: #6a7b83;
+    margin: 0;
+    padding-top: 30px;
+    overflow: hidden;
+}
+.component-header Button {
+    display: block;
+    margin: auto;
+}
+.search-field {
+    display: block;
+    width: 40%;
+    margin-bottom: 0;
+}
+

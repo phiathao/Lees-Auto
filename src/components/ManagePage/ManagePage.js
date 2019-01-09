@@ -1,16 +1,41 @@
 import React from 'react';
+import './ManagePage.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import {connect} from 'react-redux';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
-const InfoPage = () => (
-  <div>
-    <p>
-      Info Page
+const mapStateToProps = reduxState => ({
+  reduxState, 
+});
+
+class Manage extends React.Component {
+  componentDidMount(){
+    this.props.dispatch({
+      type: 'FETCH_DATA'
+  })
+  }
+  render() {
+    return (
+      <div>
+        <div className='component-header'>
+          <h3>Manage Customers and Vehicles</h3>
+          <Button variant='contained' color='secondary'>Add Customer</Button>
+          <TextField
+            id="filled-search"
+            label="Search field"
+            type="search"
+            className='search-field'
+            margin="normal"
+            variant="filled"
+          />
+        </div>
+        <p>
+          Info Page
     </p>
-  </div>
-);
+      </div>
+    )
+  }
+};
 
-export default InfoPage;
+export default connect(mapStateToProps)(Manage);
