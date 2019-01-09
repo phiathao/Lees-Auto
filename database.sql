@@ -54,10 +54,18 @@ CREATE TABLE "service_receipt" (
 	"receipt_id" INT REFERENCES "receipts"
 );
 
-INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip") VALUES ('John', 'Doe', '5554443333', '123 Abc St N.', 'Spring', 'MN', '55411');
+INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip") 
+VALUES ('John', 'Doe', '5554443333', '123 Abc St N.', 'Spring', 'MN', '55411'),
+('Jane', 'Doe', '5554443433', '321 Cba Rd', 'Fall', 'MN', '11455'),
+('Bob', 'Three', '5566666633', '543 Cab Ave S', 'Summer', 'MN', '41155');
+
 
 INSERT INTO "vehicle" ("customer_id", "make", "model", "year", "plate", "color", "other")
-VALUES ('1', 'Toyota', 'Camry', '1-1-2010', '552M-LP2', 'Blue', '');
+VALUES ('1', 'Toyota', 'Camry', '1-1-2010', '5523-LP2', 'Blue', ''),
+('2', 'Toyota', 'Camry', '1-1-2009', '5255-656', 'Red', ''),
+('2', 'Ford', 'F-150', '1-1-2012', '695P-KR55', 'White', '');
+
+
 
 INSERT INTO "receipts" ("vehicle_id", "payment_method", "date", "description", "due")
 VALUES ('1', 'DEBIT', '1-1-2019', 'customer ask to look at tire tread also', '29.99');

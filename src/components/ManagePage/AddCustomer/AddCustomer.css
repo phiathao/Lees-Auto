@@ -1,0 +1,32 @@
+.customer-add-header {
+    width: 100%;
+    text-align: center;
+    background-color: #6a7b83;
+    margin: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    overflow: hidden;
+    color: #f2f2f2;
+}
+.customer-add-header .button-return-left{
+    display: block;
+    margin: auto;
+    position: absolute;
+    float: left;
+    left: 5%;
+    margin-top: 12px; 
+}
+
+.whole-box-form {
+    background-color: #6a7b83;
+    /* padding: 30px; */
+    margin: 30px 30px 30px 30px;
+    /* text-align: center; */
+}
+
+.name-box-form, .address-box-form-line-1, .address-box-form-line-2 {
+    margin: auto;
+    width: 50%;
+    /* padding: 20px; */
+    /* background: #f2f2f2; */
+}

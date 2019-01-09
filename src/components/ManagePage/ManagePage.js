@@ -53,7 +53,7 @@ class Manage extends React.Component {
           <Button className='add-btn' variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
           <TextField
             id="filled-search"
-            label="Search field"
+            label="Search"
             type="search"
             className='search-field'
             margin="normal"

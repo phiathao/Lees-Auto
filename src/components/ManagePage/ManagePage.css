@@ -3,8 +3,9 @@
     text-align: center;
     background-color: #6a7b83;
     margin: 0;
-    padding-top: 30px;
+    /* padding-top: 30px; */
     overflow: hidden;
+    color: #f2f2f2;
 }
 .component-header .add-btn{
     display: block;
@@ -16,5 +17,6 @@
     width: 40%;
     min-width: 200px;;
     margin-bottom: 0;
+    background-color: #f2f2f2;
 }
 

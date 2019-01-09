@@ -19,6 +19,7 @@ import HomePage from '../HomePage/HomePage';
 import ManagePage from '../ManagePage/ManagePage';
 import ShopServicesPage from '../ShopService/ShopService';
 import CarSalesPage from '../CarSales/CarSalesPage';
+import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
 
 import './App.css';
 
@@ -30,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="main-container">
           <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -67,6 +68,11 @@ class App extends Component {
               exact
               path="/shopService"
               component={ShopServicesPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/manage/add"
+              component={ManageAddCustomer}
             />
             <ProtectedRoute
               exact
