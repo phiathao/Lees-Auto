@@ -19,9 +19,11 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^2.0.3",
+    "react-slick": "^0.23.2",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "node server/server.js",
