@@ -6,13 +6,15 @@
     padding-top: 30px;
     overflow: hidden;
 }
-.component-header Button {
+.component-header .add-btn{
     display: block;
     margin: auto;
+    width: 150px;
 }
 .search-field {
     display: block;
     width: 40%;
+    min-width: 200px;;
     margin-bottom: 0;
 }
 

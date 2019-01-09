@@ -4,14 +4,12 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-/**
- * GET route template
- */
+// GET DATA
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryString = `
         SELECT "customers".id, "first_name", "last_name", "vehicle".id AS "vehicle_id", "make", "model", to_char("year", 'YYYY') AS "year"
         FROM "customers"
-        JOIN "vehicle" ON "vehicle".customer_id = "customers".id;
+        LEFT JOIN "vehicle" ON "vehicle".customer_id = "customers".id;
     `;
     pool.query(queryString)
     .then(result => {
@@ -22,11 +20,35 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
+// POST new customer
 // router.post('/', (req, res) => {
 
 // });
+
+// DELETE customer
+router.delete('/delete/customer/:id', (req, res) => {
+    const queryString = `
+        DELETE FROM "customers" WHERE "id" = $1;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.sendStatus(200);
+    }).catch(error => {
+        res.sendStatus(500);
+    })
+});
+// DELETE vehicle
+router.delete('/delete/vehicle/:id', (req, res) => {
+    const queryString = `
+        DELETE FROM "vehicle" WHERE "id" = $1;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.sendStatus(200);
+    }).catch(error => {
+        res.sendStatus(500);
+    })
+});
+
 
 module.exports = router;
