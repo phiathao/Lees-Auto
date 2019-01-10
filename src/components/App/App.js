@@ -20,6 +20,8 @@ import ManagePage from '../ManagePage/ManagePage';
 import ShopServicesPage from '../ShopService/ShopService';
 import CarSalesPage from '../CarSales/CarSalesPage';
 import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
+import LoginPage from '../LoginPage/LoginPage';
+
 
 import './App.css';
 
@@ -47,6 +49,11 @@ class App extends Component {
               exact
               path="/carList"
               component={CarListPage}
+            />
+            <Route
+              exact
+              path="/login"
+              component={LoginPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.

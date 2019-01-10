@@ -21,9 +21,18 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST new customer
-// router.post('/', (req, res) => {
-
-// });
+router.post('/add/customer', (req, res) => {
+    const queryString = `
+        INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
+    `;
+    pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip])
+    .then(result => {
+        res.sendStatus(200);
+    }).catch(error =>{
+        res.sendStatus(500);
+    })
+});
 
 // DELETE customer
 router.delete('/delete/customer/:id', (req, res) => {

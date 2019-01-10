@@ -4,6 +4,7 @@ import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import fetchDataSaga from './fetchDataSaga';
 import deleteDataSaga from './deleteDataSaga';
+import addDataSaga from './addDataSaga';
 
 
 // rootSaga is the primary saga.
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     userSaga(),
     fetchDataSaga(),
     deleteDataSaga(),
+    addDataSaga(),
   ]);
 }

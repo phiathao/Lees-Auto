@@ -36,16 +36,17 @@ class Manage extends React.Component {
   render() {
     // map data receive and put into table
     let dataList = this.props.reduxState.dataManage.map((item, i) => {
-      return (
-        <TableRow key={i}>
-          <TableCell>{item.make} {item.model}</TableCell>
-          <TableCell>{item.first_name}</TableCell>
-          <TableCell>{item.last_name}</TableCell>
-          <TableCell><Button variant='contained' color='primary' onClick={()=>this.handleView(item.id)}>View</Button></TableCell>
-          <TableCell><Button variant='contained' color='primary' onClick={()=>this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
-        </TableRow>
-      )
-    }) // end of map
+        return (
+          <TableRow key={i}>
+            {item.vehicle_id ? <TableCell>{item.make} {item.model}</TableCell>: <TableCell>No Vehicle</TableCell>}
+            <TableCell>{item.first_name}</TableCell>
+            <TableCell>{item.last_name}</TableCell>
+            <TableCell><Button variant='contained' color='primary' onClick={() => this.handleView(item.id)}>View</Button></TableCell>
+            <TableCell><Button variant='contained' color='primary' onClick={() => this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
+          </TableRow>
+        )
+      }
+    ) // end of map
     return (
       <div>
         <div className='component-header'>
