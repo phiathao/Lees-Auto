@@ -22,30 +22,34 @@ class Manage extends React.Component {
   }
   handleDelete = (vehicleId, personId) => {
     if (vehicleId === null) { // if customer don't have a vehicle under them // remove customer
-      this.props.dispatch({
-        type: 'DELETE_CUSTOMER',
-        payload: personId
-      })
+      if (window.confirm('Delete Customer?')) {
+        this.props.dispatch({
+          type: 'DELETE_CUSTOMER',
+          payload: personId
+        });
+      }
     } else { // if customer have vehicle vehicle under them // only remove vehicle
-      this.props.dispatch({
-        type: 'DELETE_VEHICLE',
-        payload: vehicleId
-      })
+      if (window.confirm('Delete Vehicle?')) {
+        this.props.dispatch({
+          type: 'DELETE_VEHICLE',
+          payload: vehicleId
+        });
+      }
     }
   }
   render() {
     // map data receive and put into table
     let dataList = this.props.reduxState.dataManage.map((item, i) => {
-        return (
-          <TableRow key={i}>
-            {item.vehicle_id ? <TableCell>{item.make} {item.model}</TableCell>: <TableCell>No Vehicle</TableCell>}
-            <TableCell>{item.first_name}</TableCell>
-            <TableCell>{item.last_name}</TableCell>
-            <TableCell><Button variant='contained' color='primary' onClick={() => this.handleView(item.id)}>View</Button></TableCell>
-            <TableCell><Button variant='contained' color='primary' onClick={() => this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
-          </TableRow>
-        )
-      }
+      return (
+        <TableRow key={i}>
+          {item.vehicle_id ? <TableCell>{item.make} {item.model}</TableCell> : <TableCell>No Vehicle</TableCell>}
+          <TableCell>{item.first_name}</TableCell>
+          <TableCell>{item.last_name}</TableCell>
+          <TableCell><Button variant='contained' color='primary' onClick={() => this.handleView(item.id)}>View</Button></TableCell>
+          <TableCell><Button variant='contained' color='primary' onClick={() => this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
+        </TableRow>
+      )
+    }
     ) // end of map
     return (
       <div>
