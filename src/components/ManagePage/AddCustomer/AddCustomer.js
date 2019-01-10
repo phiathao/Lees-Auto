@@ -11,6 +11,9 @@ import TextField from '@material-ui/core/TextField';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 class AddCustomer extends React.Component {
+  state = ({
+    
+  })
   render() {
     return (
       <div>
@@ -18,51 +21,51 @@ class AddCustomer extends React.Component {
           <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
           <h3>Add Customer</h3>
         </div>
-        <div className="whole-box-form">
-          <div className="name-box-form">
+        <div className="add-customer-form">
+          <div className="box-form">
           <TextField
             id="filled-search"
-            label="First"
+            label="First Name"
             type="search"
-            className='1-2-line'
+            className='name-form'
             margin="normal"
             variant="filled"
           />
           <TextField
             id="filled-search"
-            label="Last"
+            label="Last Name"
             type="search"
-            className='1-2-line'
+            className='name-form'
             margin="normal"
             variant="filled"
           />
           </div>
-          <div className="name-box-form">
+          <div className="box-form">
           <TextField
             id="filled-search"
-            label="Phone"
+            label="Phone Number"
             type="search"
             className='whole-line'
             margin="normal"
             variant="filled"
           />
           </div>
-          <div className="address-box-form-line-1">
+          <div className="box-form">
           <TextField
             id="filled-search"
-            label="Street"
+            label="Street Address"
             type="search"
             className='whole-line'
             margin="normal"
             variant="filled"
           />
           </div>
-          <div className="address-box-form-line-2">
+          <div className="box-form">
           <TextField
             id="filled-search"
             label="City"
             type="search"
-            className='6-10-line'
+            className='address-city'
             margin="normal"
             variant="filled"
           />
@@ -70,7 +73,7 @@ class AddCustomer extends React.Component {
             id="filled-search"
             label="Zip Code"
             type="search"
-            className='3-10-line'
+            className='address-zip'
             margin="normal"
             variant="filled"
           />
@@ -78,10 +81,13 @@ class AddCustomer extends React.Component {
             id="filled-search"
             label="State"
             type="search"
-            className='1-10-line'
+            className='address-state'
             margin="normal"
             variant="filled"
           />
+          </div>
+          <div className="box-form">
+          <Button variant="contained" color="secondary" className="submit-btn">Submit</Button>
           </div>
         </div>
       </div>

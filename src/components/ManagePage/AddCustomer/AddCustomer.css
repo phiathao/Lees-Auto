@@ -17,16 +17,49 @@
     margin-top: 12px; 
 }
 
-.whole-box-form {
-    background-color: #6a7b83;
-    /* padding: 30px; */
-    margin: 30px 30px 30px 30px;
-    /* text-align: center; */
-}
+.box-form {
+    /* margin: auto; */
+    /* width: 60%; */
+    text-align: center;
 
-.name-box-form, .address-box-form-line-1, .address-box-form-line-2 {
-    margin: auto;
-    width: 50%;
     /* padding: 20px; */
     /* background: #f2f2f2; */
+}
+
+.box-form .name-form {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 250px;
+}
+
+.box-form .whole-line {
+    width: 520px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box-form .address-city {
+    width: 300px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box-form .address-zip {
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+} 
+.box-form .address-state {
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.box-form .submit-btn {
+    width: 520px;
+    margin:auto;
+}
+
+.add-customer-form {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
