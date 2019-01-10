@@ -19,6 +19,11 @@ class Manage extends React.Component {
   }
   handleView = (personId) => { // view base on the customer
     console.log(personId);
+    this.props.dispatch({
+      type: 'FETCH_DATA_CUSTOMER',
+      payload: personId
+    })
+    this.props.history.push(`/manage/customer`);
   }
   handleDelete = (vehicleId, personId) => {
     if (vehicleId === null) { // if customer don't have a vehicle under them // remove customer
@@ -55,6 +60,8 @@ class Manage extends React.Component {
       <div>
         <div className='component-header'>
           <h3>Manage Customers and Vehicles</h3>
+        </div>
+        <div className='component-second'>
           <Button className='add-btn' variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
           <TextField
             id="filled-search"

@@ -21,6 +21,7 @@ import ShopServicesPage from '../ShopService/ShopService';
 import CarSalesPage from '../CarSales/CarSalesPage';
 import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
 import LoginPage from '../LoginPage/LoginPage';
+import ManageCustomerPage from '../ManagePage/Customer/Customer';
 
 
 import './App.css';
@@ -70,6 +71,11 @@ class App extends Component {
               exact
               path="/manage"
               component={ManagePage}
+            />
+            <ProtectedRoute
+              exact
+              path="/manage/customer"
+              component={ManageCustomerPage}
             />
             <ProtectedRoute
               exact

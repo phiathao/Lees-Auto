@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import dataManage from './dataManage';
 import newCustomer from './newCustomerReducer';
+import viewCustomer from './viewCustomerReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
   dataManage, // admin handle customers, vehicles, and receipts information
-  newCustomer,
+  newCustomer, // admin adding customer
+  viewCustomer, // admin who to view
 });
 
 export default rootReducer;

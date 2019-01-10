@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import './AddCustomer.css';
+import '../ManagePage.css';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
@@ -36,7 +36,7 @@ class AddCustomer extends React.Component {
   render() {
     return (
       <div>
-        <div className="customer-add-header">
+        <div className="component-header">
           <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
           <h3>Add Customer</h3>
         </div>

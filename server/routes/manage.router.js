@@ -19,6 +19,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
     })
 });
+// GET customer
+router.get('/customer/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in get customer id');
+    const queryString = `
+        SELECT "customers".id, "first_name", "last_name", "phone", "street", "city", "state", "zip"
+        FROM "customers"
+        WHERE "customers".id = $1;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error)
+        res.sendStatus(500);
+    })
+});
 
 // POST new customer
 router.post('/add/customer', (req, res) => {

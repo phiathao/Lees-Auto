@@ -3,11 +3,26 @@
     text-align: center;
     background-color: #6a7b83;
     margin: 0;
-    /* padding-top: 30px; */
+    padding-top: 30px;
+    padding-bottom: 30px;
     overflow: hidden;
     color: #f2f2f2;
+    border-bottom: 3px solid #2196f3;
 }
-.component-header .add-btn{
+.component-header .button-return-left{
+    display: block;
+    margin: auto;
+    position: absolute;
+    float: left;
+    left: 5%;
+    margin-top: 12px; 
+}
+.component-second {
+    padding-top: 15px;
+    text-align: center;
+    margin: auto;
+}
+.component-second .add-btn{
     display: block;
     margin: auto;
     width: 150px;
@@ -15,8 +30,55 @@
 .search-field {
     display: block;
     width: 40%;
-    min-width: 200px;;
+    min-width: 200px;
     margin-bottom: 0;
     background-color: #f2f2f2;
 }
 
+/* AddCustomer */
+.box-form {
+    /* margin: auto; */
+    /* width: 60%; */
+    text-align: center;
+
+    /* padding: 20px; */
+    /* background: #f2f2f2; */
+}
+
+.box-form .name-form {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 250px;
+}
+
+.box-form .whole-line {
+    width: 520px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box-form .address-city {
+    width: 300px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box-form .address-zip {
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+} 
+.box-form .address-state {
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.box-form .submit-btn {
+    width: 520px;
+    margin:auto;
+}
+
+.add-customer-form {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
