@@ -82,3 +82,37 @@
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+/* Customer */
+.box-container{
+    text-align: center;
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.stick-left {
+    text-align: left;
+}
+.box-container .two-box {
+    width: 250px;
+    display: inline-block;
+}
+.box-container h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.two-box .stick-right {
+    float: right;
+    margin-bottom: -17px;
+}
+/* cards */
+.card-container {
+    min-height: 100px;
+    max-width: 600px;
+    /* text-align: center; */
+    margin: auto;
+    margin-top: 10px;
+}

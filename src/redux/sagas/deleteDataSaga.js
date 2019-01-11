@@ -12,8 +12,8 @@ function* deleteDataCustomer(action) {
 
 function* deleteDataVehicle(action) {
   try {
-    yield axios.delete(`/api/manage/delete/vehicle/${action.payload}`)
-    yield put({type: 'FETCH_DATA'})
+    yield axios.delete(`/api/manage/delete/vehicle/${action.payload}`);
+    yield put({type: 'FETCH_DATA'});
   } catch (error) {
       console.log('Error with delete vehicle:', error);
   }
