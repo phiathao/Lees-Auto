@@ -5,9 +5,9 @@ function* updateDataCustomer(action) {
   try {
     yield axios.put(`/api/manage/put/customer/`, action.payload);
     yield put({type: 'FETCH_DATA'});
-    yield put({type: 'FETCH_DATA_CUSTOMER'});
+    yield put({type: 'FETCH_DATA_CUSTOMER', payload: action.payload.id});
   } catch (error) {
-      console.log('Error with adding customer:', error);
+      console.log('Error with updating customer:', error);
   }
 }
 

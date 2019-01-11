@@ -6,6 +6,7 @@ import dataManage from './dataManage';
 import newCustomer from './newCustomerReducer';
 import viewCustomer from './viewCustomerReducer';
 import editCustomer from './editCustomerReducer';
+import customerVehicles from './customerVehiclesReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   newCustomer, // admin adding customer
   viewCustomer, // admin who to view
   editCustomer, // admin edit customer
+  customerVehicles,
 });
 
 export default rootReducer;

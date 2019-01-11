@@ -2,16 +2,21 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 
 class Customer extends React.Component {
     state = {
-        edit: true
+        edit: false
     }
     handleEdit = () => {
         this.setState({
             edit: true
+        })
+    }
+    handleCancel = () => {
+        this.setState({
+            edit: false
         })
     }
     handleSubmit = () => {
@@ -39,7 +44,8 @@ class Customer extends React.Component {
                             <h4>Name: <input value={this.props.reduxState.editCustomer.first_name} onChange={this.handleChange('first_name')} /> <input value={this.props.reduxState.editCustomer.last_name} onChange={this.handleChange('last_name')} /></h4>
                         </div>
                         <div className="two-box">
-                            <Button variant="contained" color="secondary" className="stick-right" onClick={this.handleSubmit}>Save Change</Button>
+                            <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Save Change</Button>
+                            <Button variant="contained" color="secondary" onClick={this.handleCancel}>Cancel Edit</Button>
                         </div>
                         <h4>Phone: <input value={this.props.reduxState.editCustomer.phone} onChange={this.handleChange('phone')} /></h4>
                         <h4>Address: <input value={this.props.reduxState.editCustomer.street} onChange={this.handleChange('street')} /> <input value={this.props.reduxState.editCustomer.city} onChange={this.handleChange('city')} /> <input value={this.props.reduxState.editCustomer.zip} onChange={this.handleChange('zip')} /> <input value={this.props.reduxState.editCustomer.state} onChange={this.handleChange('state')} /></h4>
@@ -47,7 +53,7 @@ class Customer extends React.Component {
                     : // not in edit
                     <div className="stick-left">
                         <div className="two-box">
-                            <h4>Cme: {this.props.reduxState.viewCustomer.first_name} {this.props.reduxState.viewCustomer.last_name}</h4>
+                            <h4>Name: {this.props.reduxState.viewCustomer.first_name} {this.props.reduxState.viewCustomer.last_name}</h4>
                         </div>
                         <div className="two-box">
                             <Button variant="contained" color="secondary" className="stick-right" onClick={this.handleEdit}>Edit</Button>
@@ -57,7 +63,10 @@ class Customer extends React.Component {
                     </div>
                 }
             </div>;
-
+        let customerVehicles = 
+            <Card className="card-container">
+                {JSON.stringify(this.props.reduxState.customerVehicles)}
+            </Card>;
         return this.props.reduxState.viewCustomer ?
             <div>
                 <div className="component-header">
@@ -66,7 +75,7 @@ class Customer extends React.Component {
                 </div>
 
                 {editMode}
-
+                {customerVehicles}
                 <Card className="card-container">
                     CAR 1
                 </Card>
@@ -75,13 +84,7 @@ class Customer extends React.Component {
                 </Card>
             </div>
             :
-            <div>
-                <div className="component-header">
-                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
-                    <h3>No customer selected</h3>
-                </div>
-            </div>
-        // : <>{this.props.history.push('/manage')}</>
+            <Redirect exact from="/manage/customer" to="/manage" />
     }
 }
 
