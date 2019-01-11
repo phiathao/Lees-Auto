@@ -4,12 +4,10 @@
     margin: 0;
     color: white;
     overflow: hidden;
-}
-
-.service-item {
     padding-bottom: 30px;
     padding-top: 30px;
     border-bottom: #2196f3 solid 3px;
+    min-height: 500px;
 }
 .service-item p {
     width: 90%;
@@ -18,4 +16,9 @@
 
 .service-item Button {
     margin: 15px;
+}
+
+.home-card {
+    height: 200px;
+    margin: 10px;
 }

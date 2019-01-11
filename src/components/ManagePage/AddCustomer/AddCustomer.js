@@ -14,11 +14,16 @@ import { connect } from 'react-redux';
 
 class AddCustomer extends React.Component {
   handleSubmit = () => {
-    this.props.dispatch({
-      type: 'ADD_CUSTOMER',
-      payload: this.props.reduxState.newCustomer
-    }) // add some type of confirmation or notification that customer is added
-    this.props.history.push('/manage');
+    if (this.props.reduxState.newCustomer.first_name !== '') {
+      this.props.dispatch({
+        type: 'ADD_CUSTOMER',
+        payload: this.props.reduxState.newCustomer
+      }); // add some type of confirmation or notification that customer is added
+      alert(this.props.reduxState.newCustomer.first_name + ' added');
+      this.props.history.push('/manage');
+    } else {
+      alert('not a valid customer');
+    }
   }
   handleChange = (propertyName) => (event) => {
     if (propertyName === 'state') {

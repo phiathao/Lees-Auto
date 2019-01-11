@@ -1,9 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
+import { Link } from 'react-router-dom';
+import Vehicle from './CustomerVehicle/Vehicle';
 
 class Customer extends React.Component {
     state = {
@@ -30,8 +29,8 @@ class Customer extends React.Component {
     }
     handleChange = (propertyName) => (event) => {
         this.props.dispatch({
-          type: 'EDIT_CUSTOMER',
-          payload: {...this.props.reduxState.editCustomer, [propertyName]: event.target.value}
+            type: 'EDIT_CUSTOMER',
+            payload: { ...this.props.reduxState.editCustomer, [propertyName]: event.target.value }
         })
     }
     render() {
@@ -63,28 +62,30 @@ class Customer extends React.Component {
                     </div>
                 }
             </div>;
-        let customerVehicles = 
-            <Card className="card-container">
-                {JSON.stringify(this.props.reduxState.customerVehicles)}
-            </Card>;
+        let customerVehicles = this.props.reduxState.customerVehicles.map(vehicle => {
+            return <Vehicle vehicle={vehicle} key={vehicle.id}/>
+        });
+        // <Card className="card-container">
+        //     {JSON.stringify(this.props.reduxState.customerVehicles)}
+        // </Card>;
         return this.props.reduxState.viewCustomer ?
             <div>
                 <div className="component-header">
                     <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
                     <h3>View Customer</h3>
                 </div>
-
                 {editMode}
+          <Button variant="contained" color="secondary">Add Vehicle</Button>
                 {customerVehicles}
-                <Card className="card-container">
-                    CAR 1
-                </Card>
-                <Card className="card-container">
-                    CAR 2
-                </Card>
             </div>
             :
-            <Redirect exact from="/manage/customer" to="/manage" />
+            <div>
+                <div className="component-header">
+                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
+                    <h3>No customer selected</h3>
+                </div>
+            </div>
+        // : <>{this.props.history.push('/manage')}</>
     }
 }
 

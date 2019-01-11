@@ -39,7 +39,7 @@ class Header extends React.Component {
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-          {this.props.user.id ? <LogOutButton className="float-right nav-link" /> : <LoginButton className="float-right nav-link" />}
+          {this.props.user.id ? <LogOutButton className="float-right nav-link" /> : <LoginButton className="float-right nav-link" component={Link} to="/login" />}
           {this.props.user.id && (
           <span className="float-right nav-login">Welcome back, {this.props.user.username}!
           </span>
