@@ -23,6 +23,7 @@ import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
 import LoginPage from '../LoginPage/LoginPage';
 import ManageCustomerPage from '../ManagePage/Customer/Customer';
 import ManageAddVehicle from '../ManagePage/Customer/CustomerVehicle/AddVehicle/AddVehicle';
+import ManageVehicle from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/VehicleReceipts';
 
 
 import './App.css';
@@ -77,6 +78,11 @@ class App extends Component {
               exact
               path="/manage/customer"
               component={ManageCustomerPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/manage/vehicle"
+              component={ManageVehicle}
             />
             <ProtectedRoute
               exact

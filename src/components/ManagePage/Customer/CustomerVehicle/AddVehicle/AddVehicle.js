@@ -7,37 +7,34 @@ import { connect } from 'react-redux';
 
 class AddVehicle extends React.Component {
   handleSubmit = () => {
-    if(this.props.reduxState.newVehicle.customer_id === ''){ // make sure a customer is view
-      alert('no customer is selected');
-      this.props.history.push('/manage');
-    } else if (this.props.reduxState.newVehicle.make !== '' && this.props.reduxState.newVehicle.year !== '' && this.props.reduxState.newVehicle.model !== '' ) { // validate input
-      if (window.confirm(`Add ${this.props.reduxState.newVehicle.make} ${this.props.reduxState.newVehicle.model} to ${this.props.reduxState.viewCustomer.first_name}`)){
+    if (this.props.reduxState.newVehicle.make !== '' && this.props.reduxState.newVehicle.year !== '' && this.props.reduxState.newVehicle.model !== '') { // validate input
+      if (window.confirm(`Add ${this.props.reduxState.newVehicle.make} ${this.props.reduxState.newVehicle.model} to ${this.props.reduxState.viewCustomer.first_name}`)) {
         this.props.dispatch({
-        type: 'ADD_VEHICLE',
-        payload: this.props.reduxState.newVehicle
-      }); // add some type of confirmation or notification that customer is added
-      alert(`Vehicle added to ${this.props.reduxState.viewCustomer.first_name}`);
-      this.props.history.push('/manage/customer');
-    }
+          type: 'ADD_VEHICLE',
+          payload: this.props.reduxState.newVehicle
+        }); // add some type of confirmation or notification that customer is added
+        alert(`Vehicle added to ${this.props.reduxState.viewCustomer.first_name}`);
+        this.props.history.push('/manage/customer');
+      }
     } else {
       alert('not a valid vehicle');
     }
   }
   handleChange = (propertyName) => (event) => {
-    if (propertyName === 'year'){ // change to year format
+    if (propertyName === 'year') { // change to year format
       this.props.dispatch({
         type: 'SET_NEW_VEHICLE',
         payload: { ...this.props.reduxState.newVehicle, [propertyName]: `1-1-${event.target.value}` }
       })
-    }  else {
-    this.props.dispatch({
+    } else {
+      this.props.dispatch({
         type: 'SET_NEW_VEHICLE',
         payload: { ...this.props.reduxState.newVehicle, [propertyName]: event.target.value }
       })
     }
   }
   render() {
-    return (
+    return this.props.reduxState.newVehicle.customer_id ?
       <div>
         <div className="component-header">
           <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage/customer">Back to Customer</Button>
@@ -105,7 +102,12 @@ class AddVehicle extends React.Component {
           </div>
         </div>
       </div>
-    )
+      :
+      <div className="component-header">
+        <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
+        <h3>No Customer Selected to Add Vehicle</h3>
+      </div>
+      ;
   }
 }
 

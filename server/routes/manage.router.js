@@ -9,7 +9,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const queryString = `
         SELECT "customers".id, "first_name", "last_name", "vehicle".id AS "vehicle_id", "make", "model", to_char("year", 'YYYY') AS "year"
         FROM "customers"
-        LEFT JOIN "vehicle" ON "vehicle".customer_id = "customers".id;
+        LEFT JOIN "vehicle" ON "vehicle".customer_id = "customers".id
+        ORDER BY "customers".id ASC;
     `;
     pool.query(queryString)
     .then(result => {
@@ -20,8 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 // GET customer
-router.get('/customer/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in get customer id');
+router.get('/get/customer/:id', rejectUnauthenticated, (req, res) => {
     const queryString = `
         SELECT "customers".id, "first_name", "last_name", "phone", "street", "city", "state", "zip"
         FROM "customers"
@@ -35,12 +35,30 @@ router.get('/customer/:id', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
     })
 });
-// Get customer vehicles
-router.get('/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
+// Get customer's vehicles
+router.get('/get/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
     const queryString = `
         SELECT "vehicle".id, "make", "model", to_char("year", 'YYYY') AS "year", "plate", "color", "other"
         FROM "vehicle"
-        WHERE "vehicle".customer_id = $1;
+        WHERE "vehicle".customer_id = $1
+        ORDER BY "vehicle".id ASC;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error)
+        res.sendStatus(500);
+    })
+});
+
+// GET vehicle
+router.get('/get/vehicle/:id', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        SELECT "vehicle".id, "vehicle".customer_id, "make", "model", to_char("year", 'YYYY') AS "year", "plate", "color", "other"
+        FROM "vehicle"
+        WHERE "vehicle".id = $1
+        ORDER BY "vehicle".id ASC;
     `;
     pool.query(queryString, [req.params.id])
     .then(result => {
@@ -59,6 +77,22 @@ router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
         WHERE "id" = $8; 
     `;
     pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.id])
+    .then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error)
+        res.sendStatus(500);
+    })
+});
+
+// PUT Vehicle
+router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        UPDATE "vehicle"
+        SET "make" = $1, "model" = $2, "year" = $3, "plate" = $4, "color" = $5, "other" = $6
+        WHERE "id" = $7; 
+    `;
+    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.id])
     .then(result => {
         res.send(result.rows);
     }).catch(error => {
