@@ -17,11 +17,15 @@ class Customer extends React.Component {
         this.setState({
             edit: false
         })
+        this.props.dispatch({
+            type: 'FETCH_DATA_CUSTOMER',
+            payload: this.props.reduxState.viewCustomer.id
+          })
     }
     handleSubmit = () => {
         this.props.dispatch({
             type: 'UPDATE_CUSTOMER',
-            payload: this.props.reduxState.editCustomer
+            payload: this.props.reduxState.viewCustomer
         })
         this.setState({
             edit: false
@@ -30,8 +34,15 @@ class Customer extends React.Component {
     handleChange = (propertyName) => (event) => {
         this.props.dispatch({
             type: 'EDIT_CUSTOMER',
-            payload: { ...this.props.reduxState.editCustomer, [propertyName]: event.target.value }
+            payload: { ...this.props.reduxState.viewCustomer, [propertyName]: event.target.value }
         })
+    }
+    handleAddVehicle = (id) => {
+        this.props.dispatch({
+            type: 'SET_NEW_VEHICLE',
+            payload: { ...this.props.reduxState.newVehicle, customer_id: id }
+        });
+        this.props.history.push('/manage/vehicle/add');
     }
     render() {
         let editMode =
@@ -40,14 +51,14 @@ class Customer extends React.Component {
                     // in edit
                     <div className="stick-left">
                         <div className="two-box">
-                            <h4>Name: <input value={this.props.reduxState.editCustomer.first_name} onChange={this.handleChange('first_name')} /> <input value={this.props.reduxState.editCustomer.last_name} onChange={this.handleChange('last_name')} /></h4>
+                            <h4>Name: <input value={this.props.reduxState.viewCustomer.first_name} onChange={this.handleChange('first_name')} /> <input value={this.props.reduxState.viewCustomer.last_name} onChange={this.handleChange('last_name')} /></h4>
                         </div>
                         <div className="two-box">
                             <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Save Change</Button>
                             <Button variant="contained" color="secondary" onClick={this.handleCancel}>Cancel Edit</Button>
                         </div>
-                        <h4>Phone: <input value={this.props.reduxState.editCustomer.phone} onChange={this.handleChange('phone')} /></h4>
-                        <h4>Address: <input value={this.props.reduxState.editCustomer.street} onChange={this.handleChange('street')} /> <input value={this.props.reduxState.editCustomer.city} onChange={this.handleChange('city')} /> <input value={this.props.reduxState.editCustomer.zip} onChange={this.handleChange('zip')} /> <input value={this.props.reduxState.editCustomer.state} onChange={this.handleChange('state')} /></h4>
+                        <h4>Phone: <input value={this.props.reduxState.viewCustomer.phone} onChange={this.handleChange('phone')} /></h4>
+                        <h4>Address: <input value={this.props.reduxState.viewCustomer.street} onChange={this.handleChange('street')} /> <input value={this.props.reduxState.viewCustomer.city} onChange={this.handleChange('city')} /> <input value={this.props.reduxState.viewCustomer.zip} onChange={this.handleChange('zip')} /> <input value={this.props.reduxState.viewCustomer.state} onChange={this.handleChange('state')} /></h4>
                     </div>
                     : // not in edit
                     <div className="stick-left">
@@ -75,7 +86,7 @@ class Customer extends React.Component {
                     <h3>View Customer</h3>
                 </div>
                 {editMode}
-          <Button variant="contained" color="secondary">Add Vehicle</Button>
+          <Button variant="contained" color="secondary" onClick={()=>this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
                 {customerVehicles}
             </div>
             :

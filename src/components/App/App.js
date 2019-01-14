@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -22,13 +22,14 @@ import CarSalesPage from '../CarSales/CarSalesPage';
 import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
 import LoginPage from '../LoginPage/LoginPage';
 import ManageCustomerPage from '../ManagePage/Customer/Customer';
+import ManageAddVehicle from '../ManagePage/Customer/CustomerVehicle/AddVehicle/AddVehicle';
 
 
 import './App.css';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -84,6 +85,11 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/manage/vehicle/add"
+              component={ManageAddVehicle}
+            />
+            <ProtectedRoute
+              exact
               path="/manage/add"
               component={ManageAddCustomer}
             />
@@ -98,7 +104,8 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);

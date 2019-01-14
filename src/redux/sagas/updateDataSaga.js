@@ -11,7 +11,6 @@ function* updateDataCustomer(action) {
   }
 }
 
-
 function* addDataSagaWatcher() { // listen to what to add
   yield takeLatest('UPDATE_CUSTOMER', updateDataCustomer);
 }

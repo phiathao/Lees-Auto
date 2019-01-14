@@ -13,7 +13,7 @@ const newCustomerReducer = (state = emptyState, action) => {
     case 'SET_NEW_CUSTOMER':
       return action.payload;
     case 'CLEAR_NEW_CUSTOMER':
-      return {};
+      return emptyState;
     default:
       return state;
   }

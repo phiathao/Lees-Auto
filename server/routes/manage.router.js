@@ -37,7 +37,6 @@ router.get('/customer/:id', rejectUnauthenticated, (req, res) => {
 });
 // Get customer vehicles
 router.get('/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
-    console.log('in get customer id');
     const queryString = `
         SELECT "vehicle".id, "make", "model", to_char("year", 'YYYY') AS "year", "plate", "color", "other"
         FROM "vehicle"
@@ -75,6 +74,20 @@ router.post('/add/customer', (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
     pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip])
+    .then(result => {
+        res.sendStatus(200);
+    }).catch(error =>{
+        res.sendStatus(500);
+    })
+});
+
+// POST new vehicle
+router.post('/add/vehicle', (req, res) => {
+    const queryString = `
+        INSERT INTO "vehicle" ("make", "model", "year", "plate", "color", "other", "customer_id") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
+    `;
+    pool.query(queryString, [req.body.make, req.body.model, req.body.year, req.body.plate, req.body.color, req.body.other, req.body.customer_id])
     .then(result => {
         res.sendStatus(200);
     }).catch(error =>{
