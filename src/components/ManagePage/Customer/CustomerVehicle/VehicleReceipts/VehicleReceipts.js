@@ -70,10 +70,10 @@ class VehicleReceipts extends React.Component {
                 <Button variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Receipts</Button>
                 <div className="stick-left">
                     <div className="two-box">
-                        <h4>Name: {this.props.reduxState.viewCustomer.first_name} {this.props.reduxState.viewCustomer.last_name}</h4>
+                        <h4>Vehicle: {this.props.reduxState.viewVehicle.make} {this.props.reduxState.viewVehicle.model}</h4>
                     </div>
-                    <h4>Phone: {this.props.reduxState.viewCustomer.phone}</h4>
-                    <h4>Address: {this.props.reduxState.viewCustomer.street} {this.props.reduxState.viewCustomer.city} {this.props.reduxState.viewCustomer.zip} {this.props.reduxState.viewCustomer.state}</h4>
+                    <h4>Year: {this.props.reduxState.viewVehicle.year}</h4>
+                    <h4>Plate: {this.props.reduxState.viewVehicle.plate} Color: {this.props.reduxState.viewVehicle.color} Other: {this.props.reduxState.viewVehicle.other}</h4>
                 </div>
                 </>
                     :

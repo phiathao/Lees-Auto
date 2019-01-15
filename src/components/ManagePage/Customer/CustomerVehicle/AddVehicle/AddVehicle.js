@@ -73,25 +73,25 @@ class AddVehicle extends React.Component {
             <TextField
               label="Plate"
               type="text"
-              className="whole-line"
+              className="name-form"
               margin="normal"
               variant="filled"
               onChange={this.handleChange('plate')}
             />
-          </div>
-          <div className="box-form">
             <TextField
               label="Color"
               type="text"
-              className="address-city"
+              className="name-form"
               margin="normal"
               variant="filled"
               onChange={this.handleChange('color')}
             />
+          </div>
+          <div className="box-form">
             <TextField
               label="other"
               type="text"
-              className="address-zip"
+              className="whole-line"
               margin="normal"
               variant="filled"
               onChange={this.handleChange('other')}
