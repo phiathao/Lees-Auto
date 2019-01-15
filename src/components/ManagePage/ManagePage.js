@@ -10,6 +10,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Styles from '../Styles/Styles';
 
 class Manage extends React.Component {
   componentDidMount() {
@@ -57,39 +60,48 @@ class Manage extends React.Component {
     }
     ) // end of map
     return (
-      <div>
-        <div className='component-header'>
+      <Grid container spacing={24} className={this.props.classes.componentContainer}>
+        <Grid item xs={12} className={this.props.classes.componentHeader}>
           <h3>Manage Customers and Vehicles</h3>
-        </div>
-        <div className='component-second'>
-          <Button className='add-btn' variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
+          <Button className={this.props.classes.componentSecondBtn} variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
           <TextField
             id="filled-search"
             label="Search"
             type="search"
-            className='search-field'
+            className={this.props.classes.searchField}
             margin="normal"
             variant="filled"
           />
-        </div>
+        </Grid>
+        {/* <Grid container xs={24}>
+                <Grid item xs={12} className="component-header">
+                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
+                    <h3>View Customer</h3>
+                </Grid>
+                {editMode}
+                <Button variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
+                {customerVehicles}
+            </Grid> */}
         {/* table */}
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Vehicle</TableCell>
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Customer Information</TableCell>
-                <TableCell>Remove</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {dataList}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div>
+        <Grid item xs={12} className={this.props.classes.noPadding}>
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Vehicle</TableCell>
+                  <TableCell>First Name</TableCell>
+                  <TableCell>Last Name</TableCell>
+                  <TableCell>Customer Information</TableCell>
+                  <TableCell>Remove</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {dataList}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Grid>
+      </Grid>
     )
   }
 };
@@ -98,4 +110,4 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(Manage);
+export default connect(mapStateToProps)(withStyles(Styles)(Manage));

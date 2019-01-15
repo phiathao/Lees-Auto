@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
+import Styles from '../../../../Styles/Styles';
+import Grid from '@material-ui/core/Grid';
 
 class AddVehicle extends React.Component {
   handleSubmit = () => {
@@ -35,17 +38,17 @@ class AddVehicle extends React.Component {
   }
   render() {
     return this.props.reduxState.newVehicle.customer_id ?
-      <div>
-        <div className="component-header">
-          <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage/customer">Back to Customer</Button>
+      <Grid container spacing={24} className={this.props.classes.componentContainer}>
+        <Grid item xs={12} className={this.props.classes.componentHeader}>
+          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/customer">Back to Customer</Button>
           <h3>Add Vehicle</h3>
-        </div>
-        <div className="add-customer-form">
-          <div className="box-form">
+        </Grid>
+        <Grid item container xs={12} spacing={24} className={this.props.classes.boxFormContainer}>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="Make"
               type="text"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('make')}
@@ -53,27 +56,27 @@ class AddVehicle extends React.Component {
             <TextField
               label="Model"
               type="text"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('model')}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="Year"
               type="text"
-              className="whole-line"
+              className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('year')}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="Plate"
               type="text"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('plate')}
@@ -81,32 +84,32 @@ class AddVehicle extends React.Component {
             <TextField
               label="Color"
               type="text"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('color')}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
-              label="other"
+              label="Other"
               type="text"
-              className="whole-line"
+              className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('other')}
             />
-          </div>
-          <div className="box-form">
-            <Button variant="contained" color="secondary" className="submit-btn" onClick={this.handleSubmit}>Submit</Button>
-          </div>
-        </div>
-      </div>
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
+            <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
+          </Grid>
+        </Grid>
+      </Grid>
       :
-      <div className="component-header">
+      <Grid className="component-header">
         <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
         <h3>No Customer Selected to Add Vehicle</h3>
-      </div>
+      </Grid>
       ;
   }
 }
@@ -115,4 +118,4 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(AddVehicle);
+export default connect(mapStateToProps)(withStyles(Styles)(AddVehicle));
