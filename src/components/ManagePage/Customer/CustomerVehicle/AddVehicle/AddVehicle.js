@@ -106,8 +106,8 @@ class AddVehicle extends React.Component {
         </Grid>
       </Grid>
       :
-      <Grid className="component-header">
-        <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
+      <Grid className={this.props.classes.componentContainer}>
+        <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
         <h3>No Customer Selected to Add Vehicle</h3>
       </Grid>
       ;

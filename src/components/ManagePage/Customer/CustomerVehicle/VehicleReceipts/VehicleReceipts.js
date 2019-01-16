@@ -2,15 +2,20 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Styles from '../../../../Styles/Styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 class VehicleReceipts extends React.Component {
+    state = {
+        edit: false
+    }
     handleEdit = () => {
         this.props.dispatch({
             type: 'FETCH_DATA_VEHICLE',
-            payload: this.props.vehicle.id
+            payload: this.props.reduxState.viewVehicle.id
         });
         this.setState({
             edit: true
@@ -19,7 +24,7 @@ class VehicleReceipts extends React.Component {
     handleCancel = () => {
         this.props.dispatch({
             type: 'FETCH_DATA_VEHICLE',
-            payload: this.props.vehicle.id
+            payload: this.props.reduxState.viewVehicle.id
         });
         this.setState({
             edit: false
@@ -48,7 +53,7 @@ class VehicleReceipts extends React.Component {
             });
             this.props.dispatch({
                 type: 'FETCH_DATA_CUSTOMER',
-                payload: this.props.reduxState.viewCustomer.id
+                payload: this.props.reduxState.viewVehicle.id
             });
         }
     }
@@ -60,28 +65,91 @@ class VehicleReceipts extends React.Component {
         this.props.history.push('/manage/vehicle');
     }
     render() {
-        return (
-            this.props.reduxState.viewVehicle.id ?
-                <>
-                <div className="component-header">
-                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage/customer">Back to Customer</Button>
-                    <h3>View Vehicle Receipts</h3>
-                </div>
-                <Button variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Receipts</Button>
-                <div className="stick-left">
-                    <div className="two-box">
-                        <h4>Vehicle: {this.props.reduxState.viewVehicle.make} {this.props.reduxState.viewVehicle.model}</h4>
-                    </div>
-                    <h4>Year: {this.props.reduxState.viewVehicle.year}</h4>
-                    <h4>Plate: {this.props.reduxState.viewVehicle.plate} Color: {this.props.reduxState.viewVehicle.color} Other: {this.props.reduxState.viewVehicle.other}</h4>
-                </div>
-                </>
-                    :
-                <div className="component-header">
-                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
-                    <h3>No Vehicle Selected</h3>
-                </div>
-        )
+        let editMode = this.state.edit ?
+            // in edit
+            <Grid item container spacing={24} className={this.props.classes.componentMaxWidth}>
+                <Grid item container spacing={24} className={this.props.classes.stickLeft}>
+                    <Grid item xs={9}>
+                        <h4>
+                            Make:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.make} onChange={this.handleChange('make')} />
+                        </h4>
+                        <h4>
+                            Model:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.model} onChange={this.handleChange('model')} />
+                        </h4>
+                        <h4>
+                            Year:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.year} onChange={this.handleChange('year')} />
+                        </h4>
+                        <h4>
+                            Plate:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.plate} onChange={this.handleChange('plate')} />
+                        </h4>
+                        <h4>
+                            Color:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.color} onChange={this.handleChange('color')} />
+                        </h4>
+                        <h4>
+                            Other:
+                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.other} onChange={this.handleChange('other')} />
+                        </h4>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleSubmit}>Save</Button>
+                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleCancel}>Cancel</Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            : // not in edit
+            <Grid item container spacing={24} className={this.props.classes.componentMaxWidth}>
+                <Grid item container spacing={24} className={this.props.classes.stickLeft}>
+                    <Grid item xs={9}>
+                        <h4>
+                            Make: {this.props.reduxState.viewVehicle.make}
+                        </h4>
+                        <h4>
+                            Model: {this.props.reduxState.viewVehicle.model}
+                        </h4>
+                        <h4>
+                            Year: {this.props.reduxState.viewVehicle.year}
+                        </h4>
+                        <h4>
+                            Plate: {this.props.reduxState.viewVehicle.plate}
+                        </h4>
+                        <h4>
+                            Color: {this.props.reduxState.viewVehicle.color}
+                        </h4>
+                        <h4>
+                            Other: {this.props.reduxState.viewVehicle.other}
+                        </h4>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleEdit}>Edit</Button>
+                    </Grid>
+                </Grid>
+            </Grid>;
+        return this.props.reduxState.viewVehicle.id ?
+            <Grid container spacing={24} className={this.props.classes.componentContainer}>
+                <Grid item xs={12} className={this.props.classes.componentHeader}>
+                    <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/customer">Back to Customer</Button>
+                    <h3>View Vehicles</h3>
+                </Grid>
+                {editMode}
+                <Grid item xs={12}>
+                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewVehicle.id)}>Add Vehicle</Button>
+                </Grid>
+                <Grid item xs={12}>
+                    {/* {customerVehicles} */}
+                </Grid>
+            </Grid>
+            :
+            <Grid container spacing={24} className={this.props.classes.componentContainer}>
+                <Grid item xs={12} className={this.props.classes.componentHeader}>
+                    <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
+                    <h3>No vehicle selected</h3>
+                </Grid>
+            </Grid>;
     }
 }
 
@@ -89,4 +157,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(VehicleReceipts);
+export default connect(mapStateToProps)(withStyles(Styles)(VehicleReceipts));

@@ -63,8 +63,12 @@ class Manage extends React.Component {
       <Grid container spacing={24} className={this.props.classes.componentContainer}>
         <Grid item xs={12} className={this.props.classes.componentHeader}>
           <h3>Manage Customers and Vehicles</h3>
+        </Grid>
+        <Grid item container xs={12}>
           <Button className={this.props.classes.componentSecondBtn} variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
-          <TextField
+        </Grid>
+        <Grid item container xs={12}>
+        <TextField
             id="filled-search"
             label="Search"
             type="search"

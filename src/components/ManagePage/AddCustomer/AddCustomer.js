@@ -4,7 +4,9 @@ import '../ManagePage.css';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core';
+import Styles from '../../Styles/Styles';
 
 
 // This is one of our simplest components
@@ -40,17 +42,17 @@ class AddCustomer extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div className="component-header">
-          <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
+      <Grid container spacing={24} className={this.props.classes.componentContainer}>
+        <Grid item xs={12} className={this.props.classes.componentHeader}>
+          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
           <h3>Add Customer</h3>
-        </div>
-        <div className="add-customer-form">
-          <div className="box-form">
+        </Grid>
+        <Grid item container xs={12} spacing={24} className={this.props.classes.boxFormContainer}>
+        <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="First Name"
               type="search"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('first_name')}
@@ -58,17 +60,17 @@ class AddCustomer extends React.Component {
             <TextField
               label="Last Name"
               type="search"
-              className="name-form"
+              className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('last_name')}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="Phone Number"
               type="search"
-              className="whole-line"
+              className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('phone')}
@@ -76,22 +78,22 @@ class AddCustomer extends React.Component {
                 maxLength: 10,
               }}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="Street Address"
               type="search"
-              className="whole-line"
+              className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('street')}
             />
-          </div>
-          <div className="box-form">
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <TextField
               label="City"
               type="search"
-              className="address-city"
+              className={this.props.classes.boxFormThreeFive}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('city')}
@@ -99,7 +101,7 @@ class AddCustomer extends React.Component {
             <TextField
               label="Zip Code"
               type="text"
-              className="address-zip"
+              className={this.props.classes.boxFormTwoFive}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('zip')}
@@ -110,7 +112,7 @@ class AddCustomer extends React.Component {
             <TextField
               label="State"
               type="text"
-              className="address-state"
+              className={this.props.classes.boxFormOneFive}
               margin="normal"
               variant="filled"
               onChange={this.handleChange('state')}
@@ -118,12 +120,12 @@ class AddCustomer extends React.Component {
                 maxLength: 2,
               }}
             />
-          </div>
-          <div className="box-form">
-            <Button variant="contained" color="secondary" className="submit-btn" onClick={this.handleSubmit}>Submit</Button>
-          </div>
-        </div>
-      </div>
+          </Grid>
+          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
+            <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
+          </Grid>
+        </Grid>
+      </Grid>
     )
   }
 }
@@ -132,4 +134,4 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(AddCustomer);
+export default connect(mapStateToProps)(withStyles(Styles)(AddCustomer));
