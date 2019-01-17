@@ -43,13 +43,24 @@ function* fetchDataVehicle(action){
   }
 }
 
+function* fetchDataReceipts(action){
+  try {
+    console.log(action.payload);
+    const setDataReceipts = yield axios.get(`/api/manage/get/receipt/${action.payload}`); // get receipts by id
+    yield put({type: 'SET_VIEW_RECEIPT', payload: setDataReceipts.data}); // store receipts info
+    yield put({type: 'SET_VIEW_RECEIPT_ID', payload: setDataReceipts.data[0].receipt_id}); // store receipts info
+  } catch (error) {
+      console.log('Error with fetching receipts:', error);
+  }
+}
+
 
 function* fetchDataSagaWatcher() {
   yield takeLatest('FETCH_FEATURE', fetchFeature);
   yield takeLatest('FETCH_DATA', fetchData);
   yield takeLatest('FETCH_DATA_CUSTOMER', fetchDataCustomer);
   yield takeLatest('FETCH_DATA_VEHICLE', fetchDataVehicle);
-  // yield takeLatest('FETCH_DATA_RECEIPT', fetchDataReceipts)
+  yield takeLatest('FETCH_DATA_RECEIPT', fetchDataReceipts)
 
 }
 

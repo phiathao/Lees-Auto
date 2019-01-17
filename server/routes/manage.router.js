@@ -13,12 +13,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         ORDER BY "customers".id ASC;
     `;
     pool.query(queryString)
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 // GET customer
 router.get('/get/customer/:id', rejectUnauthenticated, (req, res) => {
@@ -28,12 +28,12 @@ router.get('/get/customer/:id', rejectUnauthenticated, (req, res) => {
         WHERE "customers".id = $1;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 // Get customer's vehicles
 router.get('/get/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
@@ -44,12 +44,12 @@ router.get('/get/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
         ORDER BY "vehicle".id ASC;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 
 // GET vehicle
@@ -61,31 +61,48 @@ router.get('/get/vehicle/:id', rejectUnauthenticated, (req, res) => {
         ORDER BY "vehicle".id ASC;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 
 // GET vehicle receipts
 router.get('/get/vehicle/:id/receipts', rejectUnauthenticated, (req, res) => {
     const queryString = `
-        SELECT "receipts".id, "receipts".vehicle_id, "receipts".payment_method, to_char("receipts".date, 'MM-DD-YYYY') AS "date", "receipts".description, "receipts".due, "service_receipt".service_id, "services".service_type, "services".amount
+        SELECT "id", "vehicle_id", "payment_method", to_char("date", 'MM-DD-YYYY') AS "date", "description", "due"
+        FROM "receipts"
+        WHERE "vehicle_id" = $1
+        ORDER BY "id" DESC;
+    `;
+    pool.query(queryString, [req.params.id])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
+});
+
+// GET receipt info
+router.get('/get/receipt/:id/', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        SELECT "receipts".id AS "receipt_id", "receipts".vehicle_id, "receipts".payment_method, to_char("receipts".date, 'MM-DD-YYYY') AS "date", "receipts".description, "receipts".due, "service_receipt".service_id, "services".service_type, "services".amount, "service_receipt".id
         FROM "receipts"
         LEFT JOIN "service_receipt" ON "service_receipt".receipt_id = "receipts".id
         LEFT JOIN "services" ON "services".id = "service_receipt".service_id
-        WHERE "vehicle_id" = $1
-        ORDER BY "receipts".id DESC;
+        WHERE "receipts".id = $1
+        ORDER BY "services".id DESC;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 
 // PUT customer
@@ -96,12 +113,12 @@ router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
         WHERE "id" = $8; 
     `;
     pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 
 // PUT Vehicle
@@ -112,12 +129,12 @@ router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
         WHERE "id" = $7; 
     `;
     pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.id])
-    .then(result => {
-        res.send(result.rows);
-    }).catch(error => {
-        console.log(error)
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
 });
 
 // POST new customer
@@ -127,11 +144,11 @@ router.post('/add/customer', rejectUnauthenticated, (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
     pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip])
-    .then(result => {
-        res.sendStatus(200);
-    }).catch(error =>{
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
 });
 
 // POST new vehicle
@@ -141,11 +158,11 @@ router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
     pool.query(queryString, [req.body.make, req.body.model, req.body.year, req.body.plate, req.body.color, req.body.other, req.body.customer_id])
-    .then(result => {
-        res.sendStatus(200);
-    }).catch(error =>{
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
 });
 
 // DELETE customer
@@ -154,11 +171,11 @@ router.delete('/delete/customer/:id', rejectUnauthenticated, (req, res) => {
         DELETE FROM "customers" WHERE "id" = $1;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.sendStatus(200);
-    }).catch(error => {
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
 });
 // DELETE vehicle
 router.delete('/delete/vehicle/:id', rejectUnauthenticated, (req, res) => {
@@ -166,11 +183,11 @@ router.delete('/delete/vehicle/:id', rejectUnauthenticated, (req, res) => {
         DELETE FROM "vehicle" WHERE "id" = $1;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.sendStatus(200);
-    }).catch(error => {
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
 });
 
 // DELETE RECEIPTS
@@ -179,11 +196,11 @@ router.delete('/delete/receipt/:id', rejectUnauthenticated, (req, res) => {
         DELETE FROM "receipts" WHERE "id" = $1;
     `;
     pool.query(queryString, [req.params.id])
-    .then(result => {
-        res.sendStatus(200);
-    }).catch(error => {
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
 });
 
 
