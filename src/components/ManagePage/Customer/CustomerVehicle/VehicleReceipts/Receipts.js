@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../../../Styles/Styles';
 import Grid from '@material-ui/core/Grid';
+import VehicleReceipts from './VehicleReceipts';
 
 
 class Receipt extends React.Component {
@@ -30,13 +31,29 @@ class Receipt extends React.Component {
     render() {
         let viewThisReceipt = this.props.reduxState.viewReceipt.view_id === this.props.receipt.id && (
             <Grid item xs={12}>
-                {this.props.reduxState.viewReceipt.view_list.map(receipt => {
-                    return (
-                        <CardContent key={receipt.id}>
-                            Date: {receipt.date}
-                        </CardContent>
-                    )
-                })}
+                {this.props.reduxState.viewReceipt.view_list.length > 1 ?
+                    <CardContent>
+                        <h4>Payment Method: {this.props.reduxState.viewReceipt.view_list[0].payment_method}</h4>
+                        <h4>
+                        Due: {this.props.reduxState.viewReceipt.view_list[0].due}</h4>
+                        <h4>
+                        Date: {this.props.reduxState.viewReceipt.view_list[0].date}</h4>
+                        {this.props.reduxState.viewReceipt.view_list.map(receipt => {
+                            return <h4>Service: {receipt.service_type}</h4>;
+                        })}
+                    </CardContent>
+                    :
+                this.props.reduxState.viewReceipt.view_list.length === 1 && (
+                    <CardContent>
+                        <h4>Payment Method: {this.props.reduxState.viewReceipt.view_list[0].payment_method}</h4>
+                        <h4>
+                        Due: {this.props.reduxState.viewReceipt.view_list[0].due}</h4>
+                        <h4>
+                        Date: {this.props.reduxState.viewReceipt.view_list[0].date}</h4>
+                        <h4>Service: {this.props.reduxState.viewReceipt.view_list[0].service_type}</h4>
+                    </CardContent>
+                )
+            }
             </Grid>
         );
         return (
