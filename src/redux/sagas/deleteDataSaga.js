@@ -19,9 +19,19 @@ function* deleteDataVehicle(action) {
   }
 }
 
+function* deleteDataReceipt(action) {
+  try {
+    yield axios.delete(`/api/manage/delete/receipt/${action.payload}`);
+    // yield put({type: 'FETCH_DATA_VEHICLE', payload: action.payload});
+  } catch (error) {
+      console.log('Error with delete receipt:', error);
+  }
+}
+
 function* deleteDataSagaWatcher() { // listen to what to delete
   yield takeLatest('DELETE_CUSTOMER', deleteDataCustomer);
   yield takeLatest('DELETE_VEHICLE', deleteDataVehicle);
+  yield takeLatest('DELETE_RECEIPT', deleteDataReceipt);
 }
 
 export default deleteDataSagaWatcher;

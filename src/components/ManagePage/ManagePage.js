@@ -15,7 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Styles from '../Styles/Styles';
 
 class Manage extends React.Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.dispatch({
       type: 'FETCH_DATA'
     })

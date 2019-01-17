@@ -69,6 +69,25 @@ router.get('/get/vehicle/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
+// GET vehicle receipts
+router.get('/get/vehicle/:id/receipts', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        SELECT "receipts".id, "receipts".vehicle_id, "receipts".payment_method, to_char("receipts".date, 'MM-DD-YYYY') AS "date", "receipts".description, "receipts".due, "service_receipt".service_id, "services".service_type, "services".amount
+        FROM "receipts"
+        LEFT JOIN "service_receipt" ON "service_receipt".receipt_id = "receipts".id
+        LEFT JOIN "services" ON "services".id = "service_receipt".service_id
+        WHERE "vehicle_id" = $1
+        ORDER BY "receipts".id DESC;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error)
+        res.sendStatus(500);
+    })
+});
+
 // PUT customer
 router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
     const queryString = `
@@ -102,7 +121,7 @@ router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST new customer
-router.post('/add/customer', (req, res) => {
+router.post('/add/customer', rejectUnauthenticated, (req, res) => {
     const queryString = `
         INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip") 
         VALUES ($1, $2, $3, $4, $5, $6, $7);
@@ -116,7 +135,7 @@ router.post('/add/customer', (req, res) => {
 });
 
 // POST new vehicle
-router.post('/add/vehicle', (req, res) => {
+router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
     const queryString = `
         INSERT INTO "vehicle" ("make", "model", "year", "plate", "color", "other", "customer_id") 
         VALUES ($1, $2, $3, $4, $5, $6, $7);
@@ -130,7 +149,7 @@ router.post('/add/vehicle', (req, res) => {
 });
 
 // DELETE customer
-router.delete('/delete/customer/:id', (req, res) => {
+router.delete('/delete/customer/:id', rejectUnauthenticated, (req, res) => {
     const queryString = `
         DELETE FROM "customers" WHERE "id" = $1;
     `;
@@ -142,9 +161,22 @@ router.delete('/delete/customer/:id', (req, res) => {
     })
 });
 // DELETE vehicle
-router.delete('/delete/vehicle/:id', (req, res) => {
+router.delete('/delete/vehicle/:id', rejectUnauthenticated, (req, res) => {
     const queryString = `
         DELETE FROM "vehicle" WHERE "id" = $1;
+    `;
+    pool.query(queryString, [req.params.id])
+    .then(result => {
+        res.sendStatus(200);
+    }).catch(error => {
+        res.sendStatus(500);
+    })
+});
+
+// DELETE RECEIPTS
+router.delete('/delete/receipt/:id', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        DELETE FROM "receipts" WHERE "id" = $1;
     `;
     pool.query(queryString, [req.params.id])
     .then(result => {

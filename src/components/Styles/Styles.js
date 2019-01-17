@@ -76,7 +76,7 @@ const Styles = {
     boxFormThreeFive: {
         paddingLeft: "1%",
         paddingRight: "1%",
-        width: "45%",
+        width: "40%",
         marginBottom: 0,
         marginTop: 0,
     },
@@ -134,6 +134,28 @@ const Styles = {
         margin: "auto",
         marginTop: "10px",
     },
+    serviceItem: {
+        textAlign: "center",
+        backgroundColor: "#6a7b83",
+        margin: "0",
+        color: "white",
+        overflow: "hidden",
+        paddingBottom: "30px",
+        paddingTop: "30px",
+        borderBottom: "#2196f3 solid 3px",
+        minHeight: "500px",
+    },
+    serviceP: {
+        width: "90%",
+        margin: "auto",
+    },
+    serviceButton: {
+        margin: "15px",
+    },
+    homeCard: {
+        height: "200px",
+        margin: "10px",
+    }
 }
 
 export default Styles;

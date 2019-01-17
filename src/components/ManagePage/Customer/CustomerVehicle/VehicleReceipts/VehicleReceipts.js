@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../../../Styles/Styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Receipt from './Receipts';
 
 class VehicleReceipts extends React.Component {
     state = {
@@ -62,7 +61,14 @@ class VehicleReceipts extends React.Component {
             type: 'FETCH_DATA_VEHICLE',
             payload: this.props.vehicle.id
         });
-        this.props.history.push('/manage/vehicle');
+        this.props.history.push('/manage/receipts');
+    }
+    handleAddVehicle = (id) => {
+        this.props.dispatch({
+            type: 'SET_NEW_RECEIPT',
+            payload: { ...this.props.reduxState.newReceipt, vehicle_id: this.props.reduxState.viewVehicle.id }
+        });
+        this.props.history.push('/manage/receipts/add');
     }
     render() {
         let editMode = this.state.edit ?
@@ -129,6 +135,9 @@ class VehicleReceipts extends React.Component {
                     </Grid>
                 </Grid>
             </Grid>;
+            let vehicleReceipts = this.props.reduxState.vehicleReceipts.map(receipt => {
+                return <Receipt receipt={receipt} key={receipt.id} />
+            });
         return this.props.reduxState.viewVehicle.id ?
             <Grid container spacing={24} className={this.props.classes.componentContainer}>
                 <Grid item xs={12} className={this.props.classes.componentHeader}>
@@ -137,10 +146,10 @@ class VehicleReceipts extends React.Component {
                 </Grid>
                 {editMode}
                 <Grid item xs={12}>
-                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewVehicle.id)}>Add Vehicle</Button>
+                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddReceipts(this.props.reduxState.viewVehicle.id)}>Add Receipts</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    {/* {customerVehicles} */}
+                    {vehicleReceipts}
                 </Grid>
             </Grid>
             :
