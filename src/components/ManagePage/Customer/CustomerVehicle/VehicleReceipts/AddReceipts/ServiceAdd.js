@@ -11,6 +11,11 @@ class ServiceAdd extends React.Component {
     state = ({
         service_id: ''
     })
+    handleChange = (event) => {
+        this.setState ({
+            service_id: event.target.value
+        })
+    }
     render() {
         return (
             <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
@@ -25,13 +30,14 @@ class ServiceAdd extends React.Component {
                             select
                             label="Service"
                             type="text"
+                            value={this.state.service_id}
                             className={this.props.classes.boxFormOne}
                             margin="normal"
                             variant="filled"
-                            onChange={this.props.handleChange}
+                            onChange={this.handleChange}
                         >
                             {this.props.reduxState.services.map(service => {
-                                return <MenuItem>{service.service_type}</MenuItem>
+                                return <MenuItem key={service.id} value={service.id}>{service.service_type}</MenuItem>
                             })}
                         </TextField>
                     </Grid>
