@@ -21,5 +21,21 @@ router.get('/feature', (req, res) => {
     })
 });
 
+// GET SERVICE
+router.get('/services', (req, res) => {
+    console.log('service');
+    const queryString = `
+        SELECT *
+        FROM "services"
+    `;
+    pool.query(queryString)
+    .then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error)
+        res.sendStatus(500);
+    })
+});
+
 
 module.exports = router;

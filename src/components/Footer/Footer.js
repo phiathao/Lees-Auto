@@ -10,14 +10,14 @@ const Footer = () => (
   <footer className="footer">
     <div className="footer-content">
       <div className="footer-left">
-        <p>Address: 124123141241241241241241</p>
+        <p>Address: 2032 S 17th St, Sheboygan, WI 53081</p>
         <p>Phone: 555-555-5555
     Monday-Friday 8AM-5PM</p>
-        <p>&copy; Prime Digital Academy</p>
+        <p>&copy; PHIA THAO</p>
       </div>
-      <div className="footer-right">
+      {/* <div className="footer-right">
         Direction
-      </div>
+      </div> */}
     </div>
   </footer>
 );

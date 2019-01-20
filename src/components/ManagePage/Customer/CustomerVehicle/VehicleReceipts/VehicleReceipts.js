@@ -59,16 +59,15 @@ class VehicleReceipts extends React.Component {
     handleView = () => {
         this.props.dispatch({
             type: 'FETCH_DATA_VEHICLE',
-            payload: this.props.vehicle.id
+            payload: this.props.reduxState.viewVehicle.id
         });
-        this.props.history.push('/manage/receipts');
     }
-    handleAddVehicle = (id) => {
+    handleAddReceipt = (vehicleId) => {
         this.props.dispatch({
             type: 'SET_NEW_RECEIPT',
-            payload: { ...this.props.reduxState.newReceipt, vehicle_id: this.props.reduxState.viewVehicle.id }
+            payload: { ...this.props.reduxState.newReceipt, vehicle_id: vehicleId }
         });
-        this.props.history.push('/manage/receipts/add');
+        this.props.history.push('/manage/receipt/add');
     }
     render() {
         let editMode = this.state.edit ?
@@ -146,7 +145,7 @@ class VehicleReceipts extends React.Component {
                 </Grid>
                 {editMode}
                 <Grid item xs={12}>
-                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddReceipts(this.props.reduxState.viewVehicle.id)}>Add Receipts</Button>
+                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddReceipt(this.props.reduxState.viewVehicle.id)}>Add Receipts</Button>
                 </Grid>
                 <Grid item xs={12}>
                     {vehicleReceipts}

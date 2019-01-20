@@ -55,9 +55,13 @@ const Styles = {
         marginTop: "30px",
     },
     boxFormMaxWidth: {
-        maxWidth: "540px",
+        maxWidth: "55%",
+        minWidth: "540px",
         marginLeft: "auto",
         marginRight: "auto",
+    },
+    boxFormAdd: {
+        display: "inline",
     },
     boxFormTwo: {
         paddingLeft: "1%",

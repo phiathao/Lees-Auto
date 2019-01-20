@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../../../Styles/Styles';
 import Grid from '@material-ui/core/Grid';
-import VehicleReceipts from './VehicleReceipts';
+// import VehicleReceipts from './VehicleReceipts';
 
 
 class Receipt extends React.Component {
@@ -39,7 +39,7 @@ class Receipt extends React.Component {
                         <h4>
                         Date: {this.props.reduxState.viewReceipt.view_list[0].date}</h4>
                         {this.props.reduxState.viewReceipt.view_list.map(receipt => {
-                            return <h4>Service: {receipt.service_type}</h4>;
+                            return <h4 key={receipt.id}>Service: {receipt.service_type}</h4>;
                         })}
                     </CardContent>
                     :
@@ -66,7 +66,7 @@ class Receipt extends React.Component {
                     </Grid>
                     <Grid item xs={3}>
                         <CardContent>
-                            <Button className={this.props.classes.gridLeftBtn} variant="contained" color="secondary" onClick={this.handleView}>view</Button>
+                            <Button className={this.props.classes.gridLeftBtn} variant="contained" color={this.props.reduxState.viewReceipt.view_id === this.props.receipt.id ? "primary" : "secondary"} onClick={this.handleView}>view</Button>
                             <Button className={this.props.classes.gridLeftBtn} variant="contained" color="secondary" onClick={() => this.handleDelete(this.props.receipt.id)}>delete</Button>
                         </CardContent>
                     </Grid>

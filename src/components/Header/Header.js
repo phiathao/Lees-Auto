@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import LoginButton from '../LoginButton/LoginButton';
+// import LoginButton from '../LoginButton/LoginButton';
 import './Header.css';
 
 class Header extends React.Component {
@@ -39,7 +39,7 @@ class Header extends React.Component {
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-          {this.props.user.id ? <LogOutButton className="float-right nav-link" /> : <LoginButton className="float-right nav-link" component={Link} to="/login" />}
+          {this.props.user.id ? <LogOutButton className="float-right nav-link" /> : <Link className="float-right nav-link" to="/login">Login</Link>}
           {this.props.user.id && (
           <span className="float-right nav-login">Welcome back, {this.props.user.username}!
           </span>
