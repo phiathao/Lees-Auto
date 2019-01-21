@@ -25,6 +25,7 @@ import ManageCustomerPage from '../ManagePage/Customer/Customer';
 import ManageAddVehicle from '../ManagePage/Customer/CustomerVehicle/AddVehicle/AddVehicle';
 import ManageVehicle from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/VehicleReceipts';
 import ManageAddReceipt from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/AddReceipts/AddReceipt';
+import ServicesAll from '../ServicesAll/ServicesAll';
 
 import './App.css';
 
@@ -47,6 +48,11 @@ class App extends Component {
               exact
               path="/about"
               component={AboutPage}
+            />
+            <Route
+              exact
+              path="/services"
+              component={ServicesAll}
             />
             <Route
               exact

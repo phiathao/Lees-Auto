@@ -24,18 +24,25 @@ class AddVehicle extends React.Component {
     }
   }
   handleChange = (propertyName) => (event) => {
-    if (propertyName === 'year') { // change to year format
-      this.props.dispatch({
-        type: 'SET_NEW_VEHICLE',
-        payload: { ...this.props.reduxState.newVehicle, [propertyName]: `1-1-${event.target.value}` }
-      })
-    } else {
       this.props.dispatch({
         type: 'SET_NEW_VEHICLE',
         payload: { ...this.props.reduxState.newVehicle, [propertyName]: event.target.value }
       })
-    }
   }
+  // handleFill remove after demo
+  handleFill = () => {
+    this.props.dispatch({
+      type: 'SET_NEW_VEHICLE',
+      payload: { ...this.props.reduxState.newVehicle,
+        make: 'Ford',
+        model: 'F-150',
+        year: '2011',
+        plate: 'NIJU-RE91',
+        color: 'White',
+        other: 'custom hood paint'
+      }
+    })
+  } // remove after demo
   render() {
     return this.props.reduxState.newVehicle.customer_id ?
       <Grid container spacing={24} className={this.props.classes.componentContainer}>
@@ -51,6 +58,7 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.make}
               onChange={this.handleChange('make')}
             />
             <TextField
@@ -59,6 +67,7 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.model}
               onChange={this.handleChange('model')}
             />
           </Grid>
@@ -69,6 +78,7 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.year}
               onChange={this.handleChange('year')}
             />
           </Grid>
@@ -79,6 +89,7 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.plate}
               onChange={this.handleChange('plate')}
             />
             <TextField
@@ -87,6 +98,7 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.color}
               onChange={this.handleChange('color')}
             />
           </Grid>
@@ -97,11 +109,14 @@ class AddVehicle extends React.Component {
               className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newVehicle.other}
               onChange={this.handleChange('other')}
             />
           </Grid>
           <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
+            <button className={this.props.classes.emptyButton} onClick={this.handleFill}>FILL</button>
+            {/* button remove after demo */}
           </Grid>
         </Grid>
       </Grid>

@@ -40,6 +40,21 @@ class AddCustomer extends React.Component {
       })
     }
   }
+  // handleFill remove after demo
+  handleFill = () => {
+    this.props.dispatch({
+      type: 'SET_NEW_CUSTOMER',
+      payload: { ...this.props.reduxState.newCustomer,
+        first_name: 'John',
+        last_name: 'Three',
+        phone: '9204497000',
+        street: '1332 N 15th St',
+        city: 'Sheboygan',
+        zip: '53081',
+        state: 'WI'
+      }
+    })
+  } // remove after demo
   render() {
     return (
       <Grid container spacing={24} className={this.props.classes.componentContainer}>
@@ -55,6 +70,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.first_name}
               onChange={this.handleChange('first_name')}
             />
             <TextField
@@ -63,6 +79,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormTwo}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.last_name}
               onChange={this.handleChange('last_name')}
             />
           </Grid>
@@ -73,6 +90,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.phone}
               onChange={this.handleChange('phone')}
               inputProps={{
                 maxLength: 10,
@@ -86,6 +104,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormOne}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.street}
               onChange={this.handleChange('street')}
             />
           </Grid>
@@ -96,6 +115,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormThreeFive}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.city}
               onChange={this.handleChange('city')}
             />
             <TextField
@@ -104,6 +124,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormTwoFive}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.zip}
               onChange={this.handleChange('zip')}
               inputProps={{
                 maxLength: 5,
@@ -115,6 +136,7 @@ class AddCustomer extends React.Component {
               className={this.props.classes.boxFormOneFive}
               margin="normal"
               variant="filled"
+              value={this.props.reduxState.newCustomer.state}
               onChange={this.handleChange('state')}
               inputProps={{
                 maxLength: 2,
@@ -123,6 +145,8 @@ class AddCustomer extends React.Component {
           </Grid>
           <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
+            <button className={this.props.classes.emptyButton} onClick={this.handleFill}>FILL</button>
+            {/* button remove after demo */}
           </Grid>
         </Grid>
       </Grid>

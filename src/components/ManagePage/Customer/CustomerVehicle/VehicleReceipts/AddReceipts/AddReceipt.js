@@ -58,6 +58,20 @@ class AddReceipt extends React.Component {
       numberService: this.state.numberService - 1
     })
   }
+  // handleFill remove after demo
+  handleFill = () => {
+    this.props.dispatch({
+      type: 'SET_NEW_VEHICLE',
+      payload: { ...this.props.reduxState.newVehicle,
+        make: 'Ford',
+        model: 'F-150',
+        year: '2011',
+        plate: 'NIJU-RE91',
+        color: 'White',
+        other: 'custom hood paint'
+      }
+    })
+  } // remove after demo
   render() {
     let inputService = [];
     if (this.state.numberService < 1) {
@@ -112,6 +126,8 @@ class AddReceipt extends React.Component {
           </Grid>
           <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
             <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
+            <button className={this.props.classes.emptyButton} onClick={this.handleFill}>FILL</button>
+            {/* button remove after demo */}
           </Grid>
         </Grid>
       </Grid>

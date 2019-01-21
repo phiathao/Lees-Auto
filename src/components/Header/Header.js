@@ -16,8 +16,8 @@ class Header extends React.Component {
           Home
         </Link>
         {/* Always show this link since the about page is not protected */}
-        <Link className="nav-link" to="/about">
-          About
+        <Link className="nav-link" to="/services">
+          Services
         </Link>
         <Link className="nav-link" to="/carList">
           Car List

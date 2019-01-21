@@ -1,4 +1,8 @@
 const Styles = {
+    emptyButton: {
+        borderStyle: "none",
+        color: "white",
+    },
     componentContainer: {
         margin: 0,
         width: "100%",

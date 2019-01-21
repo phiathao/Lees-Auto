@@ -157,7 +157,7 @@ router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
         INSERT INTO "vehicle" ("make", "model", "year", "plate", "color", "other", "customer_id") 
         VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
-    pool.query(queryString, [req.body.make, req.body.model, req.body.year, req.body.plate, req.body.color, req.body.other, req.body.customer_id])
+    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.customer_id])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
