@@ -89,7 +89,7 @@ class AddReceipt extends React.Component {
     return this.props.reduxState.newReceipt.vehicle_id ?
       <Grid container spacing={24} className={this.props.classes.componentContainer}>
         <Grid item xs={12} className={this.props.classes.componentHeader}>
-          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/customer">Back to Customer</Button>
+          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/vehicle">Back to Vehicle</Button>
           <h3>Add Receipts</h3>
         </Grid>
         <Grid item container xs={12} spacing={24} className={this.props.classes.boxFormContainer}>
