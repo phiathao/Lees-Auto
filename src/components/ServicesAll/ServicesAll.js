@@ -12,7 +12,13 @@ import { Link } from 'react-router-dom';
 
 class ServicesPage extends React.Component {
   componentDidMount = () => {
-    this.props.dispatch({ type: 'FETCH_SERVICES' });
+    this.props.dispatch({ 
+      type: 'FETCH_SERVICES' 
+    });
+    this.props.dispatch({
+      type: 'SET_HEADER',
+      payload: {value: 1},
+  })
   }
   render(){
   let allService = this.props.reduxState.services.map((service, i) => {

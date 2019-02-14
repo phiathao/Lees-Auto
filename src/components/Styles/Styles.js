@@ -1,169 +1,202 @@
-const Styles = {
-    emptyButton: {
-        borderStyle: "none",
-        color: "white",
-    },
-    componentContainer: {
-        margin: 0,
-        width: "100%",
-    },
-    componentMaxWidth: {
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "600px",
-    },
-    noPadding: {
-        padding: 0,
-    },
-    componentHeader: {
-        width: "100%",
-        textAlign: "center",
-        backgroundColor: "#6a7b83",
-        margin: 0,
-        paddingTop: "30px",
-        paddingBottom: "30px",
-        overflow: "hidden",
-        color: "#f2f2f2",
-        borderBottom: "3px solid #2196f3",
-    },
-    headerButtonLeft: {
-        display: "block",
-        margin: "auto",
-        position: "absolute",
-        float: "left",
-        left: "5%",
-        marginTop: "12px",
-    },
-    componentSecond: {
-        paddingTop: "15px",
-        textAlign: "center",
-        margin: "auto",
-    },
-    componentSecondBtn: {
-        display: "block",
-        margin: "auto",
-        width: "150px",
-    },
-    gridLeftBtn: {
-        width: "100%",
-    },
-    searchField: {
-        width: "40%",
-        marginBottom: 0,
-        marginLeft: "auto",
-        marginRight: "auto",
-        backgroundColor: "#f2f2f2",
-    },
-    boxFormContainer: {
-        textAlign: "center",
-        marginTop: "30px",
-    },
-    boxFormMaxWidth: {
-        maxWidth: "55%",
-        minWidth: "540px",
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-    boxFormAdd: {
-        display: "inline",
-    },
-    boxFormTwo: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
-        minWidth: "48%",
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    boxFormOne: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
-        minWidth: "98%",
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    boxFormThreeFive: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
-        width: "40%",
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    boxFormTwoFive: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
-        width: "30%",
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    boxFormOneFive: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
-        width: "24%",
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    boxFormBtn: {
-        width: "520px",
-        margin: "auto",
-    },
-    addForm: {
-        paddingTop: "30px",
-        paddingBottom: "30px",
-    },
-    boxContainer: {
-        textAlign: "center",
-        width: "520px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: "15px",
-        marginBottom: "15px",
-    },
-    stickLeft: {
-        textAlign: "left",
-    },
-    inputMargin: {
-        margin: 0,
-        marginBottom: 0,
-        padding: 0,
-        borderWidth: 0,
-        backgroundColor: "#cfd8dc",
-    },
-    boxContainerHeading: {
-        marginTop: 0,
-        marginBottom: 0,
-    },
-    boxStickRight: {
-        float: "right",
-        // marginBottom: "-17px",
-    },
-    cardContainer: {
-        minHeight: "100px",
-        maxWidth: "600px",
-        margin: "auto",
-        marginTop: "10px",
-    },
+const Styles = theme => ({
+
+    // service Page
     serviceItem: {
         textAlign: "center",
         backgroundColor: "#6a7b83",
-        margin: "0",
+        margin: 0,
         color: "white",
         overflow: "hidden",
-        paddingBottom: "30px",
-        paddingTop: "30px",
+        paddingBottom: 30,
+        paddingTop: 30,
         borderBottom: "#2196f3 solid 3px",
-        minHeight: "500px",
+        minHeight: 500,
     },
     serviceP: {
         width: "90%",
         margin: "auto",
     },
     serviceButton: {
-        margin: "15px",
+        margin: 15,
     },
-    homeCard: {
-        height: "200px",
-        margin: "10px",
-    }
-}
+    // ------------
+
+    // emptyButton: {
+    //     borderStyle: "none",
+    //     color: "white",
+    // },
+    //
+
+    // login page
+    root: {
+        width: 'auto',
+        display: 'block',
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+          width: 400,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        },
+      },
+      loginMessageBox: {
+        height: theme.spacing.unit * 2,
+      },
+      textMessageColor: {
+        color: 'red',
+      },
+      paper: {
+        marginTop: theme.spacing.unit * 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`,
+      },
+    // ----------------
+
+    // componentContainer: {
+    //     margin: 0,
+    //     width: "100%",
+    // },
+    // componentMaxWidth: {
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     width: "600px",
+    // },
+    // noPadding: {
+    //     padding: 0,
+    // },
+    // componentHeader: {
+    //     width: "100%",
+    //     textAlign: "center",
+    //     backgroundColor: "#6a7b83",
+    //     margin: 0,
+    //     paddingTop: "30px",
+    //     paddingBottom: "30px",
+    //     overflow: "hidden",
+    //     color: "#f2f2f2",
+    //     borderBottom: "3px solid #2196f3",
+    // },
+    // headerButtonLeft: {
+    //     display: "block",
+    //     margin: "auto",
+    //     position: "absolute",
+    //     float: "left",
+    //     left: "5%",
+    //     marginTop: "12px",
+    // },
+    // componentSecond: {
+    //     paddingTop: "15px",
+    //     textAlign: "center",
+    //     margin: "auto",
+    // },
+    // componentSecondBtn: {
+    //     display: "block",
+    //     margin: "auto",
+    //     width: "150px",
+    // },
+    // gridLeftBtn: {
+    //     width: "100%",
+    // },
+    // searchField: {
+    //     width: "40%",
+    //     marginBottom: 0,
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     backgroundColor: "#f2f2f2",
+    // },
+    // boxFormContainer: {
+    //     textAlign: "center",
+    //     marginTop: "30px",
+    // },
+    // boxFormMaxWidth: {
+    //     maxWidth: "55%",
+    //     minWidth: "540px",
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    // },
+    // boxFormAdd: {
+    //     display: "inline",
+    // },
+    // boxFormTwo: {
+    //     paddingLeft: "1%",
+    //     paddingRight: "1%",
+    //     minWidth: "48%",
+    //     marginBottom: 0,
+    //     marginTop: 0,
+    // },
+    // boxFormOne: {
+    //     paddingLeft: "1%",
+    //     paddingRight: "1%",
+    //     minWidth: "98%",
+    //     marginBottom: 0,
+    //     marginTop: 0,
+    // },
+    // boxFormThreeFive: {
+    //     paddingLeft: "1%",
+    //     paddingRight: "1%",
+    //     width: "40%",
+    //     marginBottom: 0,
+    //     marginTop: 0,
+    // },
+    // boxFormTwoFive: {
+    //     paddingLeft: "1%",
+    //     paddingRight: "1%",
+    //     // width: "30%",
+    //     marginBottom: 0,
+    //     marginTop: 0,
+    // },
+    // boxFormOneFive: {
+    //     paddingLeft: "1%",
+    //     paddingRight: "1%",
+    //     width: "24%",
+    //     marginBottom: 0,
+    //     marginTop: 0,
+    // },
+    // boxFormBtn: {
+    //     width: "520px",
+    //     margin: "auto",
+    // },
+    // addForm: {
+    //     paddingTop: "30px",
+    //     paddingBottom: "30px",
+    // },
+    // boxContainer: {
+    //     textAlign: "center",
+    //     width: "520px",
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     marginTop: "15px",
+    //     marginBottom: "15px",
+    // },
+    // stickLeft: {
+    //     textAlign: "left",
+    // },
+    // inputMargin: {
+    //     margin: 0,
+    //     marginBottom: 0,
+    //     padding: 0,
+    //     borderWidth: 0,
+    //     backgroundColor: "#cfd8dc",
+    // },
+    // boxContainerHeading: {
+    //     marginTop: 0,
+    //     marginBottom: 0,
+    // },
+    // boxStickRight: {
+    //     float: "right",
+    //     // marginBottom: "-17px",
+    // },
+    // cardContainer: {
+    //     minHeight: "100px",
+    //     maxWidth: "600px",
+    //     margin: "auto",
+    //     marginTop: "10px",
+    // },
+    // homeCard: {
+    //     height: "200px",
+    //     margin: "10px",
+    // }
+});
 
 export default Styles;

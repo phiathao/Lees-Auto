@@ -7,12 +7,12 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
 import AboutPage from '../AboutPage/AboutPage';
 import CarListPage from '../CarList/CarList';
 import HomePage from '../HomePage/HomePage';
@@ -26,19 +26,21 @@ import ManageAddVehicle from '../ManagePage/Customer/CustomerVehicle/AddVehicle/
 import ManageVehicle from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/VehicleReceipts';
 import ManageAddReceipt from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/AddReceipts/AddReceipt';
 import ServicesAll from '../ServicesAll/ServicesAll';
-
-import './App.css';
+import Styles from '../Styles/Styles';
 
 class App extends Component {
+
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <Router>
-        <div className="main-container">
-          <Header />
+        <div>
+        <CssBaseline />
+          <Header/>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -125,4 +127,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect()(withStyles(Styles)(App));

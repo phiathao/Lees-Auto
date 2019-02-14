@@ -10,11 +10,12 @@ class Services extends React.Component {
         this.props.dispatch({ type: 'FETCH_FEATURE'});
     }
     render() {
+        const { classes } = this.props;
         return (
-            <div className={this.props.classes.serviceItem}>
+            <div className={classes.serviceItem}>
                 <h3>{this.props.reduxState.featureService.service_type}</h3>
-                <p className={this.props.classes.serviceP}>{this.props.reduxState.featureService.description}</p>
-                <Button variant="contained" color="secondary" className={this.props.classes.serviceButton} component={Link} to="/services">other services</Button>
+                <p className={classes.serviceP}>{this.props.reduxState.featureService.description}</p>
+                <Button variant="contained" color="secondary" className={classes.serviceButton} component={Link} to="/services">other services</Button>
             </div>
         )
     }

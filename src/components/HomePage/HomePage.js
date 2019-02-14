@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
-import "./HomePage.css";
 import Card from '@material-ui/core/Card';
 import Services from '../Services/Services';
 
@@ -12,6 +11,12 @@ import Services from '../Services/Services';
 
 
 class HomePage extends React.Component {
+  componentDidMount = () => {
+    this.props.dispatch({
+      type: 'SET_HEADER',
+      payload: {value: 0},
+  })
+  }
   render() {
     let setting = {
       slidesToShow: 3,
