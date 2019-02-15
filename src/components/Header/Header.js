@@ -16,6 +16,7 @@ class Header extends React.Component {
       type: "SET_HEADER",
       payload: { value }
     })
+    console.log(this.props.header)
     // this.setState({ value });
   };
 
@@ -23,28 +24,32 @@ class Header extends React.Component {
     const { value } = this.props.header
     return (
       <AppBar position="static">
-          <Typography variant="h2" style={{color:"white"}} align="center">Lee's Auto</Typography>
-          <Tabs 
-            value={value} 
-            onChange={this.handleChange} 
+        <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>
+        {!this.props.user.id ?
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
             variant="fullWidth"
             centered
-            >
-            <Tab label="Home" component={Link} to="/home"/>
-            <Tab label="Services" component={Link} to="/services"/>
-            <Tab label="Car List" component={Link} to="/carList"/>
-            <Tab label="About Us" component={Link} to="/about"/>
-            <Tab label="Contact" component={Link} to="/contact"/>
-
-            {this.props.user.id && (
-              <>
-            <Tab label="Manage" component={Link} to="/manage"/>
-            <Tab label="Shop Service" component={Link} to="/shopService"/>
-            <Tab label="Car Sales" component={Link} to="/carSales"/>
-            <Tab label="Logout" component={LogOutButton}/>
-            </>
-            )}
+          >
+            <Tab label="Home" component={Link} to="/home" />
+            <Tab label="Services" component={Link} to="/services" />
+            <Tab label="Car List" component={Link} to="/carList" />
+            <Tab label="About Us" component={Link} to="/about" />
+            <Tab label="Contact" component={Link} to="/contact" />
           </Tabs>
+          :
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            variant="fullWidth"
+            centered>
+            <Tab label="Manage" component={Link} to="/manage" />
+            <Tab label="Shop Service" component={Link} to="/shopService" />
+            <Tab label="Car Sales" component={Link} to="/carSales" />
+            <Tab label="Logout" component={LogOutButton} />
+          </Tabs>
+        }
       </AppBar>
     )
   }

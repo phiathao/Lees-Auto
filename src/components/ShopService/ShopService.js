@@ -11,7 +11,7 @@ class InfoPage extends React.Component {
       <div>
         <p>
           Info Page
-    </p>
+        </p>
       </div>
     );
   }

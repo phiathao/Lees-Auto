@@ -28,6 +28,7 @@ import ManageVehicle from '../ManagePage/Customer/CustomerVehicle/VehicleReceipt
 import ManageAddReceipt from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/AddReceipts/AddReceipt';
 import ServicesAll from '../ServicesAll/ServicesAll';
 import Styles from '../Styles/Styles';
+import Error from '../Error/404';
 
 class App extends Component {
 
@@ -124,7 +125,7 @@ class App extends Component {
               component={CarSalesPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
+            <Route render={() => <Error />} />
           </Switch>
           {/* <Footer /> */}
         </div>
