@@ -7,6 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+
+import { Redirect } from 'react-router-dom';
+
 // styles
 import Styles from '../Styles/Styles';
 
@@ -49,6 +52,9 @@ class LoginPage extends Component {
   render() {
     const { classes } = this.props;
     return (
+      this.props.user.id ? 
+      <Redirect exact from="/login" to="/manage" />
+      :
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <div>
@@ -122,6 +128,7 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => ({
   errors: state.errors,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(Styles)(LoginPage));

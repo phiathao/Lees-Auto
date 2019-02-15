@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import Styles from '../Styles/Styles';
 
 
 class Header extends React.Component {
@@ -21,10 +22,11 @@ class Header extends React.Component {
   };
 
   render() {
-    const { value } = this.props.header
+    const { value } = this.props.header;
+    const { classes } = this.props;
     return (
-      <AppBar position="static">
-        <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>
+      <AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
+        {!this.props.user.id && <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>}
         {!this.props.user.id ?
           <Tabs
             value={value}
@@ -47,7 +49,7 @@ class Header extends React.Component {
             <Tab label="Manage" component={Link} to="/manage" />
             <Tab label="Shop Service" component={Link} to="/shopService" />
             <Tab label="Car Sales" component={Link} to="/carSales" />
-            <Tab label="Logout" component={LogOutButton} />
+            <Tab label="Logout" component={LogOutButton} to="home" />
           </Tabs>
         }
       </AppBar>
@@ -60,4 +62,4 @@ const mapStateToProps = state => ({
   header: state.header,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(withStyles(Styles)(Header));

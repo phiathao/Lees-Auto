@@ -2,7 +2,9 @@ import image from '../image/motor.jpg';
 
 const Styles = theme => ({
   // ServerAll
-
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+},
   serviceItem: {
     textAlign: "center",
     margin: 0,

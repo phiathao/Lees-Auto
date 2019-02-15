@@ -1,5 +1,4 @@
 import React from 'react';
-import './ManagePage.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
@@ -13,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../Styles/Styles';
+
+import ManageDrawer from './Drawer/ManageDrawer';
 
 class Manage extends React.Component {
   componentDidMount = () => {
@@ -60,6 +61,8 @@ class Manage extends React.Component {
     }
     ) // end of map
     return (
+      <>
+      <ManageDrawer />
       <Grid container spacing={24} className={this.props.classes.componentContainer}>
         <Grid item xs={12} className={this.props.classes.componentHeader}>
           <h3>Manage Customers and Vehicles</h3>
@@ -106,6 +109,7 @@ class Manage extends React.Component {
           </Paper>
         </Grid>
       </Grid>
+      </>
     )
   }
 };
