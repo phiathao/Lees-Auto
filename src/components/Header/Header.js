@@ -23,6 +23,7 @@ class Header extends React.Component {
     const { value } = this.props.header
     return (
       <AppBar position='static'>
+          <Typography variant="h2" align="center">Lee's Auto</Typography>
           <Tabs value={value} onChange={this.handleChange} fullWidth>
             <Tab label="Home" component={Link} to='home'/>
             <Tab label="Services" component={Link} to='services'/>
