@@ -13,6 +13,9 @@ const Theme = createMuiTheme({
     tonalOffset: 0.2,
     error: red,
   },
+  textPrimary: {
+    color: 'white',
+  },
 });
 
 export default Theme;

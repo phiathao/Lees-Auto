@@ -4,6 +4,8 @@ import Styles from '../Styles/Styles';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -21,19 +23,20 @@ class ServicesPage extends React.Component {
   })
   }
   render(){
+  const { classes } = this.props;
+
   let allService = this.props.reduxState.services.map((service, i) => {
     if (i % 2 ) {
-    return <div key={service.id} value={service.id}>{service.service_type} even</div>
+    return <div key={service.id} value={service.id} className={classes.serviceItem}>{service.service_type}</div>
     } else {
-      return <div key={service.id} value={service.id}>{service.service_type} odd</div>
+      return <div key={service.id} value={service.id} className={classes.hServiceFeature}>{service.service_type}</div>
     }
-  })
+  });
     return (
   <div>
     <div>
-      <p>
+      <div className={classes.pl} />
         {allService}
-      </p>
     </div>
   </div>
     )

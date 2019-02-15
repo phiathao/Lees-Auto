@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import Card from '@material-ui/core/Card';
 import Services from '../Services/Services';
+import { withStyles } from '@material-ui/core/styles';
+import Styles from '../Styles/Styles';
+
 
 
 // this could also be written with destructuring parameters as:
@@ -14,8 +17,8 @@ class HomePage extends React.Component {
   componentDidMount = () => {
     this.props.dispatch({
       type: 'SET_HEADER',
-      payload: {value: 0},
-  })
+      payload: { value: 0 },
+    })
   }
   render() {
     let setting = {
@@ -23,28 +26,30 @@ class HomePage extends React.Component {
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 2000,
+      arrows: false,
     }
+    const { classes } = this.props
     return (
       <div>
-        <Services />
-        <Slider {...setting}>
-          <div>
-            <Card className="home-card">1</Card>
+        <Services/>
+        <Slider {...setting} className={classes.slider}>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>1</Card>
           </div>
-          <div>
-            <Card className="home-card">2</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>2</Card>
           </div>
-          <div>
-            <Card className="home-card">3</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>3</Card>
           </div>
-          <div>
-            <Card className="home-card">4</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>4</Card>
           </div>
-          <div>
-            <Card className="home-card">5</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>5</Card>
           </div>
-          <div>
-            <Card className="home-card">6</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>6</Card>
           </div>
         </Slider>
       </div>
@@ -60,4 +65,4 @@ const mapStateToProps = state => ({
 });
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(withStyles(Styles)(HomePage));

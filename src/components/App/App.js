@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import CarListPage from '../CarList/CarList';
 import HomePage from '../HomePage/HomePage';
+import Contact from '../Contact/Contact';
 import ManagePage from '../ManagePage/ManagePage';
 import ShopServicesPage from '../ShopService/ShopService';
 import CarSalesPage from '../CarSales/CarSalesPage';
@@ -60,6 +61,11 @@ class App extends Component {
               exact
               path="/carList"
               component={CarListPage}
+            />
+            <Route
+              exact
+              path="/contact"
+              component={Contact}
             />
             <Route
               exact
@@ -120,7 +126,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
     )

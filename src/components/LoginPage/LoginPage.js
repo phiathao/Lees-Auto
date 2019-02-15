@@ -16,12 +16,6 @@ class LoginPage extends Component {
     username: '',
     password: '',
   };
-  componentDidMount = () => {
-    this.props.dispatch({
-      type: 'SET_HEADER',
-      payload: {value: 3},
-  })
-  }
   login = (event) => {
     event.preventDefault();
     console.log('got here');
