@@ -21,31 +21,6 @@ class Manage extends React.Component {
       type: 'FETCH_DATA'
     })
   }
-  handleView = (personId) => { // view base on the customer
-    console.log(personId);
-    this.props.dispatch({
-      type: 'FETCH_DATA_CUSTOMER',
-      payload: personId
-    })
-    this.props.history.push(`/manage/customer`);
-  }
-  handleDelete = (vehicleId, personId) => {
-    if (vehicleId === null) { // if customer don't have a vehicle under them // remove customer
-      if (window.confirm('Delete Customer?')) {
-        this.props.dispatch({
-          type: 'DELETE_CUSTOMER',
-          payload: personId
-        });
-      }
-    } else { // if customer have vehicle vehicle under them // only remove vehicle
-      if (window.confirm('Delete Vehicle?')) {
-        this.props.dispatch({
-          type: 'DELETE_VEHICLE',
-          payload: vehicleId
-        });
-      }
-    }
-  }
   render() {
     return <ManageDrawer />
   }

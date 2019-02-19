@@ -49,7 +49,7 @@ class Header extends React.Component {
             <Tab label="Manage" component={Link} to="/manage" />
             <Tab label="Shop Service" component={Link} to="/shopService" />
             <Tab label="Car Sales" component={Link} to="/carSales" />
-            <Tab label="Logout" component={LogOutButton} to="home" />
+            <Tab label="Logout" component={LogOutButton} />
           </Tabs>
         }
       </AppBar>
