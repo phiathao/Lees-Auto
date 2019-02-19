@@ -41,24 +41,24 @@ class App extends Component {
           <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/login" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
-            <Route
+            {/* <Route
               exact
               path="/about"
               component={AboutPage}
-            />
-            <Route
+            /> */}
+            {/* <Route
               exact
               path="/services"
               component={ServicesAll}
-            />
-            <Route
+            /> */}
+            {/* <Route
               exact
               path="/carList"
               component={CarListPage}
-            />
+            /> */}
             <Route
               exact
               path="/login"
@@ -68,11 +68,11 @@ class App extends Component {
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            <Route
+            {/* <Route
               exact
               path="/home"
               component={HomePage}
-            />
+            /> */}
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             <ProtectedRoute
@@ -90,11 +90,11 @@ class App extends Component {
               path="/manage/vehicle"
               component={ManageVehicle}
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/shopService"
               component={ShopServicesPage}
-            />
+            /> */}
             <ProtectedRoute
               exact
               path="/manage/vehicle/add"
@@ -110,11 +110,11 @@ class App extends Component {
               path="/manage/add"
               component={ManageAddCustomer}
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/carSales"
               component={CarSalesPage}
-            />
+            /> */}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

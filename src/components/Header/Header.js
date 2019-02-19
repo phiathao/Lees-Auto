@@ -9,31 +9,31 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header">
-        <Link to="/home" className="header-title">
+        {/* <Link to="/home" className="header-title">
           <h2>Lee's Auto Shop &amp; Repair</h2>
-        </Link>
-        <Link className="nav-link" to="/home">
+        </Link> */}
+        {/* <Link className="nav-link" to="/home">
           Home
-        </Link>
+        </Link> */}
         {/* Always show this link since the about page is not protected */}
-        <Link className="nav-link" to="/services">
+        {/* <Link className="nav-link" to="/services">
           Services
-        </Link>
-        <Link className="nav-link" to="/carList">
+        </Link> */}
+        {/* <Link className="nav-link" to="/carList">
           Car List
-        </Link>
+        </Link> */}
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {this.props.user.id && (
           <>
             <Link className="nav-link" to="/manage">
               Manage
             </Link>
-            <Link className="nav-link" to="/shopService">
+            {/* <Link className="nav-link" to="/shopService">
               Shop Services
             </Link>
             <Link className="nav-link" to="/carSales">
               Car Sales
-            </Link>
+            </Link> */}
           </>
         )}
         {/* Show this link if they are logged in or not,
