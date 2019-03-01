@@ -72,7 +72,7 @@ class ManageDrawer extends React.Component {
                             onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }); this.props.history.push('/manage') }}
                         >
                             <ListItemText
-                                primary="Customers"
+                                primary="Customers and Vehicles"
                                 inset
                             />
                         </ListItem>
@@ -147,7 +147,7 @@ const styles = theme => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        // padding: theme.spacing.unit * 3,
         paddingTop: theme.spacing.unit * 6,
     },
     toolbar: {

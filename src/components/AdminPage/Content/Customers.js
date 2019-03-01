@@ -13,7 +13,12 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../Styles/Styles';
 
+import AddCustomerDialog from '../AddCustomer/AddCustomer';
+
 class ManageContent extends React.Component {
+    state = {
+        addCustomer: false,
+    }
     handleViewVehicle = (id) => {
         this.props.history.push(`/manage/vehicle/${id}`)
         this.props.dispatch({ type: 'SET_DRAWER_VIEW_VEHICLE' })
@@ -40,24 +45,24 @@ class ManageContent extends React.Component {
         ) // end of map
         const { classes } = this.props
         return (
-            <Grid container className={classes.componentGrid}>
-                <Grid item xs={12} className={this.props.classes.componentHeader}>
-                    <h3>Manage Customers and Vehicles</h3>
-                </Grid>
-                <Grid item container xs={12}>
-                    <Button className={this.props.classes.componentSecondBtn} variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
-                </Grid>
-                <Grid item container xs={12}>
-                    <TextField
-                        id="filled-search"
-                        label="Search"
-                        type="search"
-                        className={this.props.classes.searchField}
-                        margin="normal"
-                        variant="filled"
-                    />
-                </Grid>
-                {/* <Grid container xs={24}>
+            <Paper className={classes.componentGrid}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <h3>Manage Customers and Vehicles</h3>
+                    </Grid>
+                    <Grid item container xs={12}>
+                        <Button variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
+                    </Grid>
+                    <Grid item container xs={12}>
+                        <TextField
+                            id="filled-search"
+                            label="Search"
+                            type="search"
+                            margin="normal"
+                            variant="filled"
+                        />
+                    </Grid>
+                    {/* <Grid container xs={24}>
                 <Grid item xs={12} className="component-header">
                     <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
                     <h3>View Customer</h3>
@@ -66,25 +71,26 @@ class ManageContent extends React.Component {
                 <Button variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
                 {customerVehicles}
             </Grid> */}
-                {/* table */}
-                <Grid item xs={12} className={this.props.classes.noPadding}>
-                    <Paper>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Vehicle</TableCell>
-                                    <TableCell>First Name</TableCell>
-                                    <TableCell>Last Name</TableCell>
-                                    <TableCell>Remove</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {dataList}
-                            </TableBody>
-                        </Table>
-                    </Paper>
+                    {/* table */}
+                    <Grid item xs={12} className={this.props.classes.noPadding}>
+                        <Paper>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Vehicle</TableCell>
+                                        <TableCell>First Name</TableCell>
+                                        <TableCell>Last Name</TableCell>
+                                        <TableCell>Remove</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {dataList}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Paper>
         )
     }
 }

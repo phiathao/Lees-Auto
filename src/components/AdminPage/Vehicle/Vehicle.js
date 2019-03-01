@@ -78,43 +78,43 @@ class VehicleReceipts extends React.Component {
     render() {
         let editMode = this.state.edit ?
             // in edit
-            <Grid item container spacing={24} className={this.props.classes.componentMaxWidth}>
-                <Grid item container spacing={24} className={this.props.classes.stickLeft}>
+            <Grid item container spacing={24}>
+                <Grid item container spacing={24}>
                     <Grid item xs={9}>
                         <h4>
                             Make:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.make} onChange={this.handleChange('make')} />
+                            <input value={this.props.reduxState.viewVehicle.make} onChange={this.handleChange('make')} />
                         </h4>
                         <h4>
                             Model:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.model} onChange={this.handleChange('model')} />
+                            <input value={this.props.reduxState.viewVehicle.model} onChange={this.handleChange('model')} />
                         </h4>
                         <h4>
                             Year:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.year} onChange={this.handleChange('year')} />
+                            <input value={this.props.reduxState.viewVehicle.year} onChange={this.handleChange('year')} />
                         </h4>
                         <h4>
                             Plate:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.plate} onChange={this.handleChange('plate')} />
+                            <input value={this.props.reduxState.viewVehicle.plate} onChange={this.handleChange('plate')} />
                         </h4>
                         <h4>
                             Color:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.color} onChange={this.handleChange('color')} />
+                            <input value={this.props.reduxState.viewVehicle.color} onChange={this.handleChange('color')} />
                         </h4>
                         <h4>
                             Other:
-                            <input className={this.props.classes.inputMargin} value={this.props.reduxState.viewVehicle.other} onChange={this.handleChange('other')} />
+                            <input value={this.props.reduxState.viewVehicle.other} onChange={this.handleChange('other')} />
                         </h4>
                     </Grid>
                     <Grid item xs={3}>
-                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleSubmit}>Save</Button>
-                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleCancel}>Cancel</Button>
+                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Save</Button>
+                        <Button variant="contained" color="secondary" onClick={this.handleCancel}>Cancel</Button>
                     </Grid>
                 </Grid>
             </Grid>
             : // not in edit
-            <Grid item container spacing={24} className={this.props.classes.componentMaxWidth}>
-                <Grid item container spacing={24} className={this.props.classes.stickLeft}>
+            <Grid item container spacing={24}>
+                <Grid item container spacing={24}>
                     <Grid item xs={9}>
                         <h4>
                             Make: {this.props.reduxState.viewVehicle.make}
@@ -136,7 +136,7 @@ class VehicleReceipts extends React.Component {
                         </h4>
                     </Grid>
                     <Grid item xs={3}>
-                        <Button variant="contained" color="secondary" className={this.props.classes.gridLeftBtn} onClick={this.handleEdit}>Edit</Button>
+                        <Button variant="contained" color="secondary" onClick={this.handleEdit}>Edit</Button>
                     </Grid>
                 </Grid>
             </Grid>;
@@ -146,13 +146,13 @@ class VehicleReceipts extends React.Component {
             const { classes } = this.props
         return this.props.reduxState.viewVehicle.id ?
             <Grid container spacing={24} className={classes.componentGrid}>
-                <Grid item xs={12} className={this.props.classes.componentHeader}>
-                    <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/customer">Back to Customer</Button>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="secondary" component={Link} to="/manage/customer">Back to Customer</Button>
                     <h3>View Vehicles</h3>
                 </Grid>
                 {editMode}
                 <Grid item xs={12}>
-                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddReceipt(this.props.reduxState.viewVehicle.id)}>Add Receipts</Button>
+                    <Button variant="contained" color="secondary" onClick={() => this.handleAddReceipt(this.props.reduxState.viewVehicle.id)}>Add Receipts</Button>
                 </Grid>
                 <Grid item xs={12}>
                     {vehicleReceipts}
@@ -160,8 +160,8 @@ class VehicleReceipts extends React.Component {
             </Grid>
             :
             <Grid container spacing={24} className={this.props.classes.componentContainer}>
-                <Grid item xs={12} className={this.props.classes.componentHeader}>
-                    <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="secondary" component={Link} to="/manage">Back to Manage</Button>
                     <h3>No vehicle selected</h3>
                 </Grid>
             </Grid>;
