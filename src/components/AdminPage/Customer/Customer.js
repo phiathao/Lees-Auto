@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Vehicle from '../Vehicle/Vehicle';
+import Vehicle from './CustomerVehicle/Vehicle';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Styles from '../../Styles/Styles';
@@ -85,25 +85,23 @@ class Customer extends React.Component {
         let customerVehicles = this.props.reduxState.customerVehicles.map(vehicle => {
             return <Vehicle vehicle={vehicle} key={vehicle.id} />
         });
-        // <Card className="card-container">
-        //     {JSON.stringify(this.props.reduxState.customerVehicles)}
-        // </Card>;
+        const { classes } = this.props;
         return this.props.reduxState.viewCustomer ?
-            <Grid container spacing={24} className={this.props.classes.componentContainer}>
+            <Grid container spacing={24} className={classes.componentGrid}>
                 <Grid item xs={12} className={this.props.classes.componentHeader}>
                     <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
                     <h3>View Customer</h3>
                 </Grid>
                 {editMode}
                 <Grid item xs={12}>
-                <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
+                    <Button className={this.props.classes.componentSecondBtn} variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
                 </Grid>
                 <Grid item xs={12}>
                     {customerVehicles}
                 </Grid>
             </Grid>
             :
-            <Grid container spacing={24} className={this.props.classes.componentContainer}>
+            <Grid container spacing={24} className={classes.componentGrid}>
                 <Grid item xs={12} className={this.props.classes.componentHeader}>
                     <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
                     <h3>No customer selected</h3>

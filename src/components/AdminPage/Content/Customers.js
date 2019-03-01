@@ -26,7 +26,7 @@ class ManageContent extends React.Component {
         // map data receive and put into table
         let dataList = this.props.reduxState.dataManage.map((item, i) => {
             return (
-                <TableRow 
+                <TableRow
                     hover
                     onClick={item.vehicle_id ? () => this.handleViewVehicle(item.vehicle_id) : () => this.handleViewCustomer(item.id)}
                     key={i}>
@@ -38,7 +38,7 @@ class ManageContent extends React.Component {
             )
         }
         ) // end of map
-        const classes = this.props
+        const { classes } = this.props
         return (
             <Grid container className={classes.componentGrid}>
                 <Grid item xs={12} className={this.props.classes.componentHeader}>

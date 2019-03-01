@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Link, withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -58,7 +59,7 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 1}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_APPOINTMENTS' }) }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_APPOINTMENTS' }); this.props.history.push('/manage') }}
                         >
                             <ListItemText
                                 primary="Appointment"
@@ -68,7 +69,7 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 2 || this.props.reduxState.drawer === 6}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }) }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }); this.props.history.push('/manage') }}
                         >
                             <ListItemText
                                 primary="Customers"
@@ -78,7 +79,7 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 3}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }) }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }); this.props.history.push('/manage') }}
                         >
                             <ListItemText
                                 primary="Services"
@@ -88,7 +89,7 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 4}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SALES' }) }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SALES' }); this.props.history.push('/manage') }}
                         >
                             <ListItemText
                                 primary="Cars Sales"
@@ -98,7 +99,7 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 5}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_INCOMES' }) }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_INCOMES' }); this.props.history.push('/manage') }}
                         >
                             {/* <ListItemIcon>
                                 <FolderIcon />
@@ -161,4 +162,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(ManageDrawer));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(ManageDrawer)));
