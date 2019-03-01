@@ -1,6 +1,11 @@
 import image from '../image/motor.jpg';
 
 const Styles = theme => ({
+  // Grid in Manage
+  componentGrid: {
+    width: '100%',
+    margin: 0,
+  },
   // ServerAll
   appBar: {
     zIndex: theme.zIndex.drawer + 1,

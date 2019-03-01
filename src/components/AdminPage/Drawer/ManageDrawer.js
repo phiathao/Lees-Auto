@@ -9,10 +9,19 @@ import FolderIcon from '@material-ui/icons/Folder';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ManageContent from '../Content/Customers';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from 'react-redux';
+
+import Appointments from '../Content/Appointments';
+import Customers from '../Content/Customers';
+import Sales from '../Content/Sales';
+import Services from '../Content/Services';
+import Incomes from '../Content/Incomes';
+
+import VehiclePage from '../Vehicle/Vehicle';
+import CustomerPage from '../Customer/Customer';
+import ProtectedRoute from '../../ProtectedRoute/ProtectedRoute';
 
 
 
@@ -46,45 +55,50 @@ class ManageDrawer extends React.Component {
                     <div className={classes.toolbar} />
                     <Divider />
                     <List>
-                        <ListItem 
+                        <ListItem
                             button
                             selected={this.props.reduxState.drawer === 1}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_APPOINTMENTS' }) }}
                         >
                             <ListItemText
                                 primary="Appointment"
                                 inset
                             />
                         </ListItem>
-                        <ListItem 
+                        <ListItem
                             button
-                            selected={this.props.reduxState.drawer === 2}
+                            selected={this.props.reduxState.drawer === 2 || this.props.reduxState.drawer === 6}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }) }}
                         >
                             <ListItemText
                                 primary="Customers"
                                 inset
                             />
                         </ListItem>
-                        <ListItem 
+                        <ListItem
                             button
                             selected={this.props.reduxState.drawer === 3}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }) }}
                         >
                             <ListItemText
                                 primary="Services"
                                 inset
                             />
                         </ListItem>
-                        <ListItem 
+                        <ListItem
                             button
                             selected={this.props.reduxState.drawer === 4}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SALES' }) }}
                         >
                             <ListItemText
                                 primary="Cars Sales"
                                 inset
                             />
                         </ListItem>
-                        <ListItem 
+                        <ListItem
                             button
                             selected={this.props.reduxState.drawer === 5}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_INCOMES' }) }}
                         >
                             {/* <ListItemIcon>
                                 <FolderIcon />
@@ -96,20 +110,22 @@ class ManageDrawer extends React.Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    <List>
-                        <TextField
-                            id="filled-search"
-                            label="Search"
-                            type="search"
-                            className={classes.searchField}
-                            margin="normal"
-                            variant="standard"
-                        />
-                    </List>
-                    <Divider />
                 </Drawer>
-                <main>
-                    <ManageContent />
+                <main className={classes.content}>
+                    {this.props.reduxState.drawer === 1 ? <Appointments />
+                        : this.props.reduxState.drawer === 2 ? <Customers />
+                            : this.props.reduxState.drawer === 3 ? <Services />
+                                : this.props.reduxState.drawer === 4 ? <Sales />
+                                    : this.props.reduxState.drawer === 5 ? <Incomes />
+                                        : this.props.reduxState.drawer === 6 ? <ProtectedRoute
+                                            path="/manage/vehicle/:id"
+                                            component={VehiclePage}
+                                        />
+                                            : this.props.reduxState.drawer === 7 && <ProtectedRoute
+                                                path="/manage/customer/:id"
+                                                component={CustomerPage}
+                                            />
+                    }
                 </main>
             </div>
         );
@@ -131,6 +147,7 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
+        paddingTop: theme.spacing.unit * 6,
     },
     toolbar: {
         ...theme.mixins.toolbar,

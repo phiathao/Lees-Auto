@@ -20,6 +20,10 @@ class Manage extends React.Component {
     this.props.dispatch({
       type: 'FETCH_DATA'
     })
+    this.props.dispatch({
+      type: 'SET_HEADER',
+      payload: { value: 5 },
+    })
   }
   render() {
     return <ManageDrawer />

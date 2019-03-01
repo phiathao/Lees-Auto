@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Vehicle from './CustomerVehicle/Vehicle';
+import Vehicle from '../Vehicle/Vehicle';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Styles from '../../Styles/Styles';
@@ -10,6 +10,12 @@ import Styles from '../../Styles/Styles';
 class Customer extends React.Component {
     state = {
         edit: false
+    }
+    componentDidMount = () => {
+        this.props.dispatch({
+            type: 'FETCH_DATA_CUSTOMER',
+            payload: this.props.match.params.id
+        })
     }
     handleEdit = () => {
         this.setState({
@@ -22,7 +28,7 @@ class Customer extends React.Component {
         })
         this.props.dispatch({
             type: 'FETCH_DATA_CUSTOMER',
-            payload: this.props.reduxState.viewCustomer.id
+            payload: this.props.match.params.id
         })
     }
     handleSubmit = () => {

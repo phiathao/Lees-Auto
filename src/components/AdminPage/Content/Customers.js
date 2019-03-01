@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,22 +14,33 @@ import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../Styles/Styles';
 
 class ManageContent extends React.Component {
+    handleViewVehicle = (id) => {
+        this.props.history.push(`/manage/vehicle/${id}`)
+        this.props.dispatch({ type: 'SET_DRAWER_VIEW_VEHICLE' })
+    }
+    handleViewCustomer = (id) => {
+        this.props.history.push(`/manage/customer/${id}`)
+        this.props.dispatch({ type: 'SET_DRAWER_VIEW_CUSTOMER' })
+    }
     render() {
         // map data receive and put into table
         let dataList = this.props.reduxState.dataManage.map((item, i) => {
             return (
-                <TableRow key={i}>
+                <TableRow 
+                    hover
+                    onClick={item.vehicle_id ? () => this.handleViewVehicle(item.vehicle_id) : () => this.handleViewCustomer(item.id)}
+                    key={i}>
                     {item.vehicle_id ? <TableCell>{item.make} {item.model}</TableCell> : <TableCell>No Vehicle</TableCell>}
                     <TableCell>{item.first_name}</TableCell>
                     <TableCell>{item.last_name}</TableCell>
-                    <TableCell><Button variant='contained' color='primary' onClick={() => this.handleView(item.id)}>View</Button></TableCell>
                     <TableCell><Button variant='contained' color='primary' onClick={() => this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
                 </TableRow>
             )
         }
         ) // end of map
+        const classes = this.props
         return (
-            <Grid container spacing={24} className={this.props.classes.componentContainer}>
+            <Grid container className={classes.componentGrid}>
                 <Grid item xs={12} className={this.props.classes.componentHeader}>
                     <h3>Manage Customers and Vehicles</h3>
                 </Grid>
@@ -64,7 +75,6 @@ class ManageContent extends React.Component {
                                     <TableCell>Vehicle</TableCell>
                                     <TableCell>First Name</TableCell>
                                     <TableCell>Last Name</TableCell>
-                                    <TableCell>Customer Information</TableCell>
                                     <TableCell>Remove</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -83,4 +93,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(ManageContent));
+export default withRouter(connect(mapStateToProps)(withStyles(Styles)(ManageContent)));

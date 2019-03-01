@@ -14,7 +14,7 @@ import featureService from './featureServiceReducer';
 import services from './servicesReducer';
 import viewReceipt from './viewReceipt';
 import header from './headerReducer';
-import drawer from './drawer';
+import drawer from './drawerReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
