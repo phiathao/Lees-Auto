@@ -4,7 +4,10 @@ const Styles = theme => ({
   // ServerAll
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-},
+  },
+  appTab: {
+    minWidth: 'auto',
+  },
   serviceItem: {
     textAlign: "center",
     margin: 0,

@@ -5,27 +5,19 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
+
+// component
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import CarListPage from '../CarList/CarList';
 import HomePage from '../HomePage/HomePage';
 import Contact from '../Contact/Contact';
-import ManagePage from '../ManagePage/ManagePage';
-import ShopServicesPage from '../ShopService/ShopService';
-import CarSalesPage from '../CarSales/CarSalesPage';
-import ManageAddCustomer from '../ManagePage/AddCustomer/AddCustomer';
+import ManagePage from '../AdminPage/AdminPage';
 import LoginPage from '../LoginPage/LoginPage';
-import ManageCustomerPage from '../ManagePage/Customer/Customer';
-import ManageAddVehicle from '../ManagePage/Customer/CustomerVehicle/AddVehicle/AddVehicle';
-import ManageVehicle from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/VehicleReceipts';
-import ManageAddReceipt from '../ManagePage/Customer/CustomerVehicle/VehicleReceipts/AddReceipts/AddReceipt';
 import ServicesAll from '../ServicesAll/ServicesAll';
 import Styles from '../Styles/Styles';
 import Error from '../Error/404';
@@ -88,41 +80,6 @@ class App extends Component {
               exact
               path="/manage"
               component={ManagePage}
-            />
-            <ProtectedRoute
-              exact
-              path="/manage/customer"
-              component={ManageCustomerPage}
-            />
-            <ProtectedRoute
-              exact
-              path="/manage/vehicle"
-              component={ManageVehicle}
-            />
-            <ProtectedRoute
-              exact
-              path="/shopService"
-              component={ShopServicesPage}
-            />
-            <ProtectedRoute
-              exact
-              path="/manage/vehicle/add"
-              component={ManageAddVehicle}
-            />
-            <ProtectedRoute
-              exact
-              path="/manage/receipt/add"
-              component={ManageAddReceipt}
-            />
-            <ProtectedRoute
-              exact
-              path="/manage/add"
-              component={ManageAddCustomer}
-            />
-            <ProtectedRoute
-              exact
-              path="/carSales"
-              component={CarSalesPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <Error />} />

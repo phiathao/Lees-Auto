@@ -14,6 +14,7 @@ import featureService from './featureServiceReducer';
 import services from './servicesReducer';
 import viewReceipt from './viewReceipt';
 import header from './headerReducer';
+import drawer from './drawer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
   vehicleReceipts, // vehicle receipts
   newReceipt, // adding vehicle a receipt
   viewReceipt,
-  header, // 
+  header, // header navigation
+  drawer, // admin drawer navigation
 });
 
 export default rootReducer;

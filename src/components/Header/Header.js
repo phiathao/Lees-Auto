@@ -34,22 +34,26 @@ class Header extends React.Component {
             variant="fullWidth"
             centered
           >
-            <Tab label="Home" component={Link} to="/home" />
-            <Tab label="Services" component={Link} to="/services" />
-            <Tab label="Car List" component={Link} to="/carList" />
-            <Tab label="About Us" component={Link} to="/about" />
-            <Tab label="Contact" component={Link} to="/contact" />
+            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
           </Tabs>
           :
           <Tabs
             value={value}
             onChange={this.handleChange}
             variant="fullWidth"
-            centered>
-            <Tab label="Manage" component={Link} to="/manage" />
-            <Tab label="Shop Service" component={Link} to="/shopService" />
-            <Tab label="Car Sales" component={Link} to="/carSales" />
-            <Tab label="Logout" component={LogOutButton} />
+            centered
+          >
+            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
+            <Tab className={classes.appTab} label="Manage" component={Link} to="/manage" />
+            <Tab className={classes.appTab} label="Logout" component={LogOutButton} />
           </Tabs>
         }
       </AppBar>

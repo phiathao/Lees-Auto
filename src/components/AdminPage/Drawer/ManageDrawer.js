@@ -9,9 +9,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ManageContent from '../Content/Manage';
+import ManageContent from '../Content/Customers';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
+import { connect } from 'react-redux';
 
 
 
@@ -29,7 +30,7 @@ class ManageDrawer extends React.Component {
     };
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         return (
             <div className={classes.root}>
@@ -45,12 +46,51 @@ class ManageDrawer extends React.Component {
                     <div className={classes.toolbar} />
                     <Divider />
                     <List>
-                        <ListItem button>
+                        <ListItem 
+                            button
+                            selected={this.props.reduxState.drawer === 1}
+                        >
+                            <ListItemText
+                                primary="Appointment"
+                                inset
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            selected={this.props.reduxState.drawer === 2}
+                        >
+                            <ListItemText
+                                primary="Customers"
+                                inset
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            selected={this.props.reduxState.drawer === 3}
+                        >
+                            <ListItemText
+                                primary="Services"
+                                inset
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            selected={this.props.reduxState.drawer === 4}
+                        >
+                            <ListItemText
+                                primary="Cars Sales"
+                                inset
+                            />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            selected={this.props.reduxState.drawer === 5}
+                        >
                             {/* <ListItemIcon>
                                 <FolderIcon />
                             </ListItemIcon> */}
                             <ListItemText
-                                primary="Overview"
+                                primary="Income"
                                 inset
                             />
                         </ListItem>
@@ -67,16 +107,6 @@ class ManageDrawer extends React.Component {
                         />
                     </List>
                     <Divider />
-                    <List>
-                        <ListItem button>
-                            {/* <ListItemIcon>
-                                <FolderIcon />
-                            </ListItemIcon> */}
-                            <ListItemText
-                                primary="Add Customer"
-                            />
-                        </ListItem>
-                    </List>
                 </Drawer>
                 <main>
                     <ManageContent />
@@ -110,5 +140,8 @@ const styles = theme => ({
     },
 });
 
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
-export default withStyles(styles)(ManageDrawer);
+export default connect(mapStateToProps)(withStyles(styles)(ManageDrawer));
