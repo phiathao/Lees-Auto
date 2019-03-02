@@ -13,45 +13,55 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Styles from '../../Styles/Styles';
 
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import AddCustomerDialog from '../AddCustomer/AddCustomer';
 
 class ManageContent extends React.Component {
     state = {
         addCustomer: false,
+        expanded: null,
     }
     handleViewVehicle = (id) => {
-        this.props.history.push(`/manage/vehicle/${id}`)
-        this.props.dispatch({ type: 'SET_DRAWER_VIEW_VEHICLE' })
+        this.props.history.push(`/manage/vehicle/${id}`);
+        this.props.dispatch({ type: 'SET_DRAWER_VIEW_VEHICLE' });
     }
     handleViewCustomer = (id) => {
-        this.props.history.push(`/manage/customer/${id}`)
-        this.props.dispatch({ type: 'SET_DRAWER_VIEW_CUSTOMER' })
+        this.props.history.push(`/manage/customer/${id}`);
+        this.props.dispatch({ type: 'SET_DRAWER_VIEW_CUSTOMER' });
     }
+    openAddCustomer = () => {
+        this.setState({
+            ...this.state, addCustomer: true
+        })
+    }
+    closeAddCustomer = () => {
+        this.setState({
+            ...this.state, addCustomer: false
+        })
+    }
+
+    handleChange = panel => (event, expanded) => {
+        this.setState({
+            expanded: expanded ? panel : false,
+        });
+    };
+
     render() {
-        // map data receive and put into table
-        let dataList = this.props.reduxState.dataManage.map((item, i) => {
-            return (
-                <TableRow
-                    hover
-                    onClick={item.vehicle_id ? () => this.handleViewVehicle(item.vehicle_id) : () => this.handleViewCustomer(item.id)}
-                    key={i}>
-                    {item.vehicle_id ? <TableCell>{item.make} {item.model}</TableCell> : <TableCell>No Vehicle</TableCell>}
-                    <TableCell>{item.first_name}</TableCell>
-                    <TableCell>{item.last_name}</TableCell>
-                    <TableCell><Button variant='contained' color='primary' onClick={() => this.handleDelete(item.vehicle_id, item.id)}>Remove</Button></TableCell>
-                </TableRow>
-            )
-        }
-        ) // end of map
         const { classes } = this.props
+        const { expanded } = this.state;
         return (
-            <Paper className={classes.componentGrid}>
+            <Paper className={classes.root}>
                 <Grid container>
                     <Grid item xs={12}>
                         <h3>Manage Customers and Vehicles</h3>
                     </Grid>
                     <Grid item container xs={12}>
-                        <Button variant='contained' color='secondary' component={Link} to='/manage/add'>Add Customer</Button>
+                        <Button variant='contained' color='secondary' onClick={this.openAddCustomer}>Add Customer</Button>
                     </Grid>
                     <Grid item container xs={12}>
                         <TextField
@@ -62,41 +72,63 @@ class ManageContent extends React.Component {
                             variant="filled"
                         />
                     </Grid>
-                    {/* <Grid container xs={24}>
-                <Grid item xs={12} className="component-header">
-                    <Button variant="contained" color="secondary" className="button-return-left" component={Link} to="/manage">Back to Manage</Button>
-                    <h3>View Customer</h3>
-                </Grid>
-                {editMode}
-                <Button variant="contained" color="secondary" onClick={() => this.handleAddVehicle(this.props.reduxState.viewCustomer.id)}>Add Vehicle</Button>
-                {customerVehicles}
-            </Grid> */}
-                    {/* table */}
-                    <Grid item xs={12} className={this.props.classes.noPadding}>
-                        <Paper>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Vehicle</TableCell>
-                                        <TableCell>First Name</TableCell>
-                                        <TableCell>Last Name</TableCell>
-                                        <TableCell>Remove</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {dataList}
-                                </TableBody>
-                            </Table>
-                        </Paper>
+                    <Grid item container xs={12} >
+                        {this.props.reduxState.dataManage.map((customer, i) => {
+                            return (
+                                <ExpansionPanel key={customer.id} className={classes.root} expanded={expanded === `${customer.id}`} onChange={this.handleChange(`${customer.id}`)}>
+                                    <ExpansionPanelSummary className={classes.row} expandIcon={<ExpandMoreIcon />}>
+                                        <Typography className={classes.column}>{customer.first_name}</Typography>
+                                        <Typography className={classes.column}>{customer.last_name}</Typography>
+                                    </ExpansionPanelSummary>
+                                    {customer.vehicles.length === 0 ?
+                                        <ExpansionPanelDetails>
+                                            <Typography>
+                                                Customer have no vehicle
+                                        </Typography>
+                                        </ExpansionPanelDetails>
+                                        : <>
+                                            {customer.vehicles.map(vehicle => {
+                                                return (
+                                                    <ExpansionPanelDetails key={vehicle.vehicle_id}>
+                                                        <Typography>
+                                                            {vehicle.make} 
+                                                            {vehicle.model}
+                                                        </Typography>
+                                                    </ExpansionPanelDetails>
+                                                )
+                                            })
+                                            }
+                                        </>
+                                    }
+
+                                </ExpansionPanel>
+                            )
+                        })}
                     </Grid>
                 </Grid>
-            </Paper>
+                <AddCustomerDialog open={this.state.addCustomer} handleClose={this.closeAddCustomer} />
+            </Paper >
         )
     }
 }
+
+const styles = theme => ({
+    root: {
+        width: '100%',
+    },
+    column: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+    },
+    row: {
+        '&:hover': {
+            backgroundColor: "#f2f2f2",
+        }
+    }
+});
 
 const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(Styles)(ManageContent)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(ManageContent)));

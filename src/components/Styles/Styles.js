@@ -1,10 +1,9 @@
 import image from '../image/motor.jpg';
 
 const Styles = theme => ({
-  // Grid in Manage
-  componentGrid: {
-    width: '100%',
-    margin: 0,
+  // dialog box
+  dialogComponent: {
+    minWidth: 700
   },
   // ServerAll
   appBar: {

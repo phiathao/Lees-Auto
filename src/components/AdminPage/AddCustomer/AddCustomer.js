@@ -7,6 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import Styles from '../../Styles/Styles';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -39,116 +43,104 @@ class AddCustomer extends React.Component {
       })
     }
   }
-  // handleFill remove after demo
-  handleFill = () => {
-    this.props.dispatch({
-      type: 'SET_NEW_CUSTOMER',
-      payload: { ...this.props.reduxState.newCustomer,
-        first_name: 'John',
-        last_name: 'Three',
-        phone: '9204497000',
-        street: '1332 N 15th St',
-        city: 'Sheboygan',
-        zip: '53081',
-        state: 'WI'
-      }
-    })
-  } // remove after demo
   render() {
+    const { classes } = this.props;
     return (
-      <Grid container spacing={24} className={this.props.classes.componentContainer}>
-        <Grid item xs={12} className={this.props.classes.componentHeader}>
-          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
-          <h3>Add Customer</h3>
-        </Grid>
-        <Grid item container xs={12} spacing={24} className={this.props.classes.boxFormContainer}>
-        <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="First Name"
-              type="search"
-              className={this.props.classes.boxFormTwo}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.first_name}
-              onChange={this.handleChange('first_name')}
-            />
-            <TextField
-              label="Last Name"
-              type="search"
-              className={this.props.classes.boxFormTwo}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.last_name}
-              onChange={this.handleChange('last_name')}
-            />
+      <Dialog
+        maxWidth='lg'
+        open={this.props.open}
+        // className={classes.dialogComponent}
+        onClose={this.props.handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle align="center">New Customer
+        </DialogTitle>
+        <DialogContent
+          className={classes.dialogComponent}
+        >
+          <Grid container className={this.props.classes.componentContainer}>
+            <Grid item className={this.props.classes.boxFormContainer}>
+              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+                <TextField
+                  label="First Name"
+                  type="search"
+                  margin="normal"
+                  variant="filled"
+                  className={classes.dialog50}
+                  value={this.props.reduxState.newCustomer.first_name}
+                  onChange={this.handleChange('first_name')}
+                />
+                <TextField
+                  label="Last Name"
+                  type="search"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.last_name}
+                  onChange={this.handleChange('last_name')}
+                />
+              </Grid>
+              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+                <TextField
+                  label="Phone Number"
+                  type="search"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.phone}
+                  onChange={this.handleChange('phone')}
+                  inputProps={{
+                    maxLength: 10,
+                  }}
+                />
+              </Grid>
+              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+                <TextField
+                  label="Street Address"
+                  type="search"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.street}
+                  onChange={this.handleChange('street')}
+                />
+              </Grid>
+              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+                <TextField
+                  label="City"
+                  type="search"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.city}
+                  onChange={this.handleChange('city')}
+                />
+                <TextField
+                  label="Zip Code"
+                  type="text"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.zip}
+                  onChange={this.handleChange('zip')}
+                  inputProps={{
+                    maxLength: 5,
+                  }}
+                />
+                <TextField
+                  label="State"
+                  type="text"
+                  margin="normal"
+                  variant="filled"
+                  value={this.props.reduxState.newCustomer.state}
+                  onChange={this.handleChange('state')}
+                  inputProps={{
+                    maxLength: 2,
+                  }}
+                />
+              </Grid>
+              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+                <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Submit</Button>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="Phone Number"
-              type="search"
-              className={this.props.classes.boxFormOne}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.phone}
-              onChange={this.handleChange('phone')}
-              inputProps={{
-                maxLength: 10,
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="Street Address"
-              type="search"
-              className={this.props.classes.boxFormOne}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.street}
-              onChange={this.handleChange('street')}
-            />
-          </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="City"
-              type="search"
-              className={this.props.classes.boxFormThreeFive}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.city}
-              onChange={this.handleChange('city')}
-            />
-            <TextField
-              label="Zip Code"
-              type="text"
-              className={this.props.classes.boxFormTwoFive}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.zip}
-              onChange={this.handleChange('zip')}
-              inputProps={{
-                maxLength: 5,
-              }}
-            />
-            <TextField
-              label="State"
-              type="text"
-              className={this.props.classes.boxFormOneFive}
-              margin="normal"
-              variant="filled"
-              value={this.props.reduxState.newCustomer.state}
-              onChange={this.handleChange('state')}
-              inputProps={{
-                maxLength: 2,
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
-            <button className={this.props.classes.emptyButton} onClick={this.handleFill}>FILL</button>
-            {/* button remove after demo */}
-          </Grid>
-        </Grid>
-      </Grid>
+        </DialogContent>
+      </Dialog>
     )
   }
 }

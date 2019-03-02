@@ -7,14 +7,34 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET DATA
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryString = `
-        SELECT "customers".id, "first_name", "last_name", "vehicle".id AS "vehicle_id", "make", "model", to_char("year", 'YYYY') AS "year"
+    SELECT first_name, last_name, customers.id AS id, vehicle.id AS vehicle_id, make, model
         FROM "customers"
-        LEFT JOIN "vehicle" ON "vehicle".customer_id = "customers".id
-        ORDER BY "customers".id ASC;
+        FULL OUTER JOIN "vehicle" 
+        ON "vehicle".customer_id = "customers".id
+        GROUP BY customers.id, vehicle_id;
     `;
     pool.query(queryString)
         .then(result => {
-            res.send(result.rows);
+            let customer = {};
+            result.rows.forEach(row => {
+                let { id, first_name, last_name, ...vehicle } = row;
+
+                if (customer[row.id]) {
+
+                    if (vehicle.vehicle_id) {
+                        customer[row.id].vehicles.push(vehicle);
+                    }
+                    
+                } else {
+                    customer[row.id] = {
+                        id,
+                        first_name,
+                        last_name,
+                        vehicles: vehicle.vehicle_id ? [vehicle] : []
+                    };
+                }
+            });
+            res.send(Object.values(customer));
         }).catch(error => {
             console.log(error)
             res.sendStatus(500);
