@@ -49,7 +49,6 @@ class AddCustomer extends React.Component {
       <Dialog
         maxWidth='lg'
         open={this.props.open}
-        // className={classes.dialogComponent}
         onClose={this.props.handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -58,9 +57,9 @@ class AddCustomer extends React.Component {
         <DialogContent
           className={classes.dialogComponent}
         >
-          <Grid container className={this.props.classes.componentContainer}>
-            <Grid item className={this.props.classes.boxFormContainer}>
-              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+          <Grid container>
+            <Grid item>
+              <Grid item xs>
                 <TextField
                   label="First Name"
                   type="search"
@@ -79,7 +78,7 @@ class AddCustomer extends React.Component {
                   onChange={this.handleChange('last_name')}
                 />
               </Grid>
-              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+              <Grid item xs>
                 <TextField
                   label="Phone Number"
                   type="search"
@@ -92,7 +91,7 @@ class AddCustomer extends React.Component {
                   }}
                 />
               </Grid>
-              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+              <Grid item xs>
                 <TextField
                   label="Street Address"
                   type="search"
@@ -102,7 +101,7 @@ class AddCustomer extends React.Component {
                   onChange={this.handleChange('street')}
                 />
               </Grid>
-              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+              <Grid item xs>
                 <TextField
                   label="City"
                   type="search"
@@ -134,8 +133,9 @@ class AddCustomer extends React.Component {
                   }}
                 />
               </Grid>
-              <Grid item xs className={this.props.classes.boxFormMaxWidth}>
+              <Grid item xs>
                 <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Submit</Button>
+                <Button variant="contained" color="secondary" onClick={this.props.handleClose}>Cancel</Button>                
               </Grid>
             </Grid>
           </Grid>

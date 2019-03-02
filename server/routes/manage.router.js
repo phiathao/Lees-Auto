@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET DATA
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryString = `
-    SELECT first_name, last_name, customers.id AS id, vehicle.id AS vehicle_id, make, model
+    SELECT first_name, last_name, customers.id AS id, vehicle.id AS vehicle_id, make, model, plate, color
         FROM "customers"
         FULL OUTER JOIN "vehicle" 
         ON "vehicle".customer_id = "customers".id

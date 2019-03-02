@@ -1,17 +1,17 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-import FolderIcon from '@material-ui/icons/Folder';
+
 // import Styles from '../../Styles/Styles';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+
 import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
-import Collapse from '@material-ui/core/Collapse';
+
+
 import { connect } from 'react-redux';
 
 import Appointments from '../Content/Appointments';
@@ -69,17 +69,17 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 2 || this.props.reduxState.drawer === 6}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }); this.props.history.push('/manage') }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_CUSTOMERS' }); this.props.history.push('/manage/customers') }}
                         >
                             <ListItemText
-                                primary="Customers and Vehicles"
+                                primary="Customers"
                                 inset
                             />
                         </ListItem>
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 3}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }); this.props.history.push('/manage') }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }); this.props.history.push('/manage/services') }}
                         >
                             <ListItemText
                                 primary="Services"
@@ -89,21 +89,18 @@ class ManageDrawer extends React.Component {
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 4}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SALES' }); this.props.history.push('/manage') }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SALES' }); this.props.history.push('/manage/sales') }}
                         >
                             <ListItemText
-                                primary="Cars Sales"
+                                primary="Cars For Sales"
                                 inset
                             />
                         </ListItem>
                         <ListItem
                             button
                             selected={this.props.reduxState.drawer === 5}
-                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_INCOMES' }); this.props.history.push('/manage') }}
+                            onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_INCOMES' }); this.props.history.push('/manage/incomes') }}
                         >
-                            {/* <ListItemIcon>
-                                <FolderIcon />
-                            </ListItemIcon> */}
                             <ListItemText
                                 primary="Income"
                                 inset

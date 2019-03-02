@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Styles from '../../../../../Styles/Styles';
+import Styles from '../../Styles/Styles';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
 import ServiceAdd from './ServiceAdd';
 import ServiceSubtract from './ServiceSubtract';
 
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class AddReceipt extends React.Component {
   state = ({
@@ -61,7 +64,8 @@ class AddReceipt extends React.Component {
   handleFill = () => {
     this.props.dispatch({
       type: 'SET_NEW_VEHICLE',
-      payload: { ...this.props.reduxState.newVehicle,
+      payload: {
+        ...this.props.reduxState.newVehicle,
         make: 'Ford',
         model: 'F-150',
         year: '2011',
@@ -80,64 +84,65 @@ class AddReceipt extends React.Component {
     }
     for (let i = 0; i < this.state.numberService; i++) {
       if (i === 0) {
-        inputService.push(<ServiceAdd key={i} add={this.handleAddService}/>)
+        inputService.push(<ServiceAdd key={i} add={this.handleAddService} />)
       } else {
-        inputService.push(<ServiceSubtract key={i} subtract={this.handleSubtractService}/>)
+        inputService.push(<ServiceSubtract key={i} subtract={this.handleSubtractService} />)
       }
     }
-    return this.props.reduxState.newReceipt.vehicle_id ?
-      <Grid container spacing={24} className={this.props.classes.componentContainer}>
-        <Grid item xs={12} className={this.props.classes.componentHeader}>
-          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage/vehicle">Back to Vehicle</Button>
-          <h3>Add Receipts</h3>
-        </Grid>
-        <Grid item container xs={12} spacing={24} className={this.props.classes.boxFormContainer}>
-          {inputService}
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="Description"
-              type="text"
-              className={this.props.classes.boxFormOne}
-              margin="normal"
-              variant="filled"
-              onChange={this.handleChange('year')}
-            />
+    const { classes } = this.props
+    return (
+      <Dialog
+        maxWidth='lg'
+        open={this.props.open}
+        onClose={this.props.handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle align="center">New Vehicle
+        </DialogTitle>
+        <DialogContent
+          className={classes.dialogComponent}
+        >
+          <Grid container>
+            <Grid item>
+              {inputService}
+              <Grid item>
+                <TextField
+                  label="Description"
+                  type="text"
+                  
+                  margin="normal"
+                  variant="filled"
+                  onChange={this.handleChange('year')}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Amount Due"
+                  type="text"
+                  
+                  margin="normal"
+                  variant="filled"
+                  onChange={this.handleChange('color')}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Payment Method"
+                  type="text"
+                  
+                  margin="normal"
+                  variant="filled"
+                  onChange={this.handleChange('other')}
+                />
+              </Grid>
+              <Grid item>
+                <Button variant="contained" color="secondary"  onClick={this.handleSubmit}>Submit</Button>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="Amount Due"
-              type="text"
-              className={this.props.classes.boxFormOne}
-              margin="normal"
-              variant="filled"
-              onChange={this.handleChange('color')}
-            />
-          </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <TextField
-              label="Payment Method"
-              type="text"
-              className={this.props.classes.boxFormOne}
-              margin="normal"
-              variant="filled"
-              onChange={this.handleChange('other')}
-            />
-          </Grid>
-          <Grid item xs={12} className={this.props.classes.boxFormMaxWidth}>
-            <Button variant="contained" color="secondary" className={this.props.classes.boxFormOne} onClick={this.handleSubmit}>Submit</Button>
-            <button className={this.props.classes.emptyButton} onClick={this.handleFill}>FILL</button>
-            {/* button remove after demo */}
-          </Grid>
-        </Grid>
-      </Grid>
-      :
-      <Grid container spacing={24} className={this.props.classes.componentContainer}>
-        <Grid item xs={12} className={this.props.classes.componentHeader}>
-          <Button variant="contained" color="secondary" className={this.props.classes.headerButtonLeft} component={Link} to="/manage">Back to Manage</Button>
-          <h3>No Vehicle Selected</h3>
-        </Grid>
-      </Grid>
-      ;
+        </DialogContent>
+      </Dialog>
+    )
   }
 }
 
