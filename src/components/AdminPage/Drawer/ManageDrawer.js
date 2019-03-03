@@ -134,6 +134,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         display: 'flex',
+        height: '100%',
     },
     drawer: {
         width: drawerWidth,

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import Styles from '../../Styles/Styles';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -35,7 +36,13 @@ class AddVehicle extends React.Component {
     this.props.dispatch({
       type: 'SET_NEW_VEHICLE',
       payload: { ...this.props.reduxState.newVehicle, [propertyName]: event.target.value }
-    })
+    });
+  }
+  handleCustomerChange = (event) => {
+    this.props.dispatch({
+      type: 'SET_NEW_VEHICLE',
+      payload: { ...this.props.reduxState.newVehicle, customer_id: event.target.value }
+    });
   }
 
   render() {
@@ -52,85 +59,110 @@ class AddVehicle extends React.Component {
         <DialogContent
           className={classes.dialogComponent}
         >
-          <Grid container>
-            <Grid item className={classes.fullWidth}>
-              <Grid item xs>
-                <TextField
-                  label="Make"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.make}
-                  onChange={this.handleChange('make')}
-                />
-                <TextField
-                  label="Model"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.model}
-                  onChange={this.handleChange('model')}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="Year"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.year}
-                  onChange={this.handleChange('year')}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="Plate"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.plate}
-                  onChange={this.handleChange('plate')}
-                />
-                <TextField
-                  label="Color"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.color}
-                  onChange={this.handleChange('color')}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="Other"
-                  multiline="true"
-                  rows={3}
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  value={this.props.reduxState.newVehicle.other}
-                  onChange={this.handleChange('other')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12} style={{ direction: 'rtl', }}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.handleSubmit}
-                >Submit</Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.props.handleClose}
-                  className={classes.cancelMargin}
-                >Cancel</Button>
-              </Grid>
+          <Grid container spacing={8}>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
+                select
+                label="Customer"
+                type="text"
+                value={this.props.reduxState.newVehicle.customer_id}
+                className={classes.dialogTextField}
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleCustomerChange}
+              >
+                {this.props.reduxState.customersData.map(customer => {
+                  return <MenuItem key={customer.id} value={customer.id}>{customer.first_name} {customer.last_name}</MenuItem>
+                })}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Make"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.make}
+                onChange={this.handleChange('make')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Model"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.model}
+                onChange={this.handleChange('model')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Year"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.year}
+                onChange={this.handleChange('year')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Plate"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.plate}
+                onChange={this.handleChange('plate')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Color"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.color}
+                onChange={this.handleChange('color')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
+                label="Other"
+                multiline
+                rows={3}
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.other}
+                onChange={this.handleChange('other')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} style={{ direction: 'rtl', }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleSubmit}
+              >Submit</Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.handleClose}
+                className={classes.cancelMargin}
+              >Cancel</Button>
             </Grid>
           </Grid>
         </DialogContent>

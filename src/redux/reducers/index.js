@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
-import dataManage from './dataManage';
+import customersData from './customersReducer';
 import newCustomer from './newCustomerReducer';
 import viewCustomer from './viewCustomerReducer';
 import customerVehicles from './customerVehiclesReducer';
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   featureService, //
   services, // 
-  dataManage, // admin handle customers, vehicles, and receipts information
+  customersData, // admin handle customers, vehicles
   newCustomer, // admin adding customer
   viewCustomer, // admin who to view
   customerVehicles, // customer vehicles

@@ -7,7 +7,7 @@ const Styles = theme => ({
     maxWidth: 700,
   },
   dialogTextField: {
-    marginTop: theme.spacing.unit - 8,
+    marginTop: theme.spacing.unit - 3,
     marginBottom: theme.spacing.unit - 8,
   },
   cancelMargin:{
@@ -15,7 +15,7 @@ const Styles = theme => ({
   },
   overflowScroll: {
     overflow: 'scroll',
-    maxHeight: theme.spacing.unit * 60,
+    maxHeight: theme.spacing.unit * 50,
   },
   // ServerAll
   appBar: {
@@ -129,7 +129,9 @@ const Styles = theme => ({
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`,
   },
   // ----------------
-
+  height100: {
+    height: '100vh',
+  }
   // componentContainer: {
   //     margin: 0,
   //     width: "100%",

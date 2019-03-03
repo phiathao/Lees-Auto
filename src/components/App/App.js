@@ -33,7 +33,7 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <Router>
-        <div>
+        <div className={classes.height100}>
         <CssBaseline />
           <Header/>
           <Switch>

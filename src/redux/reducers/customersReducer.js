@@ -1,4 +1,4 @@
-const dataInfo = (state = [], action) => {
+const customersData = (state = [], action) => {
   switch (action.type) {
     case 'SET_DATA':
       return action.payload;
@@ -7,4 +7,4 @@ const dataInfo = (state = [], action) => {
   }
 };
 
-export default dataInfo;
+export default customersData;

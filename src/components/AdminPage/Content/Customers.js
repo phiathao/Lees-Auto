@@ -132,6 +132,7 @@ class ManageContent extends React.Component {
         ];
 
         return (
+            <Paper className={classes.rootPadding}>
             <Paper className={classes.root}>
                 <Grid container>
                     <Grid item xs={12}>
@@ -147,7 +148,7 @@ class ManageContent extends React.Component {
                         />
                     </Grid>
                     <Grid item container xs={12} >
-                        {this.props.reduxState.dataManage.map((customer, i) => {
+                        {this.props.reduxState.customersData.map((customer, i) => {
                             return (
                                 <ExpansionPanel
                                     key={customer.id}
@@ -235,6 +236,7 @@ class ManageContent extends React.Component {
                     })}
                 </SpeedDial>
             </Paper >
+            </Paper>
         )
     }
 }
@@ -242,6 +244,12 @@ class ManageContent extends React.Component {
 const styles = theme => ({
     root: {
         width: '100%',
+        // margin: theme.spacing.unit * 3,
+    },
+    rootPadding: {
+        padding: theme.spacing.unit * 3,
+        height: '100%',
+        backgroundColor: '#eee',
     },
     isActive: {
         '&>div:first-child': {

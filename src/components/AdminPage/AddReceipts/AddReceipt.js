@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import AddIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
@@ -24,10 +25,10 @@ class AddReceipt extends React.Component {
     this.props.dispatch({ type: 'FETCH_SERVICES' });
   }
   handleSubmit = () => {
-    
+
   }
   handleChange = (propertyName) => (event) => {
-    
+
   }
   handleAddService = () => {
     this.setState({
@@ -70,42 +71,59 @@ class AddReceipt extends React.Component {
         <DialogContent
           className={classes.dialogComponent}
         >
-          <Grid container spacing={8}>
-          <Grid item xs={12} container spacing={8} className={classes.overflowScroll}>
-            {inputService}
-            <Grid item xs={12}>
+          <Grid container xs sm spacing={8}>
+            <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
-                label="Description"
+                select
+                label="Vehicle"
                 type="text"
+                value={this.props.reduxState.newVehicle.vehicle_id}
+                className={classes.dialogTextField}
                 margin="normal"
                 variant="outlined"
-                className={classes.dialogTextField}
-                onChange={this.handleChange('year')}
-              />
+                onChange={this.handleCustomerChange}
+              >
+                {this.props.reduxState.customersData.map(customer => {
+                  return <MenuItem key={customer.id} value={customer.id}>{customer.first_name} {customer.last_name}</MenuItem>
+                })}
+              </TextField>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Amount Due"
-                type="text"
-                margin="normal"
-                variant="outlined"
-                className={classes.dialogTextField}
-                onChange={this.handleChange('color')}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Payment Method"
-                type="text"
-                margin="normal"
-                variant="outlined"
-                className={classes.dialogTextField}
-                onChange={this.handleChange('other')}
-              />
-            </Grid>
+            <Grid item xs={12} container className={classes.overflowScroll}>
+              {inputService}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Description"
+                  type="text"
+                  margin="normal"
+                  variant="outlined"
+                  className={classes.dialogTextField}
+                  onChange={this.handleChange('year')}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Amount Due"
+                  type="text"
+                  margin="normal"
+                  variant="outlined"
+                  className={classes.dialogTextField}
+                  onChange={this.handleChange('color')}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Payment Method"
+                  type="text"
+                  margin="normal"
+                  variant="outlined"
+                  className={classes.dialogTextField}
+                  onChange={this.handleChange('other')}
+                />
+              </Grid>
             </Grid>
             <Grid item xs={3} sm={3}>
               <Tooltip title="Add Service" placement="right">
