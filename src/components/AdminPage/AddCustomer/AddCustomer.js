@@ -64,7 +64,7 @@ class AddCustomer extends React.Component {
                 label="First Name"
                 type="search"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.first_name}
                 onChange={this.handleChange('first_name')}
@@ -76,7 +76,7 @@ class AddCustomer extends React.Component {
                 label="Last Name"
                 type="search"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.last_name}
                 onChange={this.handleChange('last_name')}
@@ -88,7 +88,7 @@ class AddCustomer extends React.Component {
                 label="Phone Number"
                 type="search"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.phone}
                 onChange={this.handleChange('phone')}
@@ -103,7 +103,7 @@ class AddCustomer extends React.Component {
                 label="Street Address"
                 type="search"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.street}
                 onChange={this.handleChange('street')}
@@ -115,7 +115,7 @@ class AddCustomer extends React.Component {
                 label="City"
                 type="search"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.city}
                 onChange={this.handleChange('city')}
@@ -127,7 +127,7 @@ class AddCustomer extends React.Component {
                 label="Zip Code"
                 type="text"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.zip}
                 onChange={this.handleChange('zip')}
@@ -142,7 +142,7 @@ class AddCustomer extends React.Component {
                 label="State"
                 type="text"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
                 className={classes.dialogTextField}
                 value={this.props.reduxState.newCustomer.state}
                 onChange={this.handleChange('state')}

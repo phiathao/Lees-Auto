@@ -17,6 +17,7 @@ class Service extends React.Component {
         })
     }
     render() {
+        const { classes } = this.props
         return (
             <Grid item xs={12}>
                 <TextField
@@ -25,9 +26,9 @@ class Service extends React.Component {
                     label="Service"
                     type="text"
                     value={this.state.service_id}
-                    className={this.props.classes.boxFormOne}
+                    className={classes.dialogTextField}
                     margin="normal"
-                    variant="filled"
+                    variant="outlined"
                     onChange={this.handleChange}
                 >
                     {this.props.reduxState.services.map(service => {

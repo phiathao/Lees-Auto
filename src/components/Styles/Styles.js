@@ -13,6 +13,10 @@ const Styles = theme => ({
   cancelMargin:{
     marginRight: theme.spacing.unit,
   },
+  overflowScroll: {
+    overflow: 'scroll',
+    maxHeight: theme.spacing.unit * 60,
+  },
   // ServerAll
   appBar: {
     zIndex: theme.zIndex.drawer + 1,

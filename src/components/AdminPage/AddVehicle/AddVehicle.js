@@ -59,7 +59,8 @@ class AddVehicle extends React.Component {
                   label="Make"
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.make}
                   onChange={this.handleChange('make')}
                 />
@@ -67,7 +68,8 @@ class AddVehicle extends React.Component {
                   label="Model"
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.model}
                   onChange={this.handleChange('model')}
                 />
@@ -77,7 +79,8 @@ class AddVehicle extends React.Component {
                   label="Year"
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.year}
                   onChange={this.handleChange('year')}
                 />
@@ -87,7 +90,8 @@ class AddVehicle extends React.Component {
                   label="Plate"
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.plate}
                   onChange={this.handleChange('plate')}
                 />
@@ -95,7 +99,8 @@ class AddVehicle extends React.Component {
                   label="Color"
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.color}
                   onChange={this.handleChange('color')}
                 />
@@ -103,9 +108,12 @@ class AddVehicle extends React.Component {
               <Grid item xs>
                 <TextField
                   label="Other"
+                  multiline="true"
+                  rows={3}
                   type="text"
                   margin="normal"
-                  variant="filled"
+                  variant="outlined"
+                  className={classes.dialogTextField}
                   value={this.props.reduxState.newVehicle.other}
                   onChange={this.handleChange('other')}
                 />

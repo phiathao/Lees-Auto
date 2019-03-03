@@ -65,12 +65,13 @@ class AddReceipt extends React.Component {
         onClose={this.handleCloseDialog}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle align="center">New Vehicle
+        <DialogTitle align="center">Add Receipt
         </DialogTitle>
         <DialogContent
           className={classes.dialogComponent}
         >
           <Grid container spacing={8}>
+          <Grid item xs={12} container spacing={8} className={classes.overflowScroll}>
             {inputService}
             <Grid item xs={12}>
               <TextField
@@ -78,7 +79,8 @@ class AddReceipt extends React.Component {
                 label="Description"
                 type="text"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
+                className={classes.dialogTextField}
                 onChange={this.handleChange('year')}
               />
             </Grid>
@@ -88,7 +90,8 @@ class AddReceipt extends React.Component {
                 label="Amount Due"
                 type="text"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
+                className={classes.dialogTextField}
                 onChange={this.handleChange('color')}
               />
             </Grid>
@@ -98,9 +101,11 @@ class AddReceipt extends React.Component {
                 label="Payment Method"
                 type="text"
                 margin="normal"
-                variant="filled"
+                variant="outlined"
+                className={classes.dialogTextField}
                 onChange={this.handleChange('other')}
               />
+            </Grid>
             </Grid>
             <Grid item xs={3} sm={3}>
               <Tooltip title="Add Service" placement="right">
