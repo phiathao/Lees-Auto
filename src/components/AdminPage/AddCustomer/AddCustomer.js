@@ -57,86 +57,112 @@ class AddCustomer extends React.Component {
         <DialogContent
           className={classes.dialogComponent}
         >
-          <Grid container>
-            <Grid item>
-              <Grid item xs>
-                <TextField
-                  label="First Name"
-                  type="search"
-                  margin="normal"
-                  variant="filled"
-                  className={classes.dialog50}
-                  value={this.props.reduxState.newCustomer.first_name}
-                  onChange={this.handleChange('first_name')}
-                />
-                <TextField
-                  label="Last Name"
-                  type="search"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.last_name}
-                  onChange={this.handleChange('last_name')}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="Phone Number"
-                  type="search"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.phone}
-                  onChange={this.handleChange('phone')}
-                  inputProps={{
-                    maxLength: 10,
-                  }}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="Street Address"
-                  type="search"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.street}
-                  onChange={this.handleChange('street')}
-                />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  label="City"
-                  type="search"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.city}
-                  onChange={this.handleChange('city')}
-                />
-                <TextField
-                  label="Zip Code"
-                  type="text"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.zip}
-                  onChange={this.handleChange('zip')}
-                  inputProps={{
-                    maxLength: 5,
-                  }}
-                />
-                <TextField
-                  label="State"
-                  type="text"
-                  margin="normal"
-                  variant="filled"
-                  value={this.props.reduxState.newCustomer.state}
-                  onChange={this.handleChange('state')}
-                  inputProps={{
-                    maxLength: 2,
-                  }}
-                />
-              </Grid>
-              <Grid item xs>
-                <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Submit</Button>
-                <Button variant="contained" color="secondary" onClick={this.props.handleClose}>Cancel</Button>                
-              </Grid>
+          <Grid container spacing={8}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="First Name"
+                type="search"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.first_name}
+                onChange={this.handleChange('first_name')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Last Name"
+                type="search"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.last_name}
+                onChange={this.handleChange('last_name')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
+                label="Phone Number"
+                type="search"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.phone}
+                onChange={this.handleChange('phone')}
+                inputProps={{
+                  maxLength: 10,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
+                label="Street Address"
+                type="search"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.street}
+                onChange={this.handleChange('street')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="City"
+                type="search"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.city}
+                onChange={this.handleChange('city')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                label="Zip Code"
+                type="text"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.zip}
+                onChange={this.handleChange('zip')}
+                inputProps={{
+                  maxLength: 5,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <TextField
+                fullWidth
+                label="State"
+                type="text"
+                margin="normal"
+                variant="filled"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.state}
+                onChange={this.handleChange('state')}
+                inputProps={{
+                  maxLength: 2,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} style={{ direction: 'rtl', }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleSubmit}
+              >Submit</Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.handleClose}
+                className={classes.cancelMargin}
+              >Cancel</Button>
             </Grid>
           </Grid>
         </DialogContent>

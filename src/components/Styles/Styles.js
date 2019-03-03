@@ -3,7 +3,15 @@ import image from '../image/motor.jpg';
 const Styles = theme => ({
   // dialog box
   dialogComponent: {
-    minWidth: 700
+    flexGrow: 1,
+    maxWidth: 700,
+  },
+  dialogTextField: {
+    marginTop: theme.spacing.unit - 8,
+    marginBottom: theme.spacing.unit - 8,
+  },
+  cancelMargin:{
+    marginRight: theme.spacing.unit,
   },
   // ServerAll
   appBar: {

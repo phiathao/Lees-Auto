@@ -110,9 +110,18 @@ class AddVehicle extends React.Component {
                   onChange={this.handleChange('other')}
                 />
               </Grid>
-              <Grid item xs>
-                <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Submit</Button>
-                <Button variant="contained" color="secondary" onClick={this.props.handleClose}>Cancel</Button>
+              <Grid item xs={12} sm={12} style={{ direction: 'rtl', }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleSubmit}
+                >Submit</Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.props.handleClose}
+                  className={classes.cancelMargin}
+                >Cancel</Button>
               </Grid>
             </Grid>
           </Grid>
