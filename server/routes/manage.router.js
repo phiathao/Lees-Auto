@@ -7,7 +7,20 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET DATA
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryString = `
-    SELECT first_name, last_name, customers.id AS id, vehicle.id AS vehicle_id, make, model, plate, color
+        SELECT 
+            first_name, 
+            last_name, 
+            phone,
+            street,
+            city,
+            state,
+            zip,
+            customers.id AS id, 
+            vehicle.id AS vehicle_id, 
+            make, 
+            model, 
+            plate, 
+            color
         FROM "customers"
         FULL OUTER JOIN "vehicle" 
         ON "vehicle".customer_id = "customers".id
@@ -17,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         .then(result => {
             let customer = {};
             result.rows.forEach(row => {
-                let { id, first_name, last_name, ...vehicle } = row;
+                let { id, first_name, last_name, phone, street, city, state, zip, ...vehicle } = row;
 
                 if (customer[row.id]) {
 
@@ -30,6 +43,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                         id,
                         first_name,
                         last_name,
+                        phone,
+                        street,
+                        city,
+                        state,
+                        zip,
                         vehicles: vehicle.vehicle_id ? [vehicle] : []
                     };
                 }

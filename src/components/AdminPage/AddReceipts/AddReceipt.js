@@ -71,7 +71,7 @@ class AddReceipt extends React.Component {
         <DialogContent
           className={classes.dialogComponent}
         >
-          <Grid container xs sm spacing={8}>
+          <Grid container spacing={8}>
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
@@ -89,7 +89,7 @@ class AddReceipt extends React.Component {
                 })}
               </TextField>
             </Grid>
-            <Grid item xs={12} container className={classes.overflowScroll}>
+            <Grid item xs={12} className={classes.overflowScroll}>
               {inputService}
               <Grid item xs={12}>
                 <TextField

@@ -30,7 +30,6 @@ class ManageDrawer extends React.Component {
     state = {
         open: false,
     };
-
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -134,7 +133,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         display: 'flex',
-        height: '100%',
+        minHeight: '100%',
     },
     drawer: {
         width: drawerWidth,
