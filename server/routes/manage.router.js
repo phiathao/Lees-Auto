@@ -40,6 +40,86 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
+// GET all vehicles
+router.get('/vehicles', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        SELECT 
+
+            vehicle.id AS vehicle_id, 
+            make, 
+            model, 
+            plate, 
+            color, 
+            receipts.payment_method,
+            receipts.date, 
+            receipts.description, 
+            receipts.due, 
+            receipts.id as receipt_id, 
+            services.service_type, 
+            services.amount,
+            services.id AS service_id
+
+        FROM "vehicle"
+        FULL OUTER JOIN "receipts" 
+        ON "vehicle".id = "receipts".vehicle_id
+        FULL OUTER JOIN "service_receipt"
+        ON "receipts".id = "service_receipt".receipt_id
+        FULL OUTER JOIN "services"
+        ON "service_receipt".service_id =  "services".id
+        GROUP BY vehicle.id, receipts.id, services.id;
+    `;
+    pool.query(queryString)
+        .then(result => {
+            let vehicle = {
+            };
+
+            result.rows.forEach(row => {
+                let { vehicle_id, make, model, plate, color, ...receipt } = row;
+
+                let {receipt_id, due, date, description, payment_method, ...service} = receipt;
+
+                if (vehicle[row.vehicle_id]) {
+
+                    if (receipt.receipt_id) {
+                        
+                        if (receipt && service.service_id) {
+                            vehicle[row.vehicle_id].receipts.forEach((receipt, index) => {
+                                if (receipt.receipt_id === receipt_id) {
+                                    vehicle[row.vehicle_id].receipts[index].services.push(service);
+                                }
+                            });
+                        } 
+    
+                    }
+                    
+                } else {
+                    if (receipt && service.service_id) {
+                        receipt.services = [service];
+                    }
+                    vehicle[row.vehicle_id] = {
+                        vehicle_id,
+                        make,
+                        model,
+                        plate,
+                        color,
+                        receipts: receipt.receipt_id ? [{
+                            receipt_id,
+                            due,
+                            date,
+                            description,
+                            payment_method,
+                            services: service && service.service_id ? [service] : []
+                        }] : []
+                    };
+                }
+            });
+            res.send(Object.values(vehicle));
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
+});
+
 // GET customer
 router.get('/get/customer/:id', rejectUnauthenticated, (req, res) => {
     const queryString = `

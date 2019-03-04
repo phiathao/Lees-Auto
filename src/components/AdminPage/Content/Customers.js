@@ -133,71 +133,81 @@ class ManageContent extends React.Component {
 
         return (
             <Paper className={classes.rootPadding}>
-            <Paper className={classes.root}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <h3>Manage Customers</h3>
+                <Paper className={classes.root}>
+                    <Grid container className={classes.viewInfoContainer}>
+                        {this.props.reduxState.infoView === 0 ? <Grid item xs={12}>
+                            <Typography variant="h5" align="center">Select below to view for more information</Typography>
+                        </Grid>
+                        : <></>
+                        }
                     </Grid>
-                    <Grid item container xs={12}>
-                        <TextField
-                            id="filled-search"
-                            label="Search"
-                            type="search"
-                            margin="normal"
-                            variant="filled"
-                        />
-                    </Grid>
-                    <Grid item container xs={12} >
-                        {this.props.reduxState.customersData.map((customer, i) => {
-                            return (
-                                <ExpansionPanel
-                                    key={customer.id}
-                                    className={classNames(classes.root, {[classes.isActive]: expanded === `${customer.id}`})}
-                            
-                                    expanded={expanded === `${customer.id}`}
-                                    onChange={this.handleChange(`${customer.id}`)}
-                                >
-                                    <ExpansionPanelSummary
-                                        className={classes.row}
-                                        expandIcon={<ExpandMoreIcon />}>
-                                        <Typography className={classes.columnH}>{customer.first_name}</Typography>
-                                        <Typography className={classes.columnH}>{customer.last_name}</Typography>
-                                        <Typography className={classes.columnH}>
-                                            <IconButton className={classes.icon}><InfoIcon /></IconButton>
-                                            <IconButton className={classes.icon}><DeleteIcon /></IconButton>
-                                        </Typography>
-                                    </ExpansionPanelSummary>
-                                    {customer.vehicles.length === 0 ?
-                                        <ExpansionPanelDetails className={classes.rowSub} >
-                                            <Typography>
-                                                Customer have no vehicle
+                </Paper>
+                <Paper className={classes.root}>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Typography variant="h5" align="center">Manage Customers</Typography>
+                        </Grid>
+                        <Grid item container xs={12} className={classes.searchPadding}>
+                            <TextField
+                                fullWidth
+                                id="filled-search"
+                                label="Search"
+                                type="search"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item container xs={12} className={classes.overflowScroll}>
+                            {this.props.reduxState.customersData.map((customer, i) => {
+                                return (
+                                    <ExpansionPanel
+                                        key={customer.id}
+                                        className={classNames(classes.root, { [classes.isActive]: expanded === `${customer.id}` })}
+                                        expanded={expanded === `${customer.id}`}
+                                        onChange={this.handleChange(`${customer.id}`)}
+                                    >
+                                        <ExpansionPanelSummary
+                                            className={classes.row}
+                                            expandIcon={<ExpandMoreIcon />}>
+                                            <Typography className={classes.columnH}>{customer.first_name}</Typography>
+                                            <Typography className={classes.columnH}>{customer.last_name}</Typography>
+                                            <Typography className={classes.columnH}>
+                                                <IconButton className={classes.icon}><InfoIcon /></IconButton>
+                                                <IconButton className={classes.icon}><DeleteIcon /></IconButton>
                                             </Typography>
-                                        </ExpansionPanelDetails>
-                                        : <div>
-                                            {customer.vehicles.map(vehicle => {
-                                                return (
-                                                    <ExpansionPanelDetails
-                                                        className={classes.rowSub}
-                                                        key={vehicle.vehicle_id}
-                                                    >
-                                                        <Typography className={classes.column}>
-                                                            {`${vehicle.color} ${vehicle.make} ${vehicle.model}`}
-                                                        </Typography>
-                                                        <Typography className={classes.column}>
-                                                            {vehicle.plate}
-                                                        </Typography>
-                                                    </ExpansionPanelDetails>
-                                                )
-                                            })
-                                            }
-                                        </div>
-                                    }
+                                        </ExpansionPanelSummary>
+                                        {customer.vehicles.length === 0 ?
+                                            <ExpansionPanelDetails className={classes.rowSub} >
+                                                <Typography>
+                                                    Customer have no vehicle
+                                            </Typography>
+                                            </ExpansionPanelDetails>
+                                            : <div>
+                                                {customer.vehicles.map(vehicle => {
+                                                    return (
+                                                        <ExpansionPanelDetails
+                                                            className={classes.rowSub}
+                                                            key={vehicle.vehicle_id}
+                                                        >
+                                                            <Typography className={classes.column}>
+                                                                {`${vehicle.color} ${vehicle.make} ${vehicle.model}`}
+                                                            </Typography>
+                                                            <Typography className={classes.column}>
+                                                                {vehicle.plate}
+                                                            </Typography>
+                                                        </ExpansionPanelDetails>
+                                                    )
+                                                })
+                                                }
+                                            </div>
+                                        }
 
-                                </ExpansionPanel>
-                            )
-                        })}
+                                    </ExpansionPanel>
+                                )
+                            })}
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Paper >
                 <AddCustomerDialog
                     open={this.state.addCustomer}
                     handleClose={this.closeAddCustomer}
@@ -235,7 +245,6 @@ class ManageContent extends React.Component {
                         )
                     })}
                 </SpeedDial>
-            </Paper >
             </Paper>
         )
     }
@@ -244,12 +253,21 @@ class ManageContent extends React.Component {
 const styles = theme => ({
     root: {
         width: '100%',
-        // margin: theme.spacing.unit * 3,
+    },
+    overflowScroll: {
+        overflow: 'scroll',
+        maxHeight: theme.spacing.unit * 30,
     },
     rootPadding: {
         padding: theme.spacing.unit * 3,
         height: '100%',
         backgroundColor: '#eee',
+        '& > div': {
+            marginBottom: theme.spacing.unit *3,
+        },
+    },
+    viewInfoContainer: {
+        minHeight: theme.spacing.unit * 30,
     },
     isActive: {
         '&>div:first-child': {
@@ -263,6 +281,10 @@ const styles = theme => ({
     columnH: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
+    },
+    searchPadding: {
+        paddingLeft: theme.spacing.unit * 2,
+        paddingRight: theme.spacing.unit * 2,
     },
     row: {
         '&:hover': {

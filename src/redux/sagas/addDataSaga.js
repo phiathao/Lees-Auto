@@ -15,7 +15,7 @@ function* addDataVehicle(action) {
   try {
     yield axios.post(`/api/manage/add/vehicle/`, action.payload);
     yield put({type: 'CLEAR_NEW_VEHICLE'});
-    yield put({type: 'FETCH_DATA_CUSTOMER', payload: action.payload.customer_id}); // refresh customer info after redirect
+    // yield put({type: 'FETCH_DATA_CUSTOMER', payload: action.payload.customer_id}); // refresh customer info after redirect
     yield put({type: 'FETCH_DATA'});
   } catch (error) {
       console.log('Error with adding vehicle:', error);
