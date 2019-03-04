@@ -78,14 +78,14 @@ class AddReceipt extends React.Component {
                 select
                 label="Vehicle"
                 type="text"
-                value={this.props.reduxState.newVehicle.vehicle_id}
+                value={this.props.reduxState.newReceipt.vehicle_id}
                 className={classes.dialogTextField}
                 margin="normal"
                 variant="outlined"
                 onChange={this.handleCustomerChange}
               >
-                {this.props.reduxState.customersData.map(customer => {
-                  return <MenuItem key={customer.id} value={customer.id}>{customer.first_name} {customer.last_name}</MenuItem>
+                {this.props.reduxState.vehiclesData.map(vehicle => {
+                  return vehicle.vehicle_id && <MenuItem key={vehicle.vehicle_id} value={vehicle.vehicle_id}>{vehicle.make} {vehicle.model} {vehicle.year} {vehicle.first_name} {vehicle.last_name}</MenuItem>
                 })}
               </TextField>
             </Grid>
@@ -99,7 +99,7 @@ class AddReceipt extends React.Component {
                   margin="normal"
                   variant="outlined"
                   className={classes.dialogTextField}
-                  onChange={this.handleChange('year')}
+                  onChange={this.handleChange('description')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,7 +110,7 @@ class AddReceipt extends React.Component {
                   margin="normal"
                   variant="outlined"
                   className={classes.dialogTextField}
-                  onChange={this.handleChange('color')}
+                  onChange={this.handleChange('due')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,7 +121,7 @@ class AddReceipt extends React.Component {
                   margin="normal"
                   variant="outlined"
                   className={classes.dialogTextField}
-                  onChange={this.handleChange('other')}
+                  onChange={this.handleChange('payment_method')}
                 />
               </Grid>
             </Grid>

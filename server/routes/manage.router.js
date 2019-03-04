@@ -68,6 +68,8 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             model, 
             plate, 
             color, 
+            other,
+            to_char("year", 'YYYY') AS "year",
             receipts.payment_method,
             receipts.date, 
             receipts.description, 
@@ -75,7 +77,10 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             receipts.id as receipt_id, 
             services.service_type, 
             services.amount,
-            services.id AS service_id
+            services.id AS service_id,
+            customers.id AS customer_id,
+            first_name,
+            last_name
 
         FROM "vehicle"
         FULL OUTER JOIN "receipts" 
@@ -84,7 +89,9 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
         ON "receipts".id = "service_receipt".receipt_id
         FULL OUTER JOIN "services"
         ON "service_receipt".service_id =  "services".id
-        GROUP BY vehicle.id, receipts.id, services.id;
+        FULL OUTER JOIN "customers"
+        ON "vehicle".customer_id = "customers".id
+        GROUP BY vehicle.id, receipts.id, services.id, customers.id;
     `;
     pool.query(queryString)
         .then(result => {
@@ -92,7 +99,7 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             };
 
             result.rows.forEach(row => {
-                let { vehicle_id, make, model, plate, color, ...receipt } = row;
+                let { vehicle_id, make, model, year, plate, color, other, customer_id, first_name, last_name, ...receipt } = row;
 
                 let {receipt_id, due, date, description, payment_method, ...service} = receipt;
 
@@ -120,6 +127,11 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
                         model,
                         plate,
                         color,
+                        other,
+                        year,
+                        customer_id,
+                        first_name,
+                        last_name,
                         receipts: receipt.receipt_id ? [{
                             receipt_id,
                             due,

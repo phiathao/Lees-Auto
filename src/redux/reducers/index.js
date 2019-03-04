@@ -9,6 +9,7 @@ import header from './headerReducer';
 import drawer from './drawerReducer';
 
 import customersData from './customersReducer';
+import vehiclesData from './vehiclesReducer';
 import infoView from './viewInfoReducer';
 
 import viewCustomer from './viewCustomerReducer';
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
   featureService, //
   services, // 
 
-  customersData, // admin handle customers, vehicles
+  customersData, // admin customers
+  vehiclesData, // admin vehicles
   infoView, // admin view info @ manage customers page
 
   newCustomer, // admin adding customer

@@ -30,7 +30,7 @@ import AddVehicleDialog from '../AddVehicle/AddVehicle';
 import AddReceiptDialog from '../AddReceipts/AddReceipt';
 
 import Grow from '@material-ui/core/Grow';
-
+import Collapse from '@material-ui/core/Collapse';
 
 
 class ManageContent extends React.Component {
@@ -133,6 +133,19 @@ class ManageContent extends React.Component {
             payload: this.props.reduxState.customersData.filter(person => person.id === id),
         })
     }
+    handleSelectVehicle = (id) => {
+        this.props.dispatch({
+            type: 'INFO_TO_VIEW',
+            payload: 2,
+        })
+        this.props.dispatch({
+            type: 'SET_VIEW_VEHICLE',
+            payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
+        })
+    }
+
+
+    // ---- End View Info
 
     render() {
         const { classes } = this.props
@@ -147,123 +160,201 @@ class ManageContent extends React.Component {
 
         return (
             <Paper className={classes.rootPadding}>
-                {this.props.reduxState.infoView === 0 ? <></>
-                    :
-                    this.props.reduxState.infoView === 1 &&
-                    <Grow
-                        in={this.props.reduxState.infoView === 1}
-                        style={{ transformOrigin: '0 0 0' }}
-                        {...(this.props.reduxState.infoView === 1 ? { timeout: 1000 } : {})}
-                    >
-                        <Paper className={classNames(classes.root, classes.viewInfoContainer)}>
-                            <Grid container spacing={8}>
-                                <Grid item xs={12} sm={12}>
-                                    <Typography variant='h5' align='center'>Customer Information</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="First Name"
-                                        type="search"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].first_name}
-                                        onChange={this.handleChange('first_name')}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="Last Name"
-                                        type="search"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].last_name}
-                                        onChange={this.handleChange('last_name')}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={12}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="Phone Number"
-                                        type="search"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].phone}
-                                        onChange={this.handleChange('phone')}
-                                        inputProps={{
-                                            maxLength: 10,
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={12}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="Street Address"
-                                        type="search"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].street}
-                                        onChange={this.handleChange('street')}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="City"
-                                        type="search"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].city}
-                                        onChange={this.handleChange('city')}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="Zip Code"
-                                        type="text"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].zip}
-                                        onChange={this.handleChange('zip')}
-                                        inputProps={{
-                                            maxLength: 5,
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={2}>
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        label="State"
-                                        type="text"
-                                        margin="normal"
-                                        variant="outlined"
-                                        className={classes.dialogTextField}
-                                        value={this.props.reduxState.viewCustomer[0].state}
-                                        onChange={this.handleChange('state')}
-                                        inputProps={{
-                                            maxLength: 2,
-                                        }}
-                                    />
-                                </Grid>
+                <Collapse
+                    in={this.props.reduxState.infoView === 2}
+                    timeout={750}
+                >
+                    <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 2 })}>
+                        <Grid container spacing={8}>
+                            <Grid item xs={12} sm={12}>
+                                <Typography variant='h5' align='center'>Vehicle Information</Typography>
                             </Grid>
-                        </Paper>
-                    </Grow>
-                }
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Customer"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    value={this.props.reduxState.viewVehicle ? `${this.props.reduxState.viewVehicle[0].first_name} ${this.props.reduxState.viewVehicle[0].last_name}` : ''}
+                                    className={classes.dialogTextField}
+                                >
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Make"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].make : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Model"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].model : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Year"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].year : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Plate"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].plate : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Color"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].color : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Other"
+                                    multiline
+                                    rows={3}
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].other : ''}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Collapse>
+                <Collapse
+                    in={this.props.reduxState.infoView === 1}
+                    timeout={750}
+                >
+                    <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 1 })}>
+                        <Grid container spacing={8}>
+                            <Grid item xs={12} sm={12}>
+                                <Typography variant='h5' align='center'>Customer Information</Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="First Name"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].first_name : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Last Name"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].last_name : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Phone Number"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].phone : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Street Address"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].street : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="City"
+                                    type="search"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].city : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="Zip Code"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].zip : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={2}>
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    label="State"
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    className={classes.dialogTextField}
+                                    value={this.props.reduxState.viewCustomer ? this.props.reduxState.viewCustomer[0].state : ''}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Collapse>
                 <Paper className={classes.root}>
                     <Grid container>
                         <Grid item xs={12}>
@@ -312,6 +403,7 @@ class ManageContent extends React.Component {
                                                         <ExpansionPanelDetails
                                                             className={classes.rowSub}
                                                             key={vehicle.vehicle_id}
+                                                            onClick={() => this.handleSelectVehicle(vehicle.vehicle_id)}
                                                         >
                                                             <Typography className={classes.column}>
                                                                 {`${vehicle.color} ${vehicle.make} ${vehicle.model}`}
@@ -386,9 +478,9 @@ const styles = theme => ({
         padding: theme.spacing.unit * 3,
         height: '100%',
         backgroundColor: '#eee',
-        '& > div': {
-            marginBottom: theme.spacing.unit * 3,
-        },
+    },
+    paperIsActive: {
+        marginBottom: theme.spacing.unit * 3,
     },
     dialogTextField: {
         marginTop: theme.spacing.unit - 3,
