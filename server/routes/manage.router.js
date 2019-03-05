@@ -244,7 +244,7 @@ router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
     `;
     pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.id])
         .then(result => {
-            res.send(result.rows);
+            res.sendStatus(200);
         }).catch(error => {
             console.log(error)
             res.sendStatus(500);

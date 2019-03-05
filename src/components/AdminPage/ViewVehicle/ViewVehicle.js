@@ -11,13 +11,86 @@ import classNames from 'classnames';
 
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Clear';
+
+
 
 class ViewVehicle extends React.Component {
+    state = {
+        edit: false
+    }
+    componentWillUpdate(newProps, newState) {
+        if (newState.edit === true
+            && this.state.edit === true
+            && (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id
+                || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
+            this.setState({
+                edit: false,
+            })
+        }
+    }
+    handleEdit = () => {
+        this.setState({
+            edit: !this.state.edit
+        });
+    }
+    handleChange = (property) => (event) => {
+        this.props.dispatch({
+            type: 'EDIT_VEHICLE',
+            payload: { ...this.props.reduxState.viewVehicle, [property]: event.target.value }
+        });
+    }
+    handleCancel = (id) => {
+        this.props.dispatch({
+            type: 'SET_VIEW_VEHICLE',
+            payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
+        });
+        this.handleEdit();
+    }
+    handleSave = () => {
+        const {
+            make,
+            model,
+            year,
+            plate,
+            color,
+            other,
+            vehicle_id,
+        } = this.props.reduxState.viewVehicle;
+        this.props.dispatch({
+            type: 'UPDATE_VEHICLE',
+            payload: {
+                make,
+                model,
+                year,
+                plate,
+                color,
+                other,
+                id: vehicle_id,
+            },
+        });
+        this.handleEdit();
+    }
     render() {
         const { classes } = this.props
         return (
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 2 })}>
                 <Grid container spacing={8}>
+                    {!this.state.edit ?
+                        <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
+                            <EditIcon />
+                        </Fab>
+                        :
+                        <>
+                            <Fab color="primary" aria-label="Cancel" className={classes.infoCancel} onClick={() => this.handleCancel(this.props.reduxState.viewVehicle.vehicle_id)}>
+                                <CancelIcon />
+                            </Fab>
+                            <Fab color="secondary" aria-label="Save" className={classes.infoFab} onClick={this.handleSave}>
+                                <CheckIcon />
+                            </Fab>
+                        </>
+                    }
                     <Grid item xs={12} sm={12}>
                         <Typography variant='h5' align='center'>Vehicle Information</Typography>
                     </Grid>
@@ -30,74 +103,94 @@ class ViewVehicle extends React.Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? `${this.props.reduxState.viewVehicle[0].first_name} ${this.props.reduxState.viewVehicle[0].last_name}` : ''}
+                            value={this.props.reduxState.viewVehicle ? `${this.props.reduxState.viewVehicle.first_name} ${this.props.reduxState.viewVehicle.last_name}` : ''}
                         >
                         </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Make"
                             type="text"
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].make : ''}
+                            onChange={this.handleChange('make')}
+                            value={this.props.reduxState.viewVehicle.make}
+                            InputLabelProps={this.props.reduxState.viewVehicle.make && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Model"
                             type="text"
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].model : ''}
+                            onChange={this.handleChange('model')}
+                            value={this.props.reduxState.viewVehicle.model}
+                            InputLabelProps={this.props.reduxState.viewVehicle.model && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Year"
                             type="text"
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].year : ''}
+                            onChange={this.handleChange('year')}
+                            value={this.props.reduxState.viewVehicle.year}
+                            InputLabelProps={this.props.reduxState.viewVehicle.year && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Plate"
                             type="text"
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].plate : ''}
+                            onChange={this.handleChange('plate')}
+                            value={this.props.reduxState.viewVehicle.plate}
+                            InputLabelProps={this.props.reduxState.viewVehicle.plate && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Color"
                             type="text"
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].color : ''}
+                            onChange={this.handleChange('color')}
+                            value={this.props.reduxState.viewVehicle.color}
+                            InputLabelProps={this.props.reduxState.viewVehicle.color && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
                             fullWidth
-                            disabled
+                            disabled={!this.state.edit}
                             label="Other"
                             multiline
                             rows={3}
@@ -105,7 +198,11 @@ class ViewVehicle extends React.Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewVehicle ? this.props.reduxState.viewVehicle[0].other : ''}
+                            onChange={this.handleChange('other')}
+                            value={this.props.reduxState.viewVehicle.other}
+                            InputLabelProps={this.props.reduxState.viewVehicle.other && {
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                 </Grid>
@@ -131,9 +228,16 @@ const styles = theme => ({
     },
     infoFab: {
         position: 'absolute',
-        top: theme.spacing.unit * 2,
+        top: theme.spacing.unit * .5,
         right: theme.spacing.unit * 2,
-    }
+        transform: `scale(${theme.spacing.unit * .1})`,
+    },
+    infoCancel: {
+        position: 'absolute',
+        top: theme.spacing.unit * .5,
+        right: theme.spacing.unit * 10,
+        transform: `scale(${theme.spacing.unit * .1})`,
+    },
 })
 
 const mapStateToProps = reduxState => ({

@@ -27,21 +27,21 @@ class CustomerTable extends React.Component {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
             payload: 1,
-        })
+        });
         this.props.dispatch({
             type: 'SET_VIEW_CUSTOMER',
             payload: this.props.reduxState.customersData.filter(person => person.id === id),
-        })
+        });
     }
     handleSelectVehicle = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
             payload: 2,
-        })
+        });
         this.props.dispatch({
             type: 'SET_VIEW_VEHICLE',
             payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
-        })
+        });
     }
     // -- End of Handle View Info
 
@@ -79,7 +79,7 @@ class CustomerTable extends React.Component {
         let emptyRow = []
         if (emptyRows > 0) {
             for (let i = 0; i < emptyRows; i++) {
-                emptyRow.push(<ExpansionPanel expanded={false}><ExpansionPanelSummary /></ExpansionPanel>)
+                emptyRow.push(<ExpansionPanel expanded={false} key={`empty ${i}`}><ExpansionPanelSummary /></ExpansionPanel>)
             }
         }
 

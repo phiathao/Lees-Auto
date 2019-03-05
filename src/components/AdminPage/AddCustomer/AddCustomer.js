@@ -28,12 +28,12 @@ class AddCustomer extends React.Component {
       this.props.dispatch({
         type: 'SET_NEW_CUSTOMER',
         payload: { ...this.props.reduxState.newCustomer, [propertyName]: event.target.value.toUpperCase() }
-      })
+      });
     } else {
       this.props.dispatch({
         type: 'SET_NEW_CUSTOMER',
         payload: { ...this.props.reduxState.newCustomer, [propertyName]: event.target.value }
-      })
+      });
     }
   }
   render() {
@@ -55,7 +55,7 @@ class AddCustomer extends React.Component {
               <TextField
                 fullWidth
                 label="First Name"
-                type="search"
+                type="text"
                 margin="normal"
                 variant="outlined"
                 className={classes.dialogTextField}
@@ -67,7 +67,7 @@ class AddCustomer extends React.Component {
               <TextField
                 fullWidth
                 label="Last Name"
-                type="search"
+                type="text"
                 margin="normal"
                 variant="outlined"
                 className={classes.dialogTextField}
@@ -79,7 +79,7 @@ class AddCustomer extends React.Component {
               <TextField
                 fullWidth
                 label="Phone Number"
-                type="search"
+                type="text"
                 margin="normal"
                 variant="outlined"
                 className={classes.dialogTextField}
@@ -94,7 +94,7 @@ class AddCustomer extends React.Component {
               <TextField
                 fullWidth
                 label="Street Address"
-                type="search"
+                type="text"
                 margin="normal"
                 variant="outlined"
                 className={classes.dialogTextField}
@@ -106,7 +106,7 @@ class AddCustomer extends React.Component {
               <TextField
                 fullWidth
                 label="City"
-                type="search"
+                type="text"
                 margin="normal"
                 variant="outlined"
                 className={classes.dialogTextField}
