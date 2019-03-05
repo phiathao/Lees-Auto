@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+
 import Slider from 'react-slick';
 import Card from '@material-ui/core/Card';
 import Services from '../Services/Services';
-import { withStyles } from '@material-ui/core/styles';
-import Styles from '../Styles/Styles';
-
 
 
 // this could also be written with destructuring parameters as:
@@ -31,7 +31,7 @@ class HomePage extends React.Component {
     const { classes } = this.props
     return (
       <div>
-        <Services/>
+        <Services />
         <Slider {...setting} className={classes.slider}>
           <div className={classes.sliderDiv}>
             <Card className={classes.sliderCard}>1</Card>
@@ -64,5 +64,19 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
+const styles = theme => ({
+  slider: {
+    padding: 50,
+    backgroundColor: "#f2f2f2",
+  },
+  sliderCard: {
+    minHeight: 50,
+  },
+  sliderDiv: {
+    paddingRight: 10,
+    paddingLeft: 10,
+  },
+});
+
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(withStyles(Styles)(HomePage));
+export default connect(mapStateToProps)(withStyles(styles)(HomePage));

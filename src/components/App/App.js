@@ -34,8 +34,8 @@ class App extends Component {
     return (
       <Router>
         <div className={classes.height100}>
-        <CssBaseline />
-          <Header/>
+          <CssBaseline />
+          <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -75,24 +75,25 @@ class App extends Component {
               path="/home"
               component={HomePage}
             />
-            {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
             <ProtectedRoute
               path="/manage"
               component={ManagePage}
             />
-            {/* <ProtectedRoute
-              path="/manage/vehicle/:id"
-              component={VehiclePage}
-            /> */}
+
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <Error />} />
           </Switch>
-          {/* <Footer /> */}
+
         </div>
       </Router>
     )
   }
 }
 
-export default connect()(withStyles(Styles)(App));
+const styles = theme => ({
+  height100: {
+    height: '100vh',
+  }
+});
+
+export default connect()(withStyles(styles)(App));

@@ -1,15 +1,13 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
+
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Styles from '../../Styles/Styles';
+
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -175,4 +173,18 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(AddVehicle));
+const styles = theme => ({
+  cancelMargin: {
+    marginRight: theme.spacing.unit,
+  },
+  dialogTextField: {
+    marginTop: theme.spacing.unit - 3,
+    marginBottom: theme.spacing.unit - 8,
+  },
+  dialogComponent: {
+    flexGrow: 1,
+    maxWidth: 700,
+  },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(AddVehicle));

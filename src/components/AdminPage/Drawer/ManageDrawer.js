@@ -1,30 +1,21 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-
-// import Styles from '../../Styles/Styles';
 import ListItem from '@material-ui/core/ListItem';
-
 import ListItemText from '@material-ui/core/ListItemText';
-
-
-import { connect } from 'react-redux';
 
 import Appointments from '../Content/Appointments';
 import Customers from '../Content/Customers';
 import Sales from '../Content/Sales';
 import Services from '../Content/Services';
 import Incomes from '../Content/Incomes';
-
-import VehiclePage from '../Vehicle/Vehicle';
-import CustomerPage from '../Customer/Customer';
-import ProtectedRoute from '../../ProtectedRoute/ProtectedRoute';
-
-
 
 class ManageDrawer extends React.Component {
     state = {
@@ -113,15 +104,7 @@ class ManageDrawer extends React.Component {
                         : this.props.reduxState.drawer === 2 ? <Customers />
                             : this.props.reduxState.drawer === 3 ? <Services />
                                 : this.props.reduxState.drawer === 4 ? <Sales />
-                                    : this.props.reduxState.drawer === 5 ? <Incomes />
-                                        : this.props.reduxState.drawer === 6 ? <ProtectedRoute
-                                            path="/manage/vehicle/:id"
-                                            component={VehiclePage}
-                                        />
-                                            : this.props.reduxState.drawer === 7 && <ProtectedRoute
-                                                path="/manage/customer/:id"
-                                                component={CustomerPage}
-                                            />
+                                    : this.props.reduxState.drawer === 5 && <Incomes />
                     }
                 </main>
             </div>

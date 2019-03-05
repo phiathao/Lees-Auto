@@ -1,21 +1,20 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Styles from '../../Styles/Styles';
-import Grid from '@material-ui/core/Grid';
-import Service from './Service';
 
+import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import AddIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import Tooltip from '@material-ui/core/Tooltip';
+
+import Service from './Service';
 
 class AddReceipt extends React.Component {
   state = ({
@@ -170,4 +169,19 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(AddReceipt));
+const styles = theme => ({
+  dialogTextField: {
+    marginTop: theme.spacing.unit - 3,
+    marginBottom: theme.spacing.unit - 8,
+  },
+  dialogComponent: {
+    flexGrow: 1,
+    maxWidth: 700,
+  },
+  overflowScroll: {
+    overflow: 'scroll',
+    maxHeight: theme.spacing.unit * 50,
+  },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(AddReceipt));

@@ -1,21 +1,14 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core';
-import Styles from '../../Styles/Styles';
 
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
 class AddCustomer extends React.Component {
   handleSubmit = () => {
@@ -175,4 +168,18 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(AddCustomer));
+const styles = theme => ({
+  cancelMargin:{
+    marginRight: theme.spacing.unit,
+  },
+  dialogTextField: {
+    marginTop: theme.spacing.unit - 3,
+    marginBottom: theme.spacing.unit - 8,
+  },
+  dialogComponent: {
+    flexGrow: 1,
+    maxWidth: 700,
+  },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(AddCustomer));

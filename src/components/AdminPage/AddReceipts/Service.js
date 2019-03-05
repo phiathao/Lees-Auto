@@ -1,8 +1,9 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import Styles from '../../Styles/Styles';
+
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
@@ -44,4 +45,11 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(Service));
+const styles = theme => ({
+    dialogTextField: {
+        marginTop: theme.spacing.unit - 3,
+        marginBottom: theme.spacing.unit - 8,
+      },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Service));

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import Styles from '../Styles/Styles';
 
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 class Header extends React.Component {
 
@@ -66,4 +67,13 @@ const mapStateToProps = state => ({
   header: state.header,
 });
 
-export default connect(mapStateToProps)(withStyles(Styles)(Header));
+const styles = theme => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  appTab: {
+    minWidth: 'auto',
+  },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));
