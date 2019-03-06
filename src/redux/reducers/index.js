@@ -14,7 +14,7 @@ import infoView from './viewInfoReducer';
 
 import viewCustomer from './viewCustomerReducer';
 import viewVehicle from './viewVehicleReducer';
-import viewReceipt from './viewReceiptReducer';
+import viewReceipts from './viewReceiptReducer';
 
 import newCustomer from './newCustomerReducer';
 import newVehicle from './newVehicleReducer';
@@ -49,7 +49,7 @@ const rootReducer = combineReducers({
   vehicleReceipts, // vehicle receipts
   
   viewCustomer, // admin who to view
-  viewReceipt,
+  viewReceipts,
   viewVehicle, // viewing the vehicle
 
 });

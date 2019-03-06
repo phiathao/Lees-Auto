@@ -13,8 +13,8 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Clear';
-
-
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class ViewVehicle extends React.Component {
     state = {
@@ -72,23 +72,46 @@ class ViewVehicle extends React.Component {
         });
         this.handleEdit();
     }
+    handleViewReceipts = () => {
+        this.props.dispatch({
+            type: 'INFO_TO_VIEW',
+            payload: 3,
+        });
+        this.props.dispatch({
+            type: 'SET_VIEW_RECEIPTS',
+            payload: this.props.reduxState.viewVehicle.receipts,
+        });
+    }
     render() {
         const { classes } = this.props
         return (
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 2 })}>
                 <Grid container spacing={8}>
                     {!this.state.edit ?
-                        <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
-                            <EditIcon />
-                        </Fab>
+                        <>
+                            <Tooltip title="View Receipts">
+                                <Fab color="primary" aria-label="View Receipts" className={classes.infoCancel} onClick={this.handleViewReceipts}>
+                                    <ReceiptIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="Edit">
+                                <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
+                                    <EditIcon />
+                                </Fab>
+                            </Tooltip>
+                        </>
                         :
                         <>
-                            <Fab color="primary" aria-label="Cancel" className={classes.infoCancel} onClick={() => this.handleCancel(this.props.reduxState.viewVehicle.vehicle_id)}>
-                                <CancelIcon />
-                            </Fab>
-                            <Fab color="secondary" aria-label="Save" className={classes.infoFab} onClick={this.handleSave}>
-                                <CheckIcon />
-                            </Fab>
+                            <Tooltip title="Cancel Change">
+                                <Fab color="primary" aria-label="Cancel" className={classes.infoCancel} onClick={() => this.handleCancel(this.props.reduxState.viewVehicle.vehicle_id)}>
+                                    <CancelIcon />
+                                </Fab>
+                            </Tooltip>
+                            <Tooltip title="Save Change">
+                                <Fab color="secondary" aria-label="Save" className={classes.infoFab} onClick={this.handleSave}>
+                                    <CheckIcon />
+                                </Fab>
+                            </Tooltip>
                         </>
                     }
                     <Grid item xs={12} sm={12}>

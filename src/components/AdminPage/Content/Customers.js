@@ -8,6 +8,7 @@ import Collapse from '@material-ui/core/Collapse';
 
 import ViewVehicleInfo from '../ViewVehicle/ViewVehicle';
 import ViewCustomerInfo from '../ViewCustomer/ViewCustomer';
+import ViewReceipts from '../ViewReceipts/ViewReceipts';
 import CustomerTable from '../CustomerTable/CustomerTable';
 import SpeedDial from '../SpeedDial/SpeedDial';
 
@@ -19,6 +20,13 @@ class ManageContent extends React.Component {
 
         return (
             <Paper className={classes.rootPadding}>
+
+                <Collapse
+                    in={this.props.reduxState.infoView === 3}
+                    timeout={750}
+                >
+                    <ViewReceipts />
+                </Collapse>
 
                 <Collapse
                     in={this.props.reduxState.infoView === 2}

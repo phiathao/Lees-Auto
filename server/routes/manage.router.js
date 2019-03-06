@@ -37,7 +37,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                     if (vehicle.vehicle_id) {
                         customer[row.id].vehicles.push(vehicle);
                     }
-                    
+
                 } else {
                     customer[row.id] = {
                         id,
@@ -97,26 +97,34 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
         .then(result => {
             let vehicle = {
             };
-
             result.rows.forEach(row => {
                 let { vehicle_id, make, model, year, plate, color, other, customer_id, first_name, last_name, ...receipt } = row;
 
-                let {receipt_id, due, date, description, payment_method, ...service} = receipt;
+                let { receipt_id, due, date, description, payment_method, ...service } = receipt;
 
                 if (vehicle[row.vehicle_id]) {
 
                     if (receipt.receipt_id) {
-                        
+
                         if (receipt && service.service_id) {
                             vehicle[row.vehicle_id].receipts.forEach((receipt, index) => {
                                 if (receipt.receipt_id === receipt_id) {
                                     vehicle[row.vehicle_id].receipts[index].services.push(service);
+                                } else {
+                                    vehicle[row.vehicle_id].receipts.push({
+                                        receipt_id,
+                                        due,
+                                        date,
+                                        description,
+                                        payment_method,
+                                        services: [service]
+                                    })
                                 }
                             });
-                        } 
-    
+                        }
+
                     }
-                    
+
                 } else {
                     if (receipt && service.service_id) {
                         receipt.services = [service];

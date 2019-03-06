@@ -19,9 +19,7 @@ import Contact from '../Contact/Contact';
 import ManagePage from '../AdminPage/AdminPage';
 import LoginPage from '../LoginPage/LoginPage';
 import ServicesAll from '../ServicesAll/ServicesAll';
-import Styles from '../Styles/Styles';
 import Error from '../Error/404';
-import VehiclePage from '../AdminPage/Customer/CustomerVehicle/Vehicle';
 
 class App extends Component {
 
