@@ -19,6 +19,7 @@ class AddCustomer extends React.Component {
       }); // add some type of confirmation or notification that customer is added
       alert(this.props.reduxState.newCustomer.first_name + ' added');
       this.props.history.push('/manage');
+      this.props.handleClose(); // close dialog
     } else {
       alert('not a valid customer');
     }
@@ -36,13 +37,19 @@ class AddCustomer extends React.Component {
       });
     }
   }
+  handleClose = () => {
+    this.props.dispatch({
+      type: 'CLEAR_NEW_CUSTOMER',
+    });
+    this.props.handleClose()
+  }
   render() {
     const { classes } = this.props;
     return (
       <Dialog
         maxWidth='lg'
         open={this.props.open}
-        onClose={this.props.handleClose}
+        onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle align="center">New Customer
@@ -153,7 +160,7 @@ class AddCustomer extends React.Component {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={this.props.handleClose}
+                onClick={this.handleClose}
                 className={classes.cancelMargin}
               >Cancel</Button>
             </Grid>

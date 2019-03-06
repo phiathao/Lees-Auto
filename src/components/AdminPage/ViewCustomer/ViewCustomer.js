@@ -14,15 +14,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Clear';
 
+import AddVehicleDialog from '../AddVehicle/AddVehicle';
+
 class ViewCustomer extends React.Component {
     state = {
         edit: false,
+        addVehicle: false,
     }
     componentWillUpdate(newProps, newState) {
         if (newState.edit === true
             && this.state.edit === true
             && (newProps.reduxState.viewCustomer.id !== this.props.reduxState.viewCustomer.id
-                || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
+                || newProps.reduxState.infoView.view !== this.props.reduxState.infoView.view)) {
             this.setState({
                 edit: false,
             })
@@ -72,12 +75,37 @@ class ViewCustomer extends React.Component {
         });
         this.handleEdit();
     }
+
+    // ---- Add Vehicle Dialog
+    openAddVehicle = () => {
+        this.setState({
+            addVehicle: true
+        })
+    }
+    closeAddVehicle = () => {
+        this.setState({
+            addVehicle: false
+        })
+    }
+    // ---- End of Add Vehicle Dialog
+
+    handleSelectVehicle = (id) => {
+        this.props.dispatch({
+            type: 'INFO_TO_VIEW',
+            payload: { ...this.props.reduxState.infoView, view: 2 },
+        });
+        this.props.dispatch({
+            type: 'SET_VIEW_VEHICLE',
+            payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
+        });
+    }
+
     render() {
         const { classes } = this.props
         const { id } = this.props.reduxState.viewCustomer
 
         return (
-            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 1 })}>
+            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView.view === 1 })}>
                 <Grid container spacing={8}>
                     {!this.state.edit ?
                         <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
@@ -208,7 +236,22 @@ class ViewCustomer extends React.Component {
                             }}
                         />
                     </Grid>
+                    <Grid item xs={12} sm={12}>
+                        {this.props.reduxState.viewCustomer.id && this.props.reduxState.viewCustomer.vehicles.map(vehicle => {
+                            return (
+                                <Grid item xs={12} sm={12} key={vehicle.vehicle_id} className={classes.gridPad}>
+                                    <div className={classes.divContainer} onClick={() => this.handleSelectVehicle(vehicle.vehicle_id)}>
+                                        <Typography className={classes.divContent}>{vehicle.year} {vehicle.make} {vehicle.model} {vehicle.plate}</Typography>
+                                    </div>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Grid>
+                <AddVehicleDialog
+                    open={this.state.addVehicle}
+                    handleClose={this.closeAddVehicle}
+                />
             </Paper>
         )
     }
@@ -241,6 +284,23 @@ const styles = theme => ({
         right: theme.spacing.unit * 10,
         transform: `scale(${theme.spacing.unit * .1})`,
     },
+    divContainer: {
+        borderStyle: 'solid',
+        borderColor: 'rgba( 176,  176,  176, .5)',
+        borderWidth: '1px',
+        borderRadius: '4px',
+        width: '100%',
+        '&:hover': {
+            borderColor: 'rgba( 0,  0,  0, .5)',
+        },
+    },
+    divContent: {
+        padding: '18.5px 14px',
+    },
+    gridPad: {
+        paddingTop: theme.spacing.unit - 3,
+        paddingBottom: theme.spacing.unit - 3,
+    }
 })
 
 const mapStateToProps = reduxState => ({

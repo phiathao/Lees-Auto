@@ -27,7 +27,16 @@ class AddReceipt extends React.Component {
 
   }
   handleChange = (propertyName) => (event) => {
-
+    this.props.dispatch({
+      type: 'SET_NEW_RECEIPT',
+      payload: { ...this.props.reduxState.newReceipt, [propertyName]: event.target.value }
+    });
+  }
+  handleVehicleChange = (event) => {
+    this.props.dispatch({
+      type: 'SET_NEW_RECEIPT',
+      payload: { ...this.props.reduxState.newReceipt, vehicle_id: event.target.value }
+    });
   }
   handleAddService = () => {
     this.setState({
@@ -39,10 +48,13 @@ class AddReceipt extends React.Component {
       numberService: this.state.numberService - 1
     })
   }
-  handleCloseDialog = () => {
+  handleClose = () => {
     this.setState({
       numberService: 1
-    })
+    });
+    this.props.dispatch({
+      type: 'CLEAR_NEW_VEHICLE',
+    });
     this.props.handleClose();
   }
   render() {
@@ -62,7 +74,7 @@ class AddReceipt extends React.Component {
       <Dialog
         maxWidth='lg'
         open={this.props.open}
-        onClose={this.handleCloseDialog}
+        onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle align="center">Add Receipt
@@ -77,14 +89,14 @@ class AddReceipt extends React.Component {
                 select
                 label="Vehicle"
                 type="text"
-                value={this.props.reduxState.newReceipt.vehicle_id}
+                value={this.props.reduxState.newReceipt.vehicle_id || this.props.reduxState.vehiclesData[0].vehicle_id}
                 className={classes.dialogTextField}
                 margin="normal"
                 variant="outlined"
-                onChange={this.handleCustomerChange}
+                onChange={this.handleVehicleChange}
               >
                 {this.props.reduxState.vehiclesData.map(vehicle => {
-                  return vehicle.vehicle_id && <MenuItem key={vehicle.vehicle_id} value={vehicle.vehicle_id}>{vehicle.make} {vehicle.model} {vehicle.year} {vehicle.first_name} {vehicle.last_name}</MenuItem>
+                  return <MenuItem key={vehicle.vehicle_id} value={vehicle.vehicle_id}>{vehicle.year} {vehicle.make} {vehicle.model} {vehicle.plate}</MenuItem>
                 })}
               </TextField>
             </Grid>
@@ -146,7 +158,7 @@ class AddReceipt extends React.Component {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={this.handleCloseDialog}
+                onClick={this.handleClose}
                 fullWidth
               >Cancel</Button>
             </Grid>

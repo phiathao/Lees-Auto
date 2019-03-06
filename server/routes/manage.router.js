@@ -101,54 +101,56 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
                 let { vehicle_id, make, model, year, plate, color, other, customer_id, first_name, last_name, ...receipt } = row;
 
                 let { receipt_id, due, date, description, payment_method, ...service } = receipt;
+                
+                if (vehicle_id) {
+                    if (vehicle[row.vehicle_id]) {
 
-                if (vehicle[row.vehicle_id]) {
+                        if (receipt.receipt_id) {
 
-                    if (receipt.receipt_id) {
+                            if (receipt && service.service_id) {
+                                vehicle[row.vehicle_id].receipts.forEach((receipt, index) => {
+                                    if (receipt.receipt_id === receipt_id) {
+                                        vehicle[row.vehicle_id].receipts[index].services.push(service);
+                                    } else {
+                                        vehicle[row.vehicle_id].receipts.push({
+                                            receipt_id,
+                                            due,
+                                            date,
+                                            description,
+                                            payment_method,
+                                            services: [service]
+                                        })
+                                    }
+                                });
+                            }
 
-                        if (receipt && service.service_id) {
-                            vehicle[row.vehicle_id].receipts.forEach((receipt, index) => {
-                                if (receipt.receipt_id === receipt_id) {
-                                    vehicle[row.vehicle_id].receipts[index].services.push(service);
-                                } else {
-                                    vehicle[row.vehicle_id].receipts.push({
-                                        receipt_id,
-                                        due,
-                                        date,
-                                        description,
-                                        payment_method,
-                                        services: [service]
-                                    })
-                                }
-                            });
                         }
 
+                    } else {
+                        if (receipt && service.service_id) {
+                            receipt.services = [service];
+                        }
+                        vehicle[row.vehicle_id] = {
+                            vehicle_id,
+                            make,
+                            model,
+                            plate,
+                            color,
+                            other,
+                            year,
+                            customer_id,
+                            first_name,
+                            last_name,
+                            receipts: receipt.receipt_id ? [{
+                                receipt_id,
+                                due,
+                                date,
+                                description,
+                                payment_method,
+                                services: service && service.service_id ? [service] : []
+                            }] : []
+                        };
                     }
-
-                } else {
-                    if (receipt && service.service_id) {
-                        receipt.services = [service];
-                    }
-                    vehicle[row.vehicle_id] = {
-                        vehicle_id,
-                        make,
-                        model,
-                        plate,
-                        color,
-                        other,
-                        year,
-                        customer_id,
-                        first_name,
-                        last_name,
-                        receipts: receipt.receipt_id ? [{
-                            receipt_id,
-                            due,
-                            date,
-                            description,
-                            payment_method,
-                            services: service && service.service_id ? [service] : []
-                        }] : []
-                    };
                 }
             });
             res.send(Object.values(vehicle));

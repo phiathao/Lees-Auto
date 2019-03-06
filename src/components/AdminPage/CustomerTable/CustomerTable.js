@@ -14,9 +14,16 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Fab from '@material-ui/core/Fab';
+import InfoIcon from '@material-ui/icons/Info';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import AddCustomerDialog from '../AddCustomer/AddCustomer';
 
 class CustomerTable extends React.Component {
     state = {
+        addCustomer: false,
         expanded: null,
         page: 0,
         rowsPerPage: 5,
@@ -26,7 +33,7 @@ class CustomerTable extends React.Component {
     handleSelectCustomer = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: 1,
+            payload: {...this.props.reduxState.infoView, view: 1},
         });
         this.props.dispatch({
             type: 'SET_VIEW_CUSTOMER',
@@ -36,7 +43,7 @@ class CustomerTable extends React.Component {
     handleSelectVehicle = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: 2,
+            payload: {...this.props.reduxState.infoView, view: 2},
         });
         this.props.dispatch({
             type: 'SET_VIEW_VEHICLE',
@@ -54,7 +61,7 @@ class CustomerTable extends React.Component {
             this.state.expanded === panel ?
                 this.handleSelectCustomer(parseInt(panel))
                 :
-                this.props.dispatch({ type: 'INFO_TO_VIEW', payload: 0 }),
+                this.props.dispatch({ type: 'INFO_TO_VIEW', payload: {...this.props.reduxState.infoView, view: 0} }),
             100)
     };
     // ---- End of Expansion Panel
@@ -68,6 +75,18 @@ class CustomerTable extends React.Component {
     };
     // ---- End of Table Page
 
+    // ---- Add Customer Dialog
+    openAddCustomer = () => {
+        this.setState({
+            addCustomer: true
+        })
+    }
+    closeAddCustomer = () => {
+        this.setState({
+            addCustomer: false
+        })
+    }
+    // ---- End of Add Customer Dialog
 
     render() {
 
@@ -86,6 +105,11 @@ class CustomerTable extends React.Component {
         return (
             <Paper className={classes.root}>
                 <Grid container>
+                    <Tooltip title="Add New Customer" placement="bottom">
+                        <Fab color="secondary" aria-label="Add Customer" className={classes.infoFab} onClick={this.openAddCustomer}>
+                            <PersonAddIcon />
+                        </Fab>
+                    </Tooltip>
                     <Grid item xs={12}>
                         <Typography variant="h5" align="center" className={classes.header}>Manage Customers</Typography>
                     </Grid>
@@ -163,6 +187,10 @@ class CustomerTable extends React.Component {
                         />
                     </Grid>
                 </Grid>
+                <AddCustomerDialog
+                    open={this.state.addCustomer}
+                    handleClose={this.closeAddCustomer}
+                />
             </Paper >
         )
     }
@@ -171,6 +199,7 @@ class CustomerTable extends React.Component {
 const styles = theme => ({
     root: {
         width: '100%',
+        position: 'relative',
     },
     header: {
         padding: theme.spacing.unit * 2,
@@ -205,6 +234,13 @@ const styles = theme => ({
     searchPadding: {
         paddingLeft: theme.spacing.unit * 2,
         paddingRight: theme.spacing.unit * 2,
+    },
+
+    infoFab: {
+        position: 'absolute',
+        top: theme.spacing.unit * .5,
+        right: theme.spacing.unit * 2,
+        transform: `scale(${theme.spacing.unit * .1})`,
     },
 });
 

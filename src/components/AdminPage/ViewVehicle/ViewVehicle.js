@@ -16,15 +16,18 @@ import CancelIcon from '@material-ui/icons/Clear';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import AddReceiptDialog from '../AddReceipts/AddReceipt';
+
 class ViewVehicle extends React.Component {
     state = {
-        edit: false
+        edit: false,
+        addReceipt: false,
     }
     componentWillUpdate(newProps, newState) {
         if (newState.edit === true
             && this.state.edit === true
             && (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id
-                || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
+                || newProps.reduxState.infoView.view !== this.props.reduxState.infoView.view)) {
             this.setState({
                 edit: false,
             })
@@ -75,17 +78,31 @@ class ViewVehicle extends React.Component {
     handleViewReceipts = () => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: 3,
+            payload: {...this.props.reduxState.infoView, view: 3},
         });
         this.props.dispatch({
             type: 'SET_VIEW_RECEIPTS',
             payload: this.props.reduxState.viewVehicle.receipts,
         });
     }
+
+    // ---- Add Receipt Dialog
+    openAddReceipt = () => {
+        this.setState({
+            addReceipt: true
+        })
+    }
+    closeAddReceipt = () => {
+        this.setState({
+            addReceipt: false
+        })
+    }
+    // ---- End of Add Receipt Dialog
+
     render() {
         const { classes } = this.props
         return (
-            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 2 })}>
+            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView.view === 2 })}>
                 <Grid container spacing={8}>
                     {!this.state.edit ?
                         <>
@@ -229,6 +246,10 @@ class ViewVehicle extends React.Component {
                         />
                     </Grid>
                 </Grid>
+                <AddReceiptDialog
+                    open={this.state.addReceipt}
+                    handleClose={this.closeAddReceipt}
+                />
             </Paper>
         )
     }

@@ -22,27 +22,40 @@ class ManageContent extends React.Component {
             <Paper className={classes.rootPadding}>
 
                 <Collapse
-                    in={this.props.reduxState.infoView === 3}
+                    in={this.props.reduxState.infoView.view === 3 && this.props.reduxState.infoView.viewMore === true}
                     timeout={750}
                 >
                     <ViewReceipts />
                 </Collapse>
 
                 <Collapse
-                    in={this.props.reduxState.infoView === 2}
+                    in={this.props.reduxState.infoView.view === 2 && this.props.reduxState.infoView.viewMore === true}
                     timeout={750}
                 >
                     <ViewVehicleInfo />
                 </Collapse>
 
                 <Collapse
-                    in={this.props.reduxState.infoView === 1}
+                    in={this.props.reduxState.infoView.view === 1 && this.props.reduxState.infoView.viewMore === true}
                     timeout={750}
                 >
                     <ViewCustomerInfo />
                 </Collapse>
 
-                <CustomerTable />
+                <Collapse
+                    in={this.props.reduxState.infoView.view === 0 && this.props.reduxState.infoView.viewMore === true}
+                    timeout={750}
+                >
+                    <ViewCustomerInfo />
+                </Collapse>
+
+                <Collapse
+                    in={this.props.reduxState.infoView.viewMore === false}
+                    timeout={750}
+                >
+                    <CustomerTable />
+
+                </Collapse>
 
                 <SpeedDial />
             </Paper>

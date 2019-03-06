@@ -25,6 +25,7 @@ class AddVehicle extends React.Component {
         }); // add some type of confirmation or notification that customer is added
         alert(`Vehicle added to ${this.props.reduxState.viewCustomer.first_name}`);
         this.props.history.push('/manage/customer');
+        this.props.handleClose(); // close dialog
       }
     } else {
       alert('not a valid vehicle');
@@ -42,14 +43,19 @@ class AddVehicle extends React.Component {
       payload: { ...this.props.reduxState.newVehicle, customer_id: event.target.value }
     });
   }
-
+  handleClose = () => {
+    this.props.dispatch({
+      type: 'CLEAR_NEW_VEHICLE',
+    });
+    this.props.handleClose()
+  }
   render() {
     const { classes } = this.props
     return (
       <Dialog
         maxWidth='lg'
         open={this.props.open}
-        onClose={this.props.handleClose}
+        onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle align="center">New Vehicle
@@ -158,7 +164,7 @@ class AddVehicle extends React.Component {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={this.props.handleClose}
+                onClick={this.handleClose}
                 className={classes.cancelMargin}
               >Cancel</Button>
             </Grid>
