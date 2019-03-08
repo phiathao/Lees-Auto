@@ -4,6 +4,8 @@ const viewCustomerReducer = (state = '', action) => {
       return action.payload[0];
     case 'EDIT_VEHICLE':
       return action.payload;
+    case 'CLEAR_VEHICLE':
+      return '';
     default:
       return state;
   }

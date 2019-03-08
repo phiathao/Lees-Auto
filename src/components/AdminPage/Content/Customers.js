@@ -8,10 +8,9 @@ import Collapse from '@material-ui/core/Collapse';
 
 import ViewVehicleInfo from '../ViewVehicle/ViewVehicle';
 import ViewCustomerInfo from '../ViewCustomer/ViewCustomer';
+import ViewAllCustomers from '../ViewAllCustomers/ViewAllCustomers';
 import ViewReceipts from '../ViewReceipts/ViewReceipts';
-import CustomerTable from '../CustomerTable/CustomerTable';
-import SpeedDial from '../SpeedDial/SpeedDial';
-
+import AddButton from '../AddButton/AddButton';
 
 class ManageContent extends React.Component {
 
@@ -22,42 +21,33 @@ class ManageContent extends React.Component {
             <Paper className={classes.rootPadding}>
 
                 <Collapse
-                    in={this.props.reduxState.infoView.view === 3 && this.props.reduxState.infoView.viewMore === true}
+                    in={this.props.reduxState.infoView === 3}
                     timeout={750}
                 >
                     <ViewReceipts />
                 </Collapse>
 
                 <Collapse
-                    in={this.props.reduxState.infoView.view === 2 && this.props.reduxState.infoView.viewMore === true}
+                    in={this.props.reduxState.infoView === 2}
                     timeout={750}
                 >
                     <ViewVehicleInfo />
                 </Collapse>
 
                 <Collapse
-                    in={this.props.reduxState.infoView.view === 1 && this.props.reduxState.infoView.viewMore === true}
+                    in={this.props.reduxState.infoView === 1}
                     timeout={750}
                 >
                     <ViewCustomerInfo />
                 </Collapse>
 
                 <Collapse
-                    in={this.props.reduxState.infoView.view === 0 && this.props.reduxState.infoView.viewMore === true}
+                    in={this.props.reduxState.infoView === 0}
                     timeout={750}
                 >
-                    <ViewCustomerInfo />
+                    <ViewAllCustomers />
                 </Collapse>
-
-                <Collapse
-                    in={this.props.reduxState.infoView.viewMore === false}
-                    timeout={750}
-                >
-                    <CustomerTable />
-
-                </Collapse>
-
-                <SpeedDial />
+                <AddButton />
             </Paper>
         )
     }

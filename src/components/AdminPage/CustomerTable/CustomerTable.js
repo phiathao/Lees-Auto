@@ -5,45 +5,61 @@ import { withStyles } from '@material-ui/core/styles';
 
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TablePagination from '@material-ui/core/TablePagination';
 import TextField from '@material-ui/core/TextField';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
 import InfoIcon from '@material-ui/icons/Info';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonIcon from '@material-ui/icons/Person';
+import CarIcon from '@material-ui/icons/DirectionsCar';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import AddCustomerDialog from '../AddCustomer/AddCustomer';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 class CustomerTable extends React.Component {
     state = {
-        addCustomer: false,
-        expanded: null,
         page: 0,
         rowsPerPage: 5,
     }
 
-    // --- Handle View Info
-    handleSelectCustomer = (id) => {
+    handleClear = () => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: {...this.props.reduxState.infoView, view: 1},
+            payload: 0
         });
         this.props.dispatch({
-            type: 'SET_VIEW_CUSTOMER',
-            payload: this.props.reduxState.customersData.filter(person => person.id === id),
+            type: 'CLEAR_CUSTOMER',
         });
+        this.props.dispatch({
+            type: 'CLEAR_VEHICLE',
+        });
+    }
+    // --- Handle View Info
+    handleSelectCustomer = (id) => {
+        if (id === this.props.reduxState.viewCustomer.id) {
+            this.handleClear();
+        } else {
+            this.props.dispatch({
+                type: 'INFO_TO_VIEW',
+                payload: 1,
+            });
+            this.props.dispatch({
+                type: 'SET_VIEW_CUSTOMER',
+                payload: this.props.reduxState.customersData.filter(person => person.id === id),
+            });
+        }
     }
     handleSelectVehicle = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: {...this.props.reduxState.infoView, view: 2},
+            payload: 2,
         });
         this.props.dispatch({
             type: 'SET_VIEW_VEHICLE',
@@ -61,7 +77,7 @@ class CustomerTable extends React.Component {
             this.state.expanded === panel ?
                 this.handleSelectCustomer(parseInt(panel))
                 :
-                this.props.dispatch({ type: 'INFO_TO_VIEW', payload: {...this.props.reduxState.infoView, view: 0} }),
+                this.props.dispatch({ type: 'INFO_TO_VIEW', payload: 0 }),
             100)
     };
     // ---- End of Expansion Panel
@@ -70,23 +86,7 @@ class CustomerTable extends React.Component {
     handleChangePage = (event, page) => {
         this.setState({ page });
     };
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: event.target.value });
-    };
     // ---- End of Table Page
-
-    // ---- Add Customer Dialog
-    openAddCustomer = () => {
-        this.setState({
-            addCustomer: true
-        })
-    }
-    closeAddCustomer = () => {
-        this.setState({
-            addCustomer: false
-        })
-    }
-    // ---- End of Add Customer Dialog
 
     render() {
 
@@ -98,13 +98,65 @@ class CustomerTable extends React.Component {
         let emptyRow = []
         if (emptyRows > 0) {
             for (let i = 0; i < emptyRows; i++) {
-                emptyRow.push(<ExpansionPanel expanded={false} key={`empty ${i}`}><ExpansionPanelSummary /></ExpansionPanel>)
+                emptyRow.push(<ListItem dense key={`empty ${i}`}><ListItemIcon><PersonIcon className={classes.clear}/></ListItemIcon></ListItem>)
             }
         }
 
         return (
-            <Paper className={classes.root}>
-                <Grid container>
+            <>
+                {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(customer => {
+                    return (
+                        <>
+                            <ListItem
+                                button
+                                selected={this.props.reduxState.viewCustomer.id === customer.id && this.props.reduxState.infoView === 1}
+                                onClick={() => this.handleSelectCustomer(customer.id)}
+                                dense
+                            >
+                                <ListItemIcon>
+                                    <PersonIcon />
+                                </ListItemIcon>
+                                <ListItemText inset primary={`${customer.first_name} ${customer.last_name}`} />
+                                {this.props.reduxState.viewCustomer.id === customer.id ? <ExpandLess /> : <ExpandMore />}
+                            </ListItem>
+                            <Collapse in={this.props.reduxState.viewCustomer.id === customer.id && (this.props.reduxState.infoView === 1 || this.props.reduxState.infoView === 2)} timeout="auto" unmountOnExit>
+                                {this.props.reduxState.customersData.length > 0 && customer.vehicles.map(vehicle => {
+                                    return (
+                                        <ListItem
+                                            button
+                                            selected={this.props.reduxState.infoView === 2 && this.props.reduxState.viewVehicle.vehicle_id === vehicle.vehicle_id}
+                                            onClick={() => this.handleSelectVehicle(vehicle.vehicle_id)}
+                                            dense
+                                            className={classes.vehiclePadding}
+                                        >
+                                            <ListItemIcon>
+                                                <CarIcon />
+                                            </ListItemIcon>
+                                            <ListItemText inset primary={`${vehicle.make} ${vehicle.model}`} />
+                                        </ListItem>
+                                    )
+                                })}
+                            </Collapse>
+                            {emptyRow}
+                        </>
+                    )
+                })}
+                <TablePagination
+                            rowsPerPageOptions={false}
+                            component='div'
+                            count={this.props.reduxState.customersData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{
+                                'aria-label': 'Previous Page',
+                            }}
+                            nextIconButtonProps={{
+                                'aria-label': 'Next Page',
+                            }}
+                            onChangePage={this.handleChangePage}
+                        />
+
+                {/* <Grid container>
                     <Tooltip title="Add New Customer" placement="bottom">
                         <Fab color="secondary" aria-label="Add Customer" className={classes.infoFab} onClick={this.openAddCustomer}>
                             <PersonAddIcon />
@@ -170,77 +222,20 @@ class CustomerTable extends React.Component {
                             )
                         })}
                         {emptyRow}
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={this.props.reduxState.customersData.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            backIconButtonProps={{
-                                'aria-label': 'Previous Page',
-                            }}
-                            nextIconButtonProps={{
-                                'aria-label': 'Next Page',
-                            }}
-                            onChangePage={this.handleChangePage}
-                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                        />
+                        
                     </Grid>
-                </Grid>
-                <AddCustomerDialog
-                    open={this.state.addCustomer}
-                    handleClose={this.closeAddCustomer}
-                />
-            </Paper >
+                </Grid> */}
+            </>
         )
     }
 }
 
 const styles = theme => ({
-    root: {
-        width: '100%',
-        position: 'relative',
+    vehiclePadding: {
+        paddingLeft: theme.spacing.unit * 4,
     },
-    header: {
-        padding: theme.spacing.unit * 2,
-    },
-    column: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-    },
-    columnH: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-    },
-    row: {
-        '&:hover': {
-            backgroundColor: "#f2f2f2",
-        },
-    },
-    rowSub: {
-        '&:hover': {
-            backgroundColor: "#f2f2f2",
-        },
-        paddingLeft: theme.spacing.unit * 6,
-        paddingRight: theme.spacing.unit * 1,
-        paddingTop: theme.spacing.unit * 1,
-        paddingBottom: theme.spacing.unit * 1,
-    },
-    isActive: {
-        '&>div:first-child': {
-            backgroundColor: '#eee',
-        },
-    },
-    searchPadding: {
-        paddingLeft: theme.spacing.unit * 2,
-        paddingRight: theme.spacing.unit * 2,
-    },
-
-    infoFab: {
-        position: 'absolute',
-        top: theme.spacing.unit * .5,
-        right: theme.spacing.unit * 2,
-        transform: `scale(${theme.spacing.unit * .1})`,
+    clear: {
+        opacity: 0,
     },
 });
 

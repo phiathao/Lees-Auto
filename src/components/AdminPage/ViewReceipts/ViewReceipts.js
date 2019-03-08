@@ -24,7 +24,7 @@ class ViewReceipts extends React.Component {
     //     if (newState.edit === true
     //         && this.state.edit === true
     //         && (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id
-    //             || newProps.reduxState.infoView.view !== this.props.reduxState.infoView.view)) {
+    //             || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
     //         this.setState({
     //             edit: false,
     //         })
@@ -75,7 +75,7 @@ class ViewReceipts extends React.Component {
     render() {
         const { classes } = this.props
         return (
-            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView.view === 3 })}>
+            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 3 })}>
                 <Grid container spacing={8}>
                     {/* {!this.state.edit ?
                         <>

@@ -20,6 +20,14 @@ class AddReceipt extends React.Component {
   state = ({
     numberService: -5 || 1,
   })
+  componentDidUpdate(newProps) {
+    if (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id) {
+      this.props.dispatch({
+        type: 'SET_NEW_RECEIPT',
+        payload: { ...this.props.reduxState.newReceipt, vehicle_id: this.props.reduxState.viewVehicle.vehicle_id }
+      });
+    }
+  }
   componentDidMount = () => {
     this.props.dispatch({ type: 'FETCH_SERVICES' });
   }
@@ -86,19 +94,14 @@ class AddReceipt extends React.Component {
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
-                select
+                disabled
                 label="Vehicle"
                 type="text"
-                value={this.props.reduxState.newReceipt.vehicle_id || this.props.reduxState.vehiclesData[0].vehicle_id}
+                value={`${this.props.reduxState.viewVehicle.year} ${this.props.reduxState.viewVehicle.make} ${this.props.reduxState.viewVehicle.model} ${this.props.reduxState.viewVehicle.plate}`}
                 className={classes.dialogTextField}
                 margin="normal"
                 variant="outlined"
-                onChange={this.handleVehicleChange}
-              >
-                {this.props.reduxState.vehiclesData.map(vehicle => {
-                  return <MenuItem key={vehicle.vehicle_id} value={vehicle.vehicle_id}>{vehicle.year} {vehicle.make} {vehicle.model} {vehicle.plate}</MenuItem>
-                })}
-              </TextField>
+              />
             </Grid>
             <Grid item xs={12} className={classes.overflowScroll}>
               {inputService}

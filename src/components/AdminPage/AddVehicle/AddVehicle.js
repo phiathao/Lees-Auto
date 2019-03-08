@@ -12,6 +12,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 class AddVehicle extends React.Component {
+  componentDidUpdate(newProps) {
+    if (newProps.reduxState.viewCustomer.id !== this.props.reduxState.viewCustomer.id) {
+      this.props.dispatch({
+        type: 'SET_NEW_VEHICLE',
+        payload: { ...this.props.reduxState.newVehicle, customer_id: this.props.reduxState.viewCustomer.id }
+      });
+    }
+  }
   handleSubmit = () => {
     if (
       this.props.reduxState.newVehicle.make !== ''
@@ -35,12 +43,6 @@ class AddVehicle extends React.Component {
     this.props.dispatch({
       type: 'SET_NEW_VEHICLE',
       payload: { ...this.props.reduxState.newVehicle, [propertyName]: event.target.value }
-    });
-  }
-  handleCustomerChange = (event) => {
-    this.props.dispatch({
-      type: 'SET_NEW_VEHICLE',
-      payload: { ...this.props.reduxState.newVehicle, customer_id: event.target.value }
     });
   }
   handleClose = () => {
@@ -67,19 +69,14 @@ class AddVehicle extends React.Component {
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
-                select
+                disabled
                 label="Customer"
                 type="text"
-                value={this.props.reduxState.newVehicle.customer_id}
+                value={`${this.props.reduxState.viewCustomer.first_name} ${this.props.reduxState.viewCustomer.last_name}`}
                 className={classes.dialogTextField}
                 margin="normal"
                 variant="outlined"
-                onChange={this.handleCustomerChange}
-              >
-                {this.props.reduxState.customersData.map(customer => {
-                  return <MenuItem key={customer.id} value={customer.id}>{customer.first_name} {customer.last_name}</MenuItem>
-                })}
-              </TextField>
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField

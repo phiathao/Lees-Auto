@@ -1,5 +1,7 @@
-const drawerReducer = (state = 1, action) => {
+const drawerReducer = (state = 0, action) => {
   switch (action.type) {
+    case 'SET_DRAWER_BACK':
+      return 0;
     case 'SET_DRAWER_APPOINTMENTS':
       return 1;
     case 'SET_DRAWER_CUSTOMERS':

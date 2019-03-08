@@ -14,18 +14,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Clear';
 
-import AddVehicleDialog from '../AddVehicle/AddVehicle';
 
 class ViewCustomer extends React.Component {
     state = {
         edit: false,
-        addVehicle: false,
     }
     componentWillUpdate(newProps, newState) {
         if (newState.edit === true
             && this.state.edit === true
             && (newProps.reduxState.viewCustomer.id !== this.props.reduxState.viewCustomer.id
-                || newProps.reduxState.infoView.view !== this.props.reduxState.infoView.view)) {
+                || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
             this.setState({
                 edit: false,
             })
@@ -76,23 +74,11 @@ class ViewCustomer extends React.Component {
         this.handleEdit();
     }
 
-    // ---- Add Vehicle Dialog
-    openAddVehicle = () => {
-        this.setState({
-            addVehicle: true
-        })
-    }
-    closeAddVehicle = () => {
-        this.setState({
-            addVehicle: false
-        })
-    }
-    // ---- End of Add Vehicle Dialog
 
     handleSelectVehicle = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: { ...this.props.reduxState.infoView, view: 2 },
+            payload: 2,
         });
         this.props.dispatch({
             type: 'SET_VIEW_VEHICLE',
@@ -105,7 +91,7 @@ class ViewCustomer extends React.Component {
         const { id } = this.props.reduxState.viewCustomer
 
         return (
-            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView.view === 1 })}>
+            <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 1 })}>
                 <Grid container spacing={8}>
                     {!this.state.edit ?
                         <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
@@ -248,10 +234,6 @@ class ViewCustomer extends React.Component {
                         })}
                     </Grid>
                 </Grid>
-                <AddVehicleDialog
-                    open={this.state.addVehicle}
-                    handleClose={this.closeAddVehicle}
-                />
             </Paper>
         )
     }
