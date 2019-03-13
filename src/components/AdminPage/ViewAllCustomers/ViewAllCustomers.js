@@ -13,11 +13,15 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Clear';
+import TablePagination from '@material-ui/core/TablePagination';
+
 
 
 class ViewAllCustomers extends React.Component {
     state = {
         edit: false,
+        page: 0,
+        rowsPerPage: 5,
     }
     componentWillUpdate(newProps, newState) {
         if (newState.edit === true
@@ -57,18 +61,36 @@ class ViewAllCustomers extends React.Component {
             payload: this.props.reduxState.customersData.filter(customer => customer.id === id),
         });
     }
-
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    };
     render() {
         const { classes } = this.props
-        const { id } = this.props.reduxState.viewCustomer
 
+        const { rowsPerPage, page } = this.state;
+        const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.props.reduxState.customersData.length - page * rowsPerPage);
+        let emptyRow = []
+        if (emptyRows > 0) {
+            for (let i = 0; i < emptyRows; i++) {
+                emptyRow.push(
+                    <Grid item xs={12} sm={12} key={i} className={classes.gridPad}>
+                        <div className={classes.divContainerEmpty}>
+                            <Grid container>
+                                <Grid item xs={12} sm={4}>
+                                    <Typography className={classes.divContentEmpty}>{i}</Typography>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>)
+            }
+        }
         return (
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView.view === 1 })}>
                 <Grid container spacing={8}>
                     <Grid item xs={12} sm={12}>
                         <Typography variant='h5' align='center'>Customers</Typography>
                     </Grid>
-                    <Grid item xs={12} className={classes.searchPadding}>
+                    {/* <Grid item xs={12} className={classes.searchPadding}>
                         <TextField
                             fullWidth
                             id="filled-search"
@@ -77,27 +99,44 @@ class ViewAllCustomers extends React.Component {
                             margin="normal"
                             variant="outlined"
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} sm={12}>
-                        {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.map(customer => {
+                        {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(customer => {
                             return (
                                 <Grid item xs={12} sm={12} key={customer.id} className={classes.gridPad}>
                                     <div className={classes.divContainer} onClick={() => this.handleSelectCustomer(customer.id)}>
                                         <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography className={classes.divContent}>First Name: {customer.first_name}</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography className={classes.divContent}>Last Name: {customer.last_name}</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography className={classes.divContent}>Phone: {customer.phone}</Typography>
-                                        </Grid>
+                                            <Grid item xs={12} sm={4}>
+                                                <Typography className={classes.divContent}>First Name: {customer.first_name}</Typography>
+                                            </Grid>
+                                            <Grid item xs={12} sm={4}>
+                                                <Typography className={classes.divContent}>Last Name: {customer.last_name}</Typography>
+                                            </Grid>
+                                            <Grid item xs={12} sm={4}>
+                                                <Typography className={classes.divContent}>Phone: {customer.phone}</Typography>
+                                            </Grid>
                                         </Grid>
                                     </div>
                                 </Grid>
                             )
                         })}
+                        {emptyRow}
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TablePagination
+                            rowsPerPageOptions={false}
+                            component='div'
+                            count={this.props.reduxState.customersData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{
+                                'aria-label': 'Previous Page',
+                            }}
+                            nextIconButtonProps={{
+                                'aria-label': 'Next Page',
+                            }}
+                            onChangePage={this.handleChangePage}
+                        />
                     </Grid>
                 </Grid>
             </Paper>
@@ -144,6 +183,17 @@ const styles = theme => ({
     },
     divContent: {
         padding: '18.5px 14px',
+    },
+    divContainerEmpty: {
+        borderStyle: 'solid',
+        borderColor: 'rgba( 176,  176,  176, .5)',
+        borderWidth: '1px',
+        borderRadius: '4px',
+        width: '100%',
+    },
+    divContentEmpty: {
+        padding: '18.5px 14px',
+        opacity: 0,
     },
     gridPad: {
         paddingTop: theme.spacing.unit - 3,

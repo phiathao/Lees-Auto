@@ -9,17 +9,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import Service from './Service';
 
 class AddReceipt extends React.Component {
-  state = ({
-    numberService: -5 || 1,
-  })
   componentDidUpdate(newProps) {
     if (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id) {
       this.props.dispatch({
@@ -28,33 +21,9 @@ class AddReceipt extends React.Component {
       });
     }
   }
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'FETCH_SERVICES' });
-  }
+
   handleSubmit = () => {
 
-  }
-  handleChange = (propertyName) => (event) => {
-    this.props.dispatch({
-      type: 'SET_NEW_RECEIPT',
-      payload: { ...this.props.reduxState.newReceipt, [propertyName]: event.target.value }
-    });
-  }
-  handleVehicleChange = (event) => {
-    this.props.dispatch({
-      type: 'SET_NEW_RECEIPT',
-      payload: { ...this.props.reduxState.newReceipt, vehicle_id: event.target.value }
-    });
-  }
-  handleAddService = () => {
-    this.setState({
-      numberService: this.state.numberService + 1
-    })
-  }
-  handleSubtractService = () => {
-    this.setState({
-      numberService: this.state.numberService - 1
-    })
   }
   handleClose = () => {
     this.setState({
@@ -66,16 +35,6 @@ class AddReceipt extends React.Component {
     this.props.handleClose();
   }
   render() {
-
-    let inputService = [];
-    if (this.state.numberService < 1) {
-      this.setState({
-        numberService: 1
-      })
-    }
-    for (let i = 0; i < this.state.numberService; i++) {
-      inputService.push(<Service key={i} add={this.handleAddService} />)
-    }
 
     const { classes } = this.props
     return (
@@ -103,60 +62,6 @@ class AddReceipt extends React.Component {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} className={classes.overflowScroll}>
-              {inputService}
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Description"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  onChange={this.handleChange('description')}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Amount Due"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  onChange={this.handleChange('due')}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Payment Method"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.dialogTextField}
-                  onChange={this.handleChange('payment_method')}
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Tooltip title="Add Service" placement="right">
-                <AddIcon
-                  fontSize="large"
-                  onClick={this.handleAddService}
-                  color="secondary"
-                />
-              </Tooltip>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Tooltip title="Remove Service" placement="right">
-                <RemoveIcon
-                  fontSize="large"
-                  onClick={this.handleSubtractService}
-                  color="secondary"
-                />
-              </Tooltip>
-            </Grid>
             <Grid item xs={3} sm={3} style={{ direction: 'rtl', }}>
               <Button
                 variant="contained"
@@ -171,7 +76,7 @@ class AddReceipt extends React.Component {
                 color="secondary"
                 onClick={this.handleSubmit}
                 fullWidth
-              >Submit</Button>
+              >Add</Button>
             </Grid>
           </Grid>
         </DialogContent>

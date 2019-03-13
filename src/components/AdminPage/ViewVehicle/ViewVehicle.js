@@ -13,7 +13,6 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Clear';
-import ReceiptIcon from '@material-ui/icons/Receipt';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
@@ -29,6 +28,14 @@ class ViewVehicle extends React.Component {
             this.setState({
                 edit: false,
             })
+        }
+    }
+    componentDidUpdate(newProps) {
+        if (this.props.reduxState.viewVehicle.receipts && (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id)) {
+            this.props.dispatch({
+                type: 'SET_VIEW_VEHICLE_RECEIPTS',
+                payload: this.props.reduxState.viewVehicle.receipts,
+            });
         }
     }
     handleEdit = () => {
@@ -73,14 +80,20 @@ class ViewVehicle extends React.Component {
         });
         this.handleEdit();
     }
-    handleViewReceipts = () => {
+    // handleViewReceipts = () => {
+    //     this.props.dispatch({
+    //         type: 'INFO_TO_VIEW',
+    //         payload: 2,
+    //     });
+    // }
+    handleSelectReceipt = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
             payload: 2,
         });
         this.props.dispatch({
-            type: 'SET_VIEW_RECEIPTS',
-            payload: this.props.reduxState.viewVehicle.receipts,
+            type: 'SET_VIEW_VEHICLE',
+            payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
         });
     }
 
@@ -90,11 +103,11 @@ class ViewVehicle extends React.Component {
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 2 })}>
                 <Grid container spacing={8}>
                     {!this.state.edit ?
-                            <Tooltip title="Edit">
-                                <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
-                                    <EditIcon />
-                                </Fab>
-                            </Tooltip>
+                        <Tooltip title="Edit">
+                            <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
+                                <EditIcon />
+                            </Fab>
+                        </Tooltip>
                         :
                         <>
                             <Tooltip title="Cancel Change">
@@ -223,6 +236,27 @@ class ViewVehicle extends React.Component {
                             }}
                         />
                     </Grid>
+                    {this.props.reduxState.vehicleReceipts.map(receipt => {
+                        return <Grid item xs={12} sm={12} key={receipt.receipt_id}>
+                            {/* <TextField
+                                    fullWidth
+                                    disabled
+                                    label={`Receipt ID: ${receipt.receipt_id} Date: ${receipt.date}`}
+                                    multiline
+                                    type="text"
+                                    margin="normal"
+                                    variant="outlined"
+                                    value={`Sub Total: ${receipt.due}`}
+                                    className={classNames(classes.dialogTextField, classes.inputHover)}
+                                    InputLabelProps={receipt && {
+                                        shrink: true,
+                                    }}
+                                /> */}
+                            <div className={classes.divContainer}>
+                                <Typography className={classes.divContent}>Receipt ID: {receipt.receipt_id} Date: {receipt.date} Sub Total: {receipt.due}</Typography>
+                            </div>
+                        </Grid>
+                    })}
                 </Grid>
             </Paper>
         )
@@ -255,6 +289,19 @@ const styles = theme => ({
         top: theme.spacing.unit * .5,
         right: theme.spacing.unit * 10,
         transform: `scale(${theme.spacing.unit * .1})`,
+    },
+    divContainer: {
+        borderStyle: 'solid',
+        borderColor: 'rgba( 176,  176,  176, .5)',
+        borderWidth: '1px',
+        borderRadius: '4px',
+        width: '100%',
+        '&:hover': {
+            borderColor: 'rgba( 0,  0,  0, .5)',
+        },
+    },
+    divContent: {
+        padding: '18.5px 14px',
     },
 })
 

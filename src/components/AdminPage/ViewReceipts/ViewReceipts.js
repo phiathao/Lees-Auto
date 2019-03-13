@@ -131,7 +131,7 @@ class ViewReceipts extends React.Component {
                         service_id: 1
                         service_type: "Oil Change"
                     */}
-                    {this.props.reduxState.viewReceipts.map(receipt => {
+                    {this.props.reduxState.vehicleReceipts.map(receipt => {
                         return (
                             <Grid item xs={12} sm={12}>
                                 <TextField
@@ -139,7 +139,6 @@ class ViewReceipts extends React.Component {
                                     disabled
                                     label={`Receipt ID:${receipt.receipt_id}   Date:${receipt.date}`}
                                     multiline
-                                    // rows={3}
                                     type="text"
                                     margin="normal"
                                     variant="outlined"
