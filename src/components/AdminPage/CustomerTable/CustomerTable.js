@@ -104,9 +104,9 @@ class CustomerTable extends React.Component {
 
         return (
             <>
-                {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(customer => {
+                {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((customer, i) => {
                     return (
-                        <>
+                        <div key={i}>
                             <ListItem
                                 button
                                 selected={this.props.reduxState.viewCustomer.id === customer.id && this.props.reduxState.infoView === 1}
@@ -120,7 +120,7 @@ class CustomerTable extends React.Component {
                                 {this.props.reduxState.viewCustomer.id === customer.id ? <ExpandLess /> : <ExpandMore />}
                             </ListItem>
                             <Collapse in={this.props.reduxState.viewCustomer.id === customer.id && (this.props.reduxState.infoView === 1 || this.props.reduxState.infoView === 2)} timeout="auto" unmountOnExit>
-                                {this.props.reduxState.customersData.length > 0 && customer.vehicles.map(vehicle => {
+                                {this.props.reduxState.customersData.length > 0 && customer.vehicles.map((vehicle, i) => {
                                     return (
                                         <ListItem
                                             button
@@ -128,6 +128,7 @@ class CustomerTable extends React.Component {
                                             onClick={() => this.handleSelectVehicle(vehicle.vehicle_id)}
                                             dense
                                             className={classes.vehiclePadding}
+                                            key={`vehicle ${i}`}
                                         >
                                             <ListItemIcon>
                                                 <CarIcon />
@@ -138,7 +139,7 @@ class CustomerTable extends React.Component {
                                 })}
                             </Collapse>
                             {emptyRow}
-                        </>
+                        </div>
                     )
                 })}
                 <TablePagination

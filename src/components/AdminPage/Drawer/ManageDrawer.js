@@ -55,6 +55,14 @@ class ManageDrawer extends React.Component {
             this.props.dispatch({
                 type: 'CLEAR_VEHICLE',
             });
+        } else if (this.props.reduxState.infoView === 3) {
+            this.props.dispatch({
+                type: 'INFO_TO_VIEW',
+                payload: 2,
+            });
+            this.props.dispatch({
+                type: 'CLEAR_RECEIPT',
+            });
         }
     }
 

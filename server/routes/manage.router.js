@@ -75,9 +75,6 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             receipts.description, 
             receipts.due, 
             receipts.id as receipt_id, 
-            services.service_type, 
-            services.amount,
-            services.id AS service_id,
             customers.id AS customer_id,
             first_name,
             last_name
@@ -85,51 +82,24 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
         FROM "vehicle"
         FULL OUTER JOIN "receipts" 
         ON "vehicle".id = "receipts".vehicle_id
-        FULL OUTER JOIN "service_receipt"
-        ON "receipts".id = "service_receipt".receipt_id
-        FULL OUTER JOIN "services"
-        ON "service_receipt".service_id =  "services".id
         FULL OUTER JOIN "customers"
         ON "vehicle".customer_id = "customers".id
-        GROUP BY vehicle.id, receipts.id, services.id, customers.id;
+        GROUP BY vehicle.id, receipts.id, customers.id;
     `;
     pool.query(queryString)
         .then(result => {
-            let vehicle = {
-            };
+            let vehicle = {};
             result.rows.forEach(row => {
                 let { vehicle_id, make, model, year, plate, color, other, customer_id, first_name, last_name, ...receipt } = row;
-
-                let { receipt_id, due, date, description, payment_method, ...service } = receipt;
                 
                 if (vehicle_id) {
                     if (vehicle[row.vehicle_id]) {
 
                         if (receipt.receipt_id) {
-
-                            if (receipt && service.service_id) {
-                                vehicle[row.vehicle_id].receipts.forEach((receipt, index) => {
-                                    if (receipt.receipt_id === receipt_id) {
-                                        vehicle[row.vehicle_id].receipts[index].services.push(service);
-                                    } else {
-                                        vehicle[row.vehicle_id].receipts.push({
-                                            receipt_id,
-                                            due,
-                                            date,
-                                            description,
-                                            payment_method,
-                                            services: [service]
-                                        })
-                                    }
-                                });
-                            }
-
+                            vehicle[row.vehicle_id].receipts.push(receipt);
                         }
 
                     } else {
-                        if (receipt && service.service_id) {
-                            receipt.services = [service];
-                        }
                         vehicle[row.vehicle_id] = {
                             vehicle_id,
                             make,
@@ -141,14 +111,7 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
                             customer_id,
                             first_name,
                             last_name,
-                            receipts: receipt.receipt_id ? [{
-                                receipt_id,
-                                due,
-                                date,
-                                description,
-                                payment_method,
-                                services: service && service.service_id ? [service] : []
-                            }] : []
+                            receipts: receipt.receipt_id ? [receipt] : []
                         };
                     }
                 }
@@ -160,81 +123,13 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
         })
 });
 
-// GET customer
-router.get('/get/customer/:id', rejectUnauthenticated, (req, res) => {
-    const queryString = `
-        SELECT "customers".id, "first_name", "last_name", "phone", "street", "city", "state", "zip"
-        FROM "customers"
-        WHERE "customers".id = $1;
-    `;
-    pool.query(queryString, [req.params.id])
-        .then(result => {
-            res.send(result.rows);
-        }).catch(error => {
-            console.log(error)
-            res.sendStatus(500);
-        })
-});
-// Get customer's vehicles
-router.get('/get/customer/:id/vehicles', rejectUnauthenticated, (req, res) => {
-    const queryString = `
-        SELECT "vehicle".id, "make", "model", to_char("year", 'YYYY') AS "year", "plate", "color", "other"
-        FROM "vehicle"
-        WHERE "vehicle".customer_id = $1
-        ORDER BY "vehicle".id ASC;
-    `;
-    pool.query(queryString, [req.params.id])
-        .then(result => {
-            res.send(result.rows);
-        }).catch(error => {
-            console.log(error)
-            res.sendStatus(500);
-        })
-});
-
-// GET vehicle
-router.get('/get/vehicle/:id', rejectUnauthenticated, (req, res) => {
-    const queryString = `
-        SELECT "vehicle".id, "vehicle".customer_id, "make", "model", to_char("year", 'YYYY') AS "year", "plate", "color", "other"
-        FROM "vehicle"
-        WHERE "vehicle".id = $1
-        ORDER BY "vehicle".id ASC;
-    `;
-    pool.query(queryString, [req.params.id])
-        .then(result => {
-            res.send(result.rows);
-        }).catch(error => {
-            console.log(error)
-            res.sendStatus(500);
-        })
-});
-
-// GET vehicle receipts
-router.get('/get/vehicle/:id/receipts', rejectUnauthenticated, (req, res) => {
-    const queryString = `
-        SELECT "id", "vehicle_id", "payment_method", to_char("date", 'MM-DD-YYYY') AS "date", "description", "due"
-        FROM "receipts"
-        WHERE "vehicle_id" = $1
-        ORDER BY "id" DESC;
-    `;
-    pool.query(queryString, [req.params.id])
-        .then(result => {
-            res.send(result.rows);
-        }).catch(error => {
-            console.log(error)
-            res.sendStatus(500);
-        })
-});
-
 // GET receipt info
 router.get('/get/receipt/:id/', rejectUnauthenticated, (req, res) => {
+
     const queryString = `
-        SELECT "receipts".id AS "receipt_id", "receipts".vehicle_id, "receipts".payment_method, to_char("receipts".date, 'MM-DD-YYYY') AS "date", "receipts".description, "receipts".due, "service_receipt".service_id, "services".service_type, "services".amount, "service_receipt".id
+        SELECT *
         FROM "receipts"
-        LEFT JOIN "service_receipt" ON "service_receipt".receipt_id = "receipts".id
-        LEFT JOIN "services" ON "services".id = "service_receipt".service_id
-        WHERE "receipts".id = $1
-        ORDER BY "services".id DESC;
+        WHERE "receipts".id = $1;
     `;
     pool.query(queryString, [req.params.id])
         .then(result => {

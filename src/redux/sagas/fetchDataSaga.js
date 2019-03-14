@@ -24,9 +24,7 @@ function* fetchData() { // getting customers and vehicles
 function* fetchDataCustomer(action) {
   try {
     const setDataCustomer = yield axios.get(`/api/manage/get/customer/${action.payload}`); // get customer info
-    const setDataCustomerVehicles = yield axios.get(`/api/manage/get/customer/${action.payload}/vehicles`); // get customer cars
     yield put({ type: 'SET_VIEW_CUSTOMER', payload: setDataCustomer.data[0] }); // store customer info
-    yield put({ type: 'SET_CUSTOMER_VEHICLES', payload: setDataCustomerVehicles.data }); // store customer vehicle
   } catch (error) {
     console.log('Error with fetching customer:', error);
   }
@@ -36,8 +34,7 @@ function* fetchDataVehicle(action) {
   try {
     const setDataVehicle = yield axios.get(`/api/manage/get/vehicle/${action.payload}`); // get vehicle by id
     const setDataVehicleReceipts = yield axios.get(`/api/manage/get/vehicle/${action.payload}/receipts`); // get vehicle receipts
-    yield put({ type: 'SET_VIEW_VEHICLE', payload: setDataVehicle.data[0] }); // store vehicle info
-    yield put({ type: 'SET_VEHICLE_RECEIPTS', payload: setDataVehicleReceipts.data }); // store vehicle receipts    
+    yield put({ type: 'SET_VIEW_VEHICLE', payload: setDataVehicle.data[0] }); // store vehicle info 
   } catch (error) {
     console.log('Error with fetching vehicle:', error);
   }
@@ -46,8 +43,7 @@ function* fetchDataVehicle(action) {
 function* fetchDataReceipts(action) {
   try {
     const setDataReceipts = yield axios.get(`/api/manage/get/receipt/${action.payload}`); // get receipts by id
-    yield put({ type: 'SET_VIEW_RECEIPT', payload: setDataReceipts.data }); // store receipts info
-    yield put({ type: 'SET_VIEW_RECEIPT_ID', payload: setDataReceipts.data[0].receipt_id }); // store receipts info
+    yield put({ type: 'SET_VIEW_RECEIPT', payload: setDataReceipts.data[0] }); // store receipts info
   } catch (error) {
     console.log('Error with fetching receipts:', error);
   }

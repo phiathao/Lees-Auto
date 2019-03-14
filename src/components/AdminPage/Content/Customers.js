@@ -9,7 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ViewVehicleInfo from '../ViewVehicle/ViewVehicle';
 import ViewCustomerInfo from '../ViewCustomer/ViewCustomer';
 import ViewAllCustomers from '../ViewAllCustomers/ViewAllCustomers';
-import ViewReceipts from '../ViewReceipts/ViewReceipts';
+import ViewReceipts from '../ViewReceipt/ViewReceipt';
 import AddButton from '../AddButton/AddButton';
 
 class ManageContent extends React.Component {

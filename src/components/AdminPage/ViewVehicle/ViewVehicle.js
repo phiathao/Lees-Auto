@@ -89,11 +89,11 @@ class ViewVehicle extends React.Component {
     handleSelectReceipt = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
-            payload: 2,
+            payload: 3,
         });
         this.props.dispatch({
-            type: 'SET_VIEW_VEHICLE',
-            payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
+            type: 'FETCH_DATA_RECEIPT',
+            payload: id,
         });
     }
 
@@ -252,7 +252,7 @@ class ViewVehicle extends React.Component {
                                         shrink: true,
                                     }}
                                 /> */}
-                            <div className={classes.divContainer}>
+                            <div className={classes.divContainer} onClick={()=>this.handleSelectReceipt(receipt.receipt_id)}>
                                 <Typography className={classes.divContent}>Receipt ID: {receipt.receipt_id} Date: {receipt.date} Sub Total: {receipt.due}</Typography>
                             </div>
                         </Grid>

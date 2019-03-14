@@ -16,7 +16,7 @@ import CancelIcon from '@material-ui/icons/Clear';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import Tooltip from '@material-ui/core/Tooltip';
 
-class ViewReceipts extends React.Component {
+class ViewReceipt extends React.Component {
     // state = {
     //     edit: false
     // }
@@ -105,7 +105,7 @@ class ViewReceipts extends React.Component {
                         </>
                     } */}
                     <Grid item xs={12} sm={12}>
-                        <Typography variant='h5' align='center'>Vehicle Receipts</Typography>
+                        <Typography variant='h5' align='center'>Vehicle Receipt</Typography>
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
@@ -120,42 +120,6 @@ class ViewReceipts extends React.Component {
                         >
                         </TextField>
                     </Grid>
-                    {/* 
-                    date: "2019-01-01T06:00:00.000Z"
-                    description: "customer ask to look at tire tread also"
-                    due: 29.99
-                    payment_method: "DEBIT"
-                    receipt_id: 1
-                    services: Array(2) 
-                        amount: 30.99
-                        service_id: 1
-                        service_type: "Oil Change"
-                    */}
-                    {this.props.reduxState.vehicleReceipts.map(receipt => {
-                        return (
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    fullWidth
-                                    disabled
-                                    label={`Receipt ID:${receipt.receipt_id}   Date:${receipt.date}`}
-                                    multiline
-                                    type="text"
-                                    margin="normal"
-                                    variant="outlined"
-                                    value={
-                                        `Payment Method: ${receipt.payment_method}
-Due: ${receipt.due}
-Other: ${receipt.description === null ? '' : receipt.description}
-Service: 
-${receipt.services.map(service => { return service.service_type})}`}
-                                    className={classes.dialogTextField}
-                                    InputLabelProps={receipt && {
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-                        )
-                    })}
                 </Grid>
             </Paper>
         )
@@ -195,4 +159,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(ViewReceipts));
+export default connect(mapStateToProps)(withStyles(styles)(ViewReceipt));

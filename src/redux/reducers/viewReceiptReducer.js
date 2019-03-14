@@ -1,8 +1,8 @@
 const viewReceiptReducer = (state = '', action) => {
   switch (action.type) {
-    case 'SET_VIEW_RECEIPTS':
+    case 'SET_VIEW_RECEIPT':
       return action.payload;
-    case 'CLEAR_CUSTOMER':
+    case 'CLEAR_RECEIPT':
       return '';
     default:
       return state;
