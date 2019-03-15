@@ -55,24 +55,41 @@ class AddButton extends React.Component {
         })
     }
     // ---- End of Add Customer Dialog
+
+    // ---- Save Receipt and View PRINT receipt
+
+    saveReceipt = () => {
+        this.props.dispatch({
+            type: 'UPDATE_RECEIPT',
+            payload: this.props.reduxState.viewReceipt,
+        })
+        this.props.dispatch({
+            type: 'INFO_TO_VIEW',
+            payload: 4,
+        })
+    }
+
+    // ---- End of Save Receipt and View PRINT receipt
     render() {
         const { classes } = this.props;
         return (
             <>
-                {this.props.reduxState.infoView !== 3 && (
+                {this.props.reduxState.infoView !== 4 && (
                     <Button
                         className={classes.viewMore}
                         onClick={
                             this.props.reduxState.infoView === 0 ? this.openAddCustomer
                                 : this.props.reduxState.infoView === 1 ? this.openAddVehicle
-                                    : this.props.reduxState.infoView === 2 && this.openAddReceipt}
+                                    : this.props.reduxState.infoView === 2 ? this.openAddReceipt
+                                        : this.props.reduxState.infoView === 3 && this.saveReceipt}
                         color="secondary"
                         variant="contained"
                         size="small"
                     >
                         {this.props.reduxState.infoView === 0 ? 'Add Customer'
                             : this.props.reduxState.infoView === 1 ? 'Add Vehicle'
-                                : this.props.reduxState.infoView === 2 && 'Add Receipt'}
+                                : this.props.reduxState.infoView === 2 ? 'Add Receipt'
+                                    : this.props.reduxState.infoView === 3 && 'Print View'}
                     </Button>
                 )}
                 <AddVehicleDialog

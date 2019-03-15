@@ -26,7 +26,7 @@ class Header extends React.Component {
     const { value } = this.props.header;
     const { classes } = this.props;
     return (
-      <AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
+      (this.props.infoView !== 4 && this.props.user.id) ? (<AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
         {!this.props.user.id && <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>}
         {!this.props.user.id ?
           <Tabs
@@ -57,7 +57,8 @@ class Header extends React.Component {
             <Tab className={classes.appTab} label="Logout" component={LogOutButton} />
           </Tabs>
         }
-      </AppBar>
+      </AppBar>)
+      : <></>
     )
   }
 }
@@ -65,6 +66,7 @@ class Header extends React.Component {
 const mapStateToProps = state => ({
   user: state.user,
   header: state.header,
+  infoView: state.infoView
 });
 
 const styles = theme => ({

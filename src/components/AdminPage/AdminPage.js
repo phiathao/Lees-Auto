@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ManageDrawer from './Drawer/ManageDrawer';
+import PrintReceipt from './PrintReceipt/PrintReceipt';
 
 class Manage extends React.Component {
   componentDidMount = () => {
@@ -15,7 +16,7 @@ class Manage extends React.Component {
     })
   }
   render() {
-    return <ManageDrawer />
+    return (this.props.reduxState.infoView !== 4 ? <ManageDrawer /> : <PrintReceipt />)
   }
 };
 

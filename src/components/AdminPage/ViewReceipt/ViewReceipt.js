@@ -35,12 +35,12 @@ class ViewReceipt extends React.Component {
     //         edit: !this.state.edit
     //     });
     // }
-    // handleChange = (property) => (event) => {
-    //     this.props.dispatch({
-    //         type: 'EDIT_VEHICLE',
-    //         payload: { ...this.props.reduxState.viewVehicle, [property]: event.target.value }
-    //     });
-    // }
+    handleChange = (property) => (event) => {
+        this.props.dispatch({
+            type: 'EDIT_RECEIPT',
+            payload: { ...this.props.reduxState.viewReceipt, [property]: event.target.value }
+        });
+    }
     // handleCancel = (id) => {
     //     this.props.dispatch({
     //         type: 'SET_VIEW_VEHICLE',
@@ -104,8 +104,29 @@ class ViewReceipt extends React.Component {
                             </Tooltip>
                         </>
                     } */}
+
+                        {/* 
+                        date: "2019-02-03T06:00:00.000Z"
+                        description: null
+                        due: 25.99
+                        id: 3
+                        payment_method: "CASH"
+                        product_1: null
+                        product_1_c: null
+                        product_2: null
+                        product_2_c: null
+                        product_3: null
+                        product_3_c: null
+                        product_4: null
+                        product_4_c: null
+                        service_1: null
+                        service_1_c: null
+                        service_2: null
+                        service_2_c: null
+                        vehicle_id: 1
+                        */}
                     <Grid item xs={12} sm={12}>
-                        <Typography variant='h5' align='center'>Vehicle Receipt</Typography>
+                        <Typography variant='h5' align='center'>Receipt ID: {this.props.reduxState.viewReceipt.id} DATE: {this.props.reduxState.viewReceipt.date}</Typography>
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
@@ -117,8 +138,324 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             value={this.props.reduxState.viewVehicle.vehicle_id ? `${this.props.reduxState.viewVehicle.year} ${this.props.reduxState.viewVehicle.make} ${this.props.reduxState.viewVehicle.model} ${this.props.reduxState.viewVehicle.plate}` : ''}
-                        >
-                        </TextField>
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Product 1"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_1')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_1}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_1_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_1_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Product 2"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_2')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_2}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_2_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_2_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Product 3"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_3')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_3}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_3_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_3_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Product 4"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_4')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_4}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('product_4_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.product_4_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Service 1"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_1')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_1}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_1_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_1_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Service 2"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_2')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_2}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_2_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_2_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            label="Service 3"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_3')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_3}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('service_3_c')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.service_3_c}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            style={{ position: 'relative', }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.rightAlign
+                                }
+                            }}
+                            label="Sub Total"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            value={
+                                parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)).toFixed(2)
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            style={{ position: 'relative', }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.rightAlign
+                                }
+                            }}
+                            label="Sales Tax"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            value={'5%'}
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            style={{ position: 'relative', }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.rightAlign
+                                }
+                            }}
+                            label="Tax"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            value={
+                                parseFloat(((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2) 
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={10} sm={10}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            style={{ position: 'relative', }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.rightAlign
+                                }
+                            }}
+                            label="Total"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                        />
+                    </Grid>
+                    <Grid item xs={2} sm={2}>
+                        <TextField
+                            fullWidth
+                            disabled
+                            label=""
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            value={
+                                // sub total
+                                parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0) +
+                                // tax
+                                ((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
+                            }
+                        />
                     </Grid>
                 </Grid>
             </Paper>
@@ -152,6 +489,12 @@ const styles = theme => ({
         top: theme.spacing.unit * .5,
         right: theme.spacing.unit * 10,
         transform: `scale(${theme.spacing.unit * .1})`,
+    },
+    rightAlign: {
+        textAlign: 'right',
+        float: 'right',
+        position: 'absolute',
+        right: theme.spacing.unit * 4,
     },
 })
 
