@@ -162,6 +162,22 @@ class ViewCustomer extends React.Component {
                         <TextField
                             fullWidth
                             disabled={!this.state.edit}
+                            label="Second Phone Number"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            onChange={this.handleChange('phone_2')}
+                            value={this.props.reduxState.viewCustomer.phone_2}
+                            InputLabelProps={this.props.reduxState.viewCustomer.phone_2 && {
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            fullWidth
+                            disabled={!this.state.edit}
                             label="Street Address"
                             type="text"
                             margin="normal"

@@ -138,6 +138,30 @@ class AddVehicle extends React.Component {
                 onChange={this.handleChange('color')}
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Vin"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.vin}
+                onChange={this.handleChange('vin')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Odometer"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newVehicle.odometer}
+                onChange={this.handleChange('odometer')}
+              />
+            </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth

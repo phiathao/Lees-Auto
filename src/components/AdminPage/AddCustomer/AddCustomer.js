@@ -100,6 +100,21 @@ class AddCustomer extends React.Component {
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
+                label="Second Phone Number"
+                type="text"
+                margin="normal"
+                variant="outlined"
+                className={classes.dialogTextField}
+                value={this.props.reduxState.newCustomer.phone_2}
+                onChange={this.handleChange('phone_2')}
+                inputProps={{
+                  maxLength: 10,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
                 label="Street Address"
                 type="text"
                 margin="normal"

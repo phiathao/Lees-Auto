@@ -3,7 +3,6 @@ const emptyState = {
   payment_method: '',
   description: '',
   due: '',
-  services: []
 }
 
 const newReceiptReducer = (state = emptyState, action) => {

@@ -2,6 +2,7 @@ const emptyState = {
   first_name: '',
   last_name: '',
   phone: '',
+  phone_2: '',
   street: '',
   city: '',
   zip: '',

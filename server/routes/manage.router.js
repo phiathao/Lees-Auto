@@ -11,6 +11,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             first_name, 
             last_name, 
             phone,
+            phone_2,
             street,
             city,
             state,
@@ -20,7 +21,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             make, 
             model, 
             plate, 
-            color
+            color,
+            odometer,
+            vin
         FROM "customers"
         FULL OUTER JOIN "vehicle" 
         ON "vehicle".customer_id = "customers".id
@@ -30,7 +33,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         .then(result => {
             let customer = {};
             result.rows.forEach(row => {
-                let { id, first_name, last_name, phone, street, city, state, zip, ...vehicle } = row;
+                let { id, first_name, last_name, phone, phone_2, street, city, state, zip, ...vehicle } = row;
 
                 if (customer[row.id]) {
 
@@ -44,6 +47,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                         first_name,
                         last_name,
                         phone,
+                        phone_2,
                         street,
                         city,
                         state,
@@ -67,7 +71,9 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             make, 
             model, 
             plate, 
-            color, 
+            color,
+            odometer,
+            vin, 
             other,
             to_char("year", 'YYYY') AS "year",
             receipts.payment_method,
@@ -90,7 +96,7 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
         .then(result => {
             let vehicle = {};
             result.rows.forEach(row => {
-                let { vehicle_id, make, model, year, plate, color, other, customer_id, first_name, last_name, ...receipt } = row;
+                let { vehicle_id, make, model, year, plate, color, odometer, vin, other, customer_id, first_name, last_name, ...receipt } = row;
                 
                 if (vehicle_id) {
                     if (vehicle[row.vehicle_id]) {
@@ -106,6 +112,8 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
                             model,
                             plate,
                             color,
+                            odometer,
+                            vin,
                             other,
                             year,
                             customer_id,
@@ -144,10 +152,10 @@ router.get('/get/receipt/:id/', rejectUnauthenticated, (req, res) => {
 router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
     const queryString = `
         UPDATE "customers"
-        SET "first_name" = $1, "last_name" = $2, "phone" = $3, "street" = $4, "city" = $5, "state" = $6, "zip" = $7
+        SET "first_name" = $1, "last_name" = $2, "phone" = $3, "street" = $4, "city" = $5, "state" = $6, "zip" = $7, "phone_2" = $9
         WHERE "id" = $8; 
     `;
-    pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.id])
+    pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.id, req.body.phone_2])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
@@ -160,10 +168,10 @@ router.put('/put/customer/', rejectUnauthenticated, (req, res) => {
 router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
     const queryString = `
         UPDATE "vehicle"
-        SET "make" = $1, "model" = $2, "year" = $3, "plate" = $4, "color" = $5, "other" = $6
+        SET "make" = $1, "model" = $2, "year" = $3, "plate" = $4, "color" = $5, "other" = $6, "vin" = $8, "odometer" =$9
         WHERE "id" = $7; 
     `;
-    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.id])
+    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.id, req.body.vin, req.body.odometer])
         .then(result => {
             res.send(result.rows);
         }).catch(error => {
@@ -175,10 +183,10 @@ router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
 // POST new customer
 router.post('/add/customer', rejectUnauthenticated, (req, res) => {
     const queryString = `
-        INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7);
+        INSERT INTO "customers" ("first_name", "last_name", "phone", "street", "city", "state", "zip", "phone_2") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
     `;
-    pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip])
+    pool.query(queryString, [req.body.first_name, req.body.last_name, req.body.phone, req.body.street, req.body.city, req.body.state, req.body.zip, req.body.phone_2])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
@@ -189,10 +197,10 @@ router.post('/add/customer', rejectUnauthenticated, (req, res) => {
 // POST new vehicle
 router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
     const queryString = `
-        INSERT INTO "vehicle" ("make", "model", "year", "plate", "color", "other", "customer_id") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7);
+        INSERT INTO "vehicle" ("make", "model", "year", "plate", "color", "other", "customer_id", "vin", "odometer") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
     `;
-    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.customer_id])
+    pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.customer_id, req.body.vin, req.body.odometer])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {

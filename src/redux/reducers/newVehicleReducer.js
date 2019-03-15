@@ -5,6 +5,8 @@ const emptyState = {
   plate: '',
   color: '',
   other: '',
+  vin: '',
+  odometer: '',
   customer_id: '',
 }
 

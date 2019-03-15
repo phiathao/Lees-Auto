@@ -217,6 +217,36 @@ class ViewVehicle extends React.Component {
                                 shrink: true,
                             }}
                         />
+                    </Grid><Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            disabled={!this.state.edit}
+                            label="Vin"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            onChange={this.handleChange('vin')}
+                            value={this.props.reduxState.viewVehicle.vin}
+                            InputLabelProps={this.props.reduxState.viewVehicle.vin && {
+                                shrink: true,
+                            }}
+                        />
+                    </Grid><Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            disabled={!this.state.edit}
+                            label="Odometer"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.dialogTextField}
+                            onChange={this.handleChange('odometer')}
+                            value={this.props.reduxState.viewVehicle.odometer}
+                            InputLabelProps={this.props.reduxState.viewVehicle.odometer && {
+                                shrink: true,
+                            }}
+                        />
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
