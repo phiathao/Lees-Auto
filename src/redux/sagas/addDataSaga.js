@@ -28,7 +28,7 @@ function* addDataReceipt(action) {
     yield put({type: 'CLEAR_NEW_RECEIPT'});
     yield put({type: 'FETCH_DATA'});
   } catch (error) {
-      console.log('Error with adding customer:', error);
+      console.log('Error with adding receipt:', error);
   }
 }
 

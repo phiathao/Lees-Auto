@@ -23,12 +23,12 @@ class AddReceipt extends React.Component {
   }
 
   handleSubmit = () => {
-
+    this.props.dispatch({
+      type: 'ADD_RECEIPT',
+      payload: this.props.reduxState.newReceipt
+    })
   }
   handleClose = () => {
-    this.setState({
-      numberService: 1
-    });
     this.props.dispatch({
       type: 'CLEAR_NEW_VEHICLE',
     });

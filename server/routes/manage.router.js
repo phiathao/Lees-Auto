@@ -213,9 +213,9 @@ router.put('/put/receipt/', rejectUnauthenticated, (req, res) => {
         req.body.product_2, req.body.product_2_c,
         req.body.product_3, req.body.product_3_c,
         req.body.product_4, req.body.product_4_c,
-        req.body.product_1, req.body.product_1_c,
-        req.body.product_2, req.body.product_2_c,
-        req.body.product_3, req.body.product_3_c,
+        req.body.service_1, req.body.service_1_c,
+        req.body.service_2, req.body.service_2_c,
+        req.body.service_3, req.body.service_3_c,
         total,
         req.body.description,
         req.body.id
@@ -259,10 +259,10 @@ router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
 // POST new receipt
 router.post('/add/receipt', rejectUnauthenticated, (req, res) => {
     const queryString = `
-        INSERT INTO "receipts" ("id", "model", "year", "plate", "color", "other", "customer_id", "vin", "odometer") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+        INSERT INTO "receipts" ("vehicle_id", "date") 
+        VALUES ($1, $2);
     `;
-    pool.query(queryString, [])
+    pool.query(queryString, [req.body.vehicle_id, req.body.date])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
