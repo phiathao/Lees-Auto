@@ -204,8 +204,9 @@ router.put('/put/receipt/', rejectUnauthenticated, (req, res) => {
         "service_1" = $9, "service_1_c" =$10,
         "service_2" = $11, "service_2_c" =$12,
         "service_3" = $13, "service_3_c" =$14,
-        "due" = $15
-        WHERE "id" = $16; 
+        "due" = $15,
+        "description" = $16
+        WHERE "id" = $17; 
     `;
     pool.query(queryString, [
         req.body.product_1, req.body.product_1_c,
@@ -216,6 +217,7 @@ router.put('/put/receipt/', rejectUnauthenticated, (req, res) => {
         req.body.product_2, req.body.product_2_c,
         req.body.product_3, req.body.product_3_c,
         total,
+        req.body.description,
         req.body.id
     ])
         .then(result => {
@@ -247,6 +249,20 @@ router.post('/add/vehicle', rejectUnauthenticated, (req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
     `;
     pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.customer_id, req.body.vin, req.body.odometer])
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error => {
+            res.sendStatus(500);
+        })
+});
+
+// POST new receipt
+router.post('/add/receipt', rejectUnauthenticated, (req, res) => {
+    const queryString = `
+        INSERT INTO "receipts" ("id", "model", "year", "plate", "color", "other", "customer_id", "vin", "odometer") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+    `;
+    pool.query(queryString, [])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {

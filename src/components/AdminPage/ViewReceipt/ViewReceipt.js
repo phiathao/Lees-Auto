@@ -141,6 +141,20 @@ class ViewReceipt extends React.Component {
                             value={this.props.reduxState.viewVehicle.vehicle_id ? `${this.props.reduxState.viewVehicle.year} ${this.props.reduxState.viewVehicle.make} ${this.props.reduxState.viewVehicle.model} ${this.props.reduxState.viewVehicle.plate}` : ''}
                         />
                     </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            fullWidth
+                            multiline
+                            rows={2}
+                            label="Other"
+                            type="text"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('description')}
+                            className={classes.dialogTextField}
+                            value={this.props.reduxState.viewReceipt.description ? this.props.reduxState.viewReceipt.description : ''}
+                        />
+                    </Grid>
                     <Grid item xs={10} sm={10}>
                         <TextField
                             fullWidth
