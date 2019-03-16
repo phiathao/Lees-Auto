@@ -287,7 +287,11 @@ class ViewVehicle extends React.Component {
                                     }}
                                 /> */}
                             <div className={classes.divContainer} onClick={()=>this.handleSelectReceipt(receipt.receipt_id)}>
+                                {receipt.due ? 
                                 <Typography className={classes.divContent}>Receipt ID: {receipt.receipt_id} Date: {receipt.date} Sub Total: {receipt.due}</Typography>
+                                :
+                                <Typography className={classes.divContent}>Receipt ID: {receipt.receipt_id} Date: {receipt.date}  <b>NEW RECEIPT</b></Typography>
+                                }
                             </div>
                         </Grid>
                     })}
