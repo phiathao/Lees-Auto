@@ -3,21 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import classNames from 'classnames';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import TablePagination from '@material-ui/core/TablePagination';
-import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
-import Fab from '@material-ui/core/Fab';
-import InfoIcon from '@material-ui/icons/Info';
 import PersonIcon from '@material-ui/icons/Person';
 import CarIcon from '@material-ui/icons/DirectionsCar';
-import Tooltip from '@material-ui/core/Tooltip';
-
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -138,10 +129,10 @@ class CustomerTable extends React.Component {
                                     )
                                 })}
                             </Collapse>
-                            {emptyRow}
                         </div>
                     )
                 })}
+                {emptyRow}
                 <TablePagination
                             rowsPerPageOptions={false}
                             component='div'

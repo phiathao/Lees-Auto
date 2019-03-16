@@ -84,12 +84,6 @@ class ViewVehicle extends React.Component {
         });
         this.handleEdit();
     }
-    // handleViewReceipts = () => {
-    //     this.props.dispatch({
-    //         type: 'INFO_TO_VIEW',
-    //         payload: 2,
-    //     });
-    // }
     handleSelectReceipt = (id) => {
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
@@ -272,20 +266,6 @@ class ViewVehicle extends React.Component {
                     </Grid>
                     {this.props.reduxState.vehicleReceipts.map(receipt => {
                         return <Grid item xs={12} sm={12} key={receipt.receipt_id}>
-                            {/* <TextField
-                                    fullWidth
-                                    disabled
-                                    label={`Receipt ID: ${receipt.receipt_id} Date: ${receipt.date}`}
-                                    multiline
-                                    type="text"
-                                    margin="normal"
-                                    variant="outlined"
-                                    value={`Sub Total: ${receipt.due}`}
-                                    className={classNames(classes.dialogTextField, classes.inputHover)}
-                                    InputLabelProps={receipt && {
-                                        shrink: true,
-                                    }}
-                                /> */}
                             <div className={classes.divContainer} onClick={()=>this.handleSelectReceipt(receipt.receipt_id)}>
                                 {receipt.due ? 
                                 <Typography className={classes.divContent}>Receipt ID: {receipt.receipt_id} Date: {receipt.date} Sub Total: {receipt.due}</Typography>

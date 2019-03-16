@@ -9,123 +9,18 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import CancelIcon from '@material-ui/icons/Clear';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import Tooltip from '@material-ui/core/Tooltip';
-
 class ViewReceipt extends React.Component {
-    // state = {
-    //     edit: false
-    // }
-    // componentWillUpdate(newProps, newState) {
-    //     if (newState.edit === true
-    //         && this.state.edit === true
-    //         && (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id
-    //             || newProps.reduxState.infoView !== this.props.reduxState.infoView)) {
-    //         this.setState({
-    //             edit: false,
-    //         })
-    //     }
-    // }
-    // handleEdit = () => {
-    //     this.setState({
-    //         edit: !this.state.edit
-    //     });
-    // }
     handleChange = (property) => (event) => {
         this.props.dispatch({
             type: 'EDIT_RECEIPT',
             payload: { ...this.props.reduxState.viewReceipt, [property]: event.target.value }
         });
     }
-    // handleCancel = (id) => {
-    //     this.props.dispatch({
-    //         type: 'SET_VIEW_VEHICLE',
-    //         payload: this.props.reduxState.vehiclesData.filter(vehicle => vehicle.vehicle_id === id),
-    //     });
-    //     this.handleEdit();
-    // }
-    // handleSave = () => {
-    //     const {
-    //         make,
-    //         model,
-    //         year,
-    //         plate,
-    //         color,
-    //         other,
-    //         vehicle_id,
-    //     } = this.props.reduxState.viewVehicle;
-    //     this.props.dispatch({
-    //         type: 'UPDATE_VEHICLE',
-    //         payload: {
-    //             make,
-    //             model,
-    //             year,
-    //             plate,
-    //             color,
-    //             other,
-    //             id: vehicle_id,
-    //         },
-    //     });
-    //     this.handleEdit();
-    // }
     render() {
         const { classes } = this.props
         return (
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 3 })}>
                 <Grid container spacing={8}>
-                    {/* {!this.state.edit ?
-                        <>
-                            <Tooltip title="View Receipts">
-                                <Fab color="primary" aria-label="View Receipts" className={classes.infoCancel} onClick={this.handleViewReceipts}>
-                                    <ReceiptIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="Edit">
-                                <Fab color="secondary" aria-label="Edit" className={classes.infoFab} onClick={this.handleEdit}>
-                                    <EditIcon />
-                                </Fab>
-                            </Tooltip>
-                        </>
-                        :
-                        <>
-                            <Tooltip title="Cancel Change">
-                                <Fab color="primary" aria-label="Cancel" className={classes.infoCancel} onClick={() => this.handleCancel(this.props.reduxState.viewVehicle.vehicle_id)}>
-                                    <CancelIcon />
-                                </Fab>
-                            </Tooltip>
-                            <Tooltip title="Save Change">
-                                <Fab color="secondary" aria-label="Save" className={classes.infoFab} onClick={this.handleSave}>
-                                    <CheckIcon />
-                                </Fab>
-                            </Tooltip>
-                        </>
-                    } */}
-
-                    {/* 
-                        date: "2019-02-03T06:00:00.000Z"
-                        description: null
-                        due: 25.99
-                        id: 3
-                        payment_method: "CASH"
-                        product_1: null
-                        product_1_c: null
-                        product_2: null
-                        product_2_c: null
-                        product_3: null
-                        product_3_c: null
-                        product_4: null
-                        product_4_c: null
-                        service_1: null
-                        service_1_c: null
-                        service_2: null
-                        service_2_c: null
-                        vehicle_id: 1
-                        */}
                     <Grid item xs={12} sm={12}>
                         <Typography variant='h5' align='center'>Receipt ID: {this.props.reduxState.viewReceipt.id} DATE: {this.props.reduxState.viewReceipt.date}</Typography>
                     </Grid>

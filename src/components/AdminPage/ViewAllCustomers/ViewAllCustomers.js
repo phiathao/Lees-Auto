@@ -5,14 +5,8 @@ import { connect } from 'react-redux';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import CancelIcon from '@material-ui/icons/Clear';
 import TablePagination from '@material-ui/core/TablePagination';
 
 
@@ -90,16 +84,6 @@ class ViewAllCustomers extends React.Component {
                     <Grid item xs={12} sm={12}>
                         <Typography variant='h5' align='center'>Customers</Typography>
                     </Grid>
-                    {/* <Grid item xs={12} className={classes.searchPadding}>
-                        <TextField
-                            fullWidth
-                            id="filled-search"
-                            label="Search"
-                            type="search"
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid> */}
                     <Grid item xs={12} sm={12}>
                         {this.props.reduxState.customersData.length > 0 && this.props.reduxState.customersData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(customer => {
                             return (
