@@ -37,7 +37,7 @@ class AddCustomer extends React.Component {
       }); // add some type of confirmation or notification that customer is added
       alert(this.props.reduxState.newCustomer.first_name + ' added');
       this.handleClickSnack();
-      this.props.handleClose(); // close dialog
+      this.handleClose(); // close dialog
     } else {
       alert('not a valid customer');
     }

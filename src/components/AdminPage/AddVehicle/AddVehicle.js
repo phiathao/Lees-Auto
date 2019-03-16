@@ -4,14 +4,30 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 class AddVehicle extends React.Component {
+  state = {
+    open: false,
+  };
+  // ---- snackbar ----
+  handleClickSnack = () => {
+    this.setState({ open: true });
+  };
+  handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
+  // ---- end of snackbar ----
   componentDidUpdate(newProps) {
     if (newProps.reduxState.viewCustomer.id !== this.props.reduxState.viewCustomer.id) {
       this.props.dispatch({
@@ -32,8 +48,8 @@ class AddVehicle extends React.Component {
           payload: this.props.reduxState.newVehicle
         }); // add some type of confirmation or notification that customer is added
         alert(`Vehicle added to ${this.props.reduxState.viewCustomer.first_name}`);
-        this.props.history.push('/manage/customer');
-        this.props.handleClose(); // close dialog
+        this.handleClickSnack();
+        this.handleClose(); // close dialog
       }
     } else {
       alert('not a valid vehicle');
@@ -46,14 +62,17 @@ class AddVehicle extends React.Component {
     });
   }
   handleClose = () => {
-    this.props.dispatch({
-      type: 'CLEAR_NEW_VEHICLE',
-    });
     this.props.handleClose()
+    setTimeout(()=>{
+      this.props.dispatch({
+        type: 'CLEAR_NEW_VEHICLE',
+      });
+    }, 6000)
   }
   render() {
     const { classes } = this.props
     return (
+      <>
       <Dialog
         maxWidth='lg'
         open={this.props.open}
@@ -192,6 +211,31 @@ class AddVehicle extends React.Component {
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnack}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Vehicle added to {this.props.reduxState.viewCustomer.first_name}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleCloseSnack}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+      </>
     )
   }
 }
@@ -211,6 +255,9 @@ const styles = theme => ({
   dialogComponent: {
     flexGrow: 1,
     maxWidth: 700,
+  },
+  close: {
+    padding: theme.spacing.unit / 2,
   },
 });
 

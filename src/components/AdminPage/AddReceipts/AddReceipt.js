@@ -9,10 +9,26 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 class AddReceipt extends React.Component {
+  state = {
+    open: false,
+  };
+  // ---- snackbar ----
+  handleClickSnack = () => {
+    this.setState({ open: true });
+  };
+  handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ open: false });
+  };
+  // ---- end of snackbar ----
   componentDidUpdate(newProps) {
     if (newProps.reduxState.viewVehicle.vehicle_id !== this.props.reduxState.viewVehicle.vehicle_id) {
       this.props.dispatch({
@@ -27,12 +43,16 @@ class AddReceipt extends React.Component {
       type: 'ADD_RECEIPT',
       payload: this.props.reduxState.newReceipt
     })
+    this.handleClickSnack();
+    this.handleClose();
   }
   handleClose = () => {
-    this.props.dispatch({
-      type: 'CLEAR_NEW_VEHICLE',
-    });
     this.props.handleClose();
+    setTimeout(()=>{
+      this.props.dispatch({
+        type: 'CLEAR_NEW_RECEIPT',
+      });
+    }, 6000)
   }
   render() {
 

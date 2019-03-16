@@ -13,7 +13,6 @@ function* addDataCustomer(action) {
 function* addDataVehicle(action) {
   try {
     yield axios.post(`/api/manage/add/vehicle/`, action.payload);
-    yield put({type: 'CLEAR_NEW_VEHICLE'});
     yield put({type: 'FETCH_DATA'});
   } catch (error) {
       console.log('Error with adding vehicle:', error);
@@ -23,7 +22,6 @@ function* addDataVehicle(action) {
 function* addDataReceipt(action) {
   try {
     yield axios.post(`/api/manage/add/receipt/`, action.payload);
-    yield put({type: 'CLEAR_NEW_RECEIPT'});
     yield put({type: 'FETCH_DATA'});
   } catch (error) {
       console.log('Error with adding receipt:', error);
