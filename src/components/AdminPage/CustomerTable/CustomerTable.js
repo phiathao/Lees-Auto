@@ -119,12 +119,12 @@ class CustomerTable extends React.Component {
                                 <ListItemText inset primary={`${customer.first_name} ${customer.last_name}`} />
                                 {this.props.reduxState.viewCustomer.id === customer.id ? <ExpandLess /> : <ExpandMore />}
                             </ListItem>
-                            <Collapse in={this.props.reduxState.viewCustomer.id === customer.id && (this.props.reduxState.infoView === 1 || this.props.reduxState.infoView === 2)} timeout="auto" unmountOnExit>
+                            <Collapse in={this.props.reduxState.viewCustomer.id === customer.id} timeout="auto" unmountOnExit>
                                 {this.props.reduxState.customersData.length > 0 && customer.vehicles.map((vehicle, i) => {
                                     return (
                                         <ListItem
                                             button
-                                            selected={this.props.reduxState.infoView === 2 && this.props.reduxState.viewVehicle.vehicle_id === vehicle.vehicle_id}
+                                            selected={(this.props.reduxState.infoView === 2 || this.props.reduxState.infoView === 3 || this.props.reduxState.infoView === 4) && this.props.reduxState.viewVehicle.vehicle_id === vehicle.vehicle_id}
                                             onClick={() => this.handleSelectVehicle(vehicle.vehicle_id)}
                                             dense
                                             className={classes.vehiclePadding}
