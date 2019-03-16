@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
+import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -105,7 +106,7 @@ class ViewReceipt extends React.Component {
                         </>
                     } */}
 
-                        {/* 
+                    {/* 
                         date: "2019-02-03T06:00:00.000Z"
                         description: null
                         due: 25.99
@@ -149,7 +150,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_1')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_1}
+                            value={this.props.reduxState.viewReceipt.product_1 ? this.props.reduxState.viewReceipt.product_1 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -161,7 +162,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_1_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_1_c}
+                            value={this.props.reduxState.viewReceipt.product_1_c ? this.props.reduxState.viewReceipt.product_1_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -173,7 +174,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_2')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_2}
+                            value={this.props.reduxState.viewReceipt.product_2 ? this.props.reduxState.viewReceipt.product_2 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -185,7 +186,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_2_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_2_c}
+                            value={this.props.reduxState.viewReceipt.product_2_c ? this.props.reduxState.viewReceipt.product_2_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -197,7 +198,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_3')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_3}
+                            value={this.props.reduxState.viewReceipt.product_3 ? this.props.reduxState.viewReceipt.product_3 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -209,7 +210,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_3_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_3_c}
+                            value={this.props.reduxState.viewReceipt.product_3_c ? this.props.reduxState.viewReceipt.product_3_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -221,7 +222,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_4')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_4}
+                            value={this.props.reduxState.viewReceipt.product_4 ? this.props.reduxState.viewReceipt.product_4 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -233,7 +234,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('product_4_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.product_4_c}
+                            value={this.props.reduxState.viewReceipt.product_4_c ? this.props.reduxState.viewReceipt.product_4_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -245,7 +246,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_1')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_1}
+                            value={this.props.reduxState.viewReceipt.service_1 ? this.props.reduxState.viewReceipt.service_1 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -257,7 +258,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_1_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_1_c}
+                            value={this.props.reduxState.viewReceipt.service_1_c ? this.props.reduxState.viewReceipt.service_1_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -269,7 +270,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_2')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_2}
+                            value={this.props.reduxState.viewReceipt.service_2 ? this.props.reduxState.viewReceipt.service_2 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -281,7 +282,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_2_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_2_c}
+                            value={this.props.reduxState.viewReceipt.service_2_c ? this.props.reduxState.viewReceipt.service_2_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -293,7 +294,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_3')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_3}
+                            value={this.props.reduxState.viewReceipt.service_3 ? this.props.reduxState.viewReceipt.service_3 : ''}
                         />
                     </Grid>
                     <Grid item xs={2} sm={2}>
@@ -305,7 +306,7 @@ class ViewReceipt extends React.Component {
                             variant="outlined"
                             onChange={this.handleChange('service_3_c')}
                             className={classes.dialogTextField}
-                            value={this.props.reduxState.viewReceipt.service_3_c}
+                            value={this.props.reduxState.viewReceipt.service_3_c ? this.props.reduxState.viewReceipt.service_3_c : ''}
                         />
                     </Grid>
                     <Grid item xs={10} sm={10}>
@@ -336,12 +337,12 @@ class ViewReceipt extends React.Component {
                             className={classes.dialogTextField}
                             value={
                                 parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)).toFixed(2)
+                                    (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)).toFixed(2)
                             }
                         />
                     </Grid>
@@ -402,12 +403,12 @@ class ViewReceipt extends React.Component {
                             className={classes.dialogTextField}
                             value={
                                 parseFloat(((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2) 
+                                    (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
                             }
                         />
                     </Grid>
@@ -440,20 +441,20 @@ class ViewReceipt extends React.Component {
                             value={
                                 // sub total
                                 parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0) +
-                                // tax
-                                ((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
-                                (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
-                                (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
+                                    (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                    (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0) +
+                                    // tax
+                                    ((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                                        (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
                             }
                         />
                     </Grid>

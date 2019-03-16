@@ -122,7 +122,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('first_name')}
-                            value={this.props.reduxState.viewCustomer.first_name}
+                            value={this.props.reduxState.viewCustomer.first_name ? this.props.reduxState.viewCustomer.first_name : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.first_name && {
                                 shrink: true,
                             }}
@@ -138,7 +138,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('last_name')}
-                            value={this.props.reduxState.viewCustomer.last_name}
+                            value={this.props.reduxState.viewCustomer.last_name ? this.props.reduxState.viewCustomer.last_name : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.last_name && {
                                 shrink: true,
                             }}
@@ -154,7 +154,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('phone')}
-                            value={this.props.reduxState.viewCustomer.phone}
+                            value={this.props.reduxState.viewCustomer.phone ? this.props.reduxState.viewCustomer.phone : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.phone && {
                                 shrink: true,
                             }}
@@ -170,7 +170,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('phone_2')}
-                            value={this.props.reduxState.viewCustomer.phone_2}
+                            value={this.props.reduxState.viewCustomer.phone_2 ? this.props.reduxState.viewCustomer.phone_2 : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.phone_2 && {
                                 shrink: true,
                             }}
@@ -186,7 +186,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('street')}
-                            value={this.props.reduxState.viewCustomer.street}
+                            value={this.props.reduxState.viewCustomer.street ? this.props.reduxState.viewCustomer.street : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.street && {
                                 shrink: true,
                             }}
@@ -202,7 +202,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('city')}
-                            value={this.props.reduxState.viewCustomer.city}
+                            value={this.props.reduxState.viewCustomer.city ? this.props.reduxState.viewCustomer.city : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.city && {
                                 shrink: true,
                             }}
@@ -218,7 +218,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('zip')}
-                            value={this.props.reduxState.viewCustomer.zip}
+                            value={this.props.reduxState.viewCustomer.zip ? this.props.reduxState.viewCustomer.zip : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.zip && {
                                 shrink: true,
                             }}
@@ -234,7 +234,7 @@ class ViewCustomer extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('state')}
-                            value={this.props.reduxState.viewCustomer.state}
+                            value={this.props.reduxState.viewCustomer.state ? this.props.reduxState.viewCustomer.state : ''}
                             InputLabelProps={this.props.reduxState.viewCustomer.state && {
                                 shrink: true,
                             }}

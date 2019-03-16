@@ -152,7 +152,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('make')}
-                            value={this.props.reduxState.viewVehicle.make}
+                            value={this.props.reduxState.viewVehicle.make ? this.props.reduxState.viewVehicle.make : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.make && {
                                 shrink: true,
                             }}
@@ -168,7 +168,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('model')}
-                            value={this.props.reduxState.viewVehicle.model}
+                            value={this.props.reduxState.viewVehicle.model ? this.props.reduxState.viewVehicle.model : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.model && {
                                 shrink: true,
                             }}
@@ -184,7 +184,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('year')}
-                            value={this.props.reduxState.viewVehicle.year}
+                            value={this.props.reduxState.viewVehicle.year ? this.props.reduxState.viewVehicle.year : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.year && {
                                 shrink: true,
                             }}
@@ -200,7 +200,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('plate')}
-                            value={this.props.reduxState.viewVehicle.plate}
+                            value={this.props.reduxState.viewVehicle.plate ? this.props.reduxState.viewVehicle.plate : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.plate && {
                                 shrink: true,
                             }}
@@ -216,7 +216,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('color')}
-                            value={this.props.reduxState.viewVehicle.color}
+                            value={this.props.reduxState.viewVehicle.color ? this.props.reduxState.viewVehicle.color : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.color && {
                                 shrink: true,
                             }}
@@ -231,7 +231,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('vin')}
-                            value={this.props.reduxState.viewVehicle.vin}
+                            value={this.props.reduxState.viewVehicle.vin ? this.props.reduxState.viewVehicle.vin : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.vin && {
                                 shrink: true,
                             }}
@@ -246,7 +246,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('odometer')}
-                            value={this.props.reduxState.viewVehicle.odometer}
+                            value={this.props.reduxState.viewVehicle.odometer ? this.props.reduxState.viewVehicle.odometer : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.odometer && {
                                 shrink: true,
                             }}
@@ -264,7 +264,7 @@ class ViewVehicle extends React.Component {
                             variant="outlined"
                             className={classes.dialogTextField}
                             onChange={this.handleChange('other')}
-                            value={this.props.reduxState.viewVehicle.other}
+                            value={this.props.reduxState.viewVehicle.other ? this.props.reduxState.viewVehicle.other : ''}
                             InputLabelProps={this.props.reduxState.viewVehicle.other && {
                                 shrink: true,
                             }}

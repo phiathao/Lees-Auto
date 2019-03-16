@@ -97,7 +97,7 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
             let vehicle = {};
             result.rows.forEach(row => {
                 let { vehicle_id, make, model, year, plate, color, odometer, vin, other, customer_id, first_name, last_name, ...receipt } = row;
-                
+
                 if (vehicle_id) {
                     if (vehicle[row.vehicle_id]) {
 
@@ -133,7 +133,6 @@ router.get('/vehicles', rejectUnauthenticated, (req, res) => {
 
 // GET receipt info
 router.get('/get/receipt/:id/', rejectUnauthenticated, (req, res) => {
-
     const queryString = `
         SELECT *
         FROM "receipts"
@@ -173,7 +172,54 @@ router.put('/put/vehicle/', rejectUnauthenticated, (req, res) => {
     `;
     pool.query(queryString, [req.body.make, req.body.model, `1-1-${req.body.year}`, req.body.plate, req.body.color, req.body.other, req.body.id, req.body.vin, req.body.odometer])
         .then(result => {
-            res.send(result.rows);
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
+});
+router.put('/put/receipt/', rejectUnauthenticated, (req, res) => {
+    const total = parseFloat((req.body.product_1_c ? parseFloat(req.body.product_1_c) : 0) +
+        (req.body.product_2_c ? parseFloat(req.body.product_2_c) : 0) +
+        (req.body.product_3_c ? parseFloat(req.body.product_3_c) : 0) +
+        (req.body.product_4_c ? parseFloat(req.body.product_4_c) : 0) +
+        (req.body.service_1_c ? parseFloat(req.body.service_1_c) : 0) +
+        (req.body.service_2_c ? parseFloat(req.body.service_2_c) : 0) +
+        (req.body.service_3_c ? parseFloat(req.body.service_3_c) : 0) +
+        ((req.body.product_1_c ? parseFloat(req.body.product_1_c) : 0) +
+            (req.body.product_2_c ? parseFloat(req.body.product_2_c) : 0) +
+            (req.body.product_3_c ? parseFloat(req.body.product_3_c) : 0) +
+            (req.body.product_4_c ? parseFloat(req.body.product_4_c) : 0) +
+            (req.body.service_1_c ? parseFloat(req.body.service_1_c) : 0) +
+            (req.body.service_2_c ? parseFloat(req.body.service_2_c) : 0) +
+            (req.body.service_3_c ? parseFloat(req.body.service_3_c) : 0)) * .05).toFixed(2)
+    console.log(total);
+    const queryString = `
+        UPDATE "receipts"
+        SET 
+        "product_1" = $1, "product_1_c" = $2, 
+        "product_2" = $3, "product_2_c" = $4, 
+        "product_3" = $5, "product_3_c" = $6, 
+        "product_4" = $7, "product_4_c" =$8,
+        "service_1" = $9, "service_1_c" =$10,
+        "service_2" = $11, "service_2_c" =$12,
+        "service_3" = $13, "service_3_c" =$14,
+        "due" = $15
+        WHERE "id" = $16; 
+    `;
+    pool.query(queryString, [
+        req.body.product_1, req.body.product_1_c,
+        req.body.product_2, req.body.product_2_c,
+        req.body.product_3, req.body.product_3_c,
+        req.body.product_4, req.body.product_4_c,
+        req.body.product_1, req.body.product_1_c,
+        req.body.product_2, req.body.product_2_c,
+        req.body.product_3, req.body.product_3_c,
+        total,
+        req.body.id
+    ])
+        .then(result => {
+            res.sendStatus(200);
         }).catch(error => {
             console.log(error)
             res.sendStatus(500);

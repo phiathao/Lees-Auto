@@ -63,6 +63,12 @@ class AddButton extends React.Component {
             type: 'UPDATE_RECEIPT',
             payload: this.props.reduxState.viewReceipt,
         });
+    }
+    saveAndViewReceipt = () => {
+        this.props.dispatch({
+            type: 'UPDATE_RECEIPT',
+            payload: this.props.reduxState.viewReceipt,
+        });
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
             payload: 4,
@@ -73,7 +79,16 @@ class AddButton extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <>
+            <>  
+                {this.props.reduxState.infoView === 3 && (
+                    <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                        className={classes.receiptButton}
+                        onClick={this.saveReceipt}
+                    >Save Change</Button>
+                )}
                 {this.props.reduxState.infoView !== 4 && (
                     <Button
                         className={classes.viewMore}
@@ -81,7 +96,7 @@ class AddButton extends React.Component {
                             this.props.reduxState.infoView === 0 ? this.openAddCustomer
                                 : this.props.reduxState.infoView === 1 ? this.openAddVehicle
                                     : this.props.reduxState.infoView === 2 ? this.openAddReceipt
-                                        : this.props.reduxState.infoView === 3 && this.saveReceipt}
+                                        : this.props.reduxState.infoView === 3 && this.saveAndViewReceipt}
                         color="secondary"
                         variant="contained"
                         size="small"
@@ -113,6 +128,11 @@ const styles = theme => ({
         position: 'fixed',
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 3,
+    },
+    receiptButton: {
+        position: 'fixed',
+        bottom: theme.spacing.unit * 2,
+        // right: theme.spacing.unit * 3,
     },
 });
 
