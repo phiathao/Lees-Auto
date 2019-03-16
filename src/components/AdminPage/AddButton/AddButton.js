@@ -20,12 +20,12 @@ class AddButton extends React.Component {
     openAddVehicle = () => {
         this.setState({
             addVehicle: true
-        })
+        });
     }
     closeAddVehicle = () => {
         this.setState({
             addVehicle: false
-        })
+        });
     }
     // ---- End of Add Vehicle Dialog
 
@@ -34,12 +34,12 @@ class AddButton extends React.Component {
     openAddReceipt = () => {
         this.setState({
             addReceipt: true
-        })
+        });
     }
     closeAddReceipt = () => {
         this.setState({
             addReceipt: false
-        })
+        });
     }
     // ---- End of Add Receipt Dialog
 
@@ -47,12 +47,12 @@ class AddButton extends React.Component {
     openAddCustomer = () => {
         this.setState({
             addCustomer: true
-        })
+        });
     }
     closeAddCustomer = () => {
         this.setState({
             addCustomer: false
-        })
+        });
     }
     // ---- End of Add Customer Dialog
 
@@ -62,11 +62,11 @@ class AddButton extends React.Component {
         this.props.dispatch({
             type: 'UPDATE_RECEIPT',
             payload: this.props.reduxState.viewReceipt,
-        })
+        });
         this.props.dispatch({
             type: 'INFO_TO_VIEW',
             payload: 4,
-        })
+        });
     }
 
     // ---- End of Save Receipt and View PRINT receipt

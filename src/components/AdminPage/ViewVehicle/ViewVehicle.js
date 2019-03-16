@@ -64,6 +64,8 @@ class ViewVehicle extends React.Component {
             plate,
             color,
             other,
+            vin,
+            odometer,
             vehicle_id,
         } = this.props.reduxState.viewVehicle;
         this.props.dispatch({
@@ -75,6 +77,8 @@ class ViewVehicle extends React.Component {
                 plate,
                 color,
                 other,
+                vin,
+                odometer,
                 id: vehicle_id,
             },
         });
