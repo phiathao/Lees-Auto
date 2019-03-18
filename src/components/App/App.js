@@ -39,21 +39,21 @@ class App extends Component {
             <Redirect exact from="/" to="/login" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
-            {/* <Route
+            <Route
               exact
               path="/about"
               component={AboutPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               exact
               path="/services"
               component={ServicesAll}
-            /> */}
-            {/* <Route
+            />
+            <Route
               exact
               path="/carList"
               component={CarListPage}
-            /> */}
+            />
             <Route
               exact
               path="/contact"

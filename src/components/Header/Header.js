@@ -17,48 +17,46 @@ class Header extends React.Component {
     this.props.dispatch({
       type: "SET_HEADER",
       payload: { value }
-    })
-    console.log(this.props.header)
-    // this.setState({ value });
+    });
   };
 
   render() {
     const { value } = this.props.header;
     const { classes } = this.props;
     return (
-      (this.props.info !== 4 || this.props.user.id) ? (<AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
-        {!this.props.user.id && <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>}
-        {!this.props.user.id ?
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            variant="fullWidth"
-            centered
-          >
-            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
-            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
-            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
-            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
-            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
-          </Tabs>
-          :
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            variant="fullWidth"
-            centered
-          >
-            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
-            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
-            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
-            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
-            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
-            <Tab className={classes.appTab} label="Manage" component={Link} to="/manage" />
-            <Tab className={classes.appTab} label="Logout" component={LogOutButton} />
-          </Tabs>
-        }
-      </AppBar>)
-      : <></>
+          this.props.info !==4 ? <AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
+            {!this.props.user.id && <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>}
+            {!this.props.user.id ?
+              <Tabs
+                value={value}
+                onChange={this.handleChange}
+                variant="fullWidth"
+                centered
+              >
+                <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+                <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+                <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+                <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+                <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
+              </Tabs>
+              :
+              <Tabs
+                value={value}
+                onChange={this.handleChange}
+                variant="fullWidth"
+                centered
+              >
+                <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+                <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+                <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+                <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+                <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
+                <Tab className={classes.appTab} label="Manage" component={Link} to="/manage" />
+                <Tab className={classes.appTab} label="Logout" component={LogOutButton} />
+              </Tabs>
+            }
+          </AppBar>
+          : <></>
     )
   }
 }
