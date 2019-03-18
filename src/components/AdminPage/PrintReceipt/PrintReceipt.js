@@ -43,6 +43,8 @@ class PrintReceipt extends React.Component {
             </Grid>
           </Grid>
           <Grid item container xs={7}>
+
+            {/* ------------------------ Customer ------------------------ */}
             <Grid item container xs={12}>
               <Grid item xs={12}>
                 <Typography align='center'>Customer</Typography>
@@ -106,7 +108,7 @@ class PrintReceipt extends React.Component {
               </Grid>
             </Grid>
 
-            {/* Vehicle */}
+            {/* ------------------------ Vehicle ------------------------ */}
             <Grid item xs={12}>
               <hr />
               <Typography align='center'>Vehicle</Typography>
@@ -166,7 +168,7 @@ class PrintReceipt extends React.Component {
               </Grid>
             </Grid>
 
-            {/* TERMS, AGREEMENT and SIGNATURE */}
+            {/* ------------------------ TERMS, AGREEMENT and SIGNATURE ------------------------ */}
             <Grid item xs={12}>
               <Typography className={classes.termsAndCondition}>
                 I HEREBY AUTHORIZE the above repair work to be done along with necessary materials. You and your employees may operate the above vehicle for purpose of testing inspection or delivery at my risk. An express mechanic's lien is acknowledged on above vehicle to secure the amount of repairs thereto. You will not be held responsible for the loss or damage to vehicle or articles left in case of fire, theft, accident or any cause beyond your control or for any delays caused by unavailability of parts or delays in parts shipments by the supplier or transporter. I understand that all charges are due up on delivery of the vehicle. I acknowledge receipt of a copy of this agreement.
@@ -179,7 +181,7 @@ class PrintReceipt extends React.Component {
             </Grid>
           </Grid>
 
-          {/* SIDE RECEIPT */}
+          {/* ------------------------ SIDE RECEIPT ------------------------ */}
           <Grid item container xs={5}>
             <Grid item xs={12} className={classes.gridPad}>
               <div className={classes.divContainer}>
@@ -193,25 +195,25 @@ class PrintReceipt extends React.Component {
               <Typography>{this.props.reduxState.viewReceipt.product_1}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.product_1_c}</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>{this.props.reduxState.viewReceipt.product_2}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.product_2_c}</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>{this.props.reduxState.viewReceipt.product_3}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.product_3_c}</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>{this.props.reduxState.viewReceipt.product_4}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.product_4_c}</Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography>Service:</Typography>
@@ -220,26 +222,34 @@ class PrintReceipt extends React.Component {
               <Typography>{this.props.reduxState.viewReceipt.service_1}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$45.00</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.service_1_c}</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>{this.props.reduxState.viewReceipt.service_2}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$40.00</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.service_2_c}</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>{this.props.reduxState.viewReceipt.service_3}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${this.props.reduxState.viewReceipt.service_3_c}</Typography>
             </Grid>
 
             <Grid item xs={9}>
               <Typography>Sub Total</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${
+                parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)).toFixed(2)
+              }</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>Sales Tax</Typography>
@@ -251,13 +261,38 @@ class PrintReceipt extends React.Component {
               <Typography>Tax</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${
+                parseFloat(((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
+              }</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography>Total</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography>$</Typography>
+              <Typography>${
+                // sub total
+                parseFloat((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                  (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                  (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0) +
+                  // tax
+                  ((this.props.reduxState.viewReceipt.product_1_c ? parseFloat(this.props.reduxState.viewReceipt.product_1_c) : 0) +
+                    (this.props.reduxState.viewReceipt.product_2_c ? parseFloat(this.props.reduxState.viewReceipt.product_2_c) : 0) +
+                    (this.props.reduxState.viewReceipt.product_3_c ? parseFloat(this.props.reduxState.viewReceipt.product_3_c) : 0) +
+                    (this.props.reduxState.viewReceipt.product_4_c ? parseFloat(this.props.reduxState.viewReceipt.product_4_c) : 0) +
+                    (this.props.reduxState.viewReceipt.service_1_c ? parseFloat(this.props.reduxState.viewReceipt.service_1_c) : 0) +
+                    (this.props.reduxState.viewReceipt.service_2_c ? parseFloat(this.props.reduxState.viewReceipt.service_2_c) : 0) +
+                    (this.props.reduxState.viewReceipt.service_3_c ? parseFloat(this.props.reduxState.viewReceipt.service_3_c) : 0)) * .05).toFixed(2)
+              }</Typography>
             </Grid>
           </Grid>
         </Grid>
