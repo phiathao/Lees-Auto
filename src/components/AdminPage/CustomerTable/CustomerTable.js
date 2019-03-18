@@ -80,8 +80,6 @@ class CustomerTable extends React.Component {
     // ---- End of Table Page
 
     render() {
-
-        const { expanded } = this.state;
         const { classes } = this.props;
 
         const { rowsPerPage, page } = this.state;

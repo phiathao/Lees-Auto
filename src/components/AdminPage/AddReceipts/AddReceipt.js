@@ -58,6 +58,7 @@ class AddReceipt extends React.Component {
 
     const { classes } = this.props
     return (
+      <>
       <Dialog
         maxWidth='lg'
         open={this.props.open}
@@ -101,6 +102,31 @@ class AddReceipt extends React.Component {
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnack}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">New Receipt Created for Vehicle</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleCloseSnack}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+      </>
     )
   }
 }

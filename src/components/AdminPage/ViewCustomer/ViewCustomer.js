@@ -90,7 +90,6 @@ class ViewCustomer extends React.Component {
 
     render() {
         const { classes } = this.props
-        const { id } = this.props.reduxState.viewCustomer
 
         return (
             <Paper className={classNames(classes.root, classes.viewInfoContainer, { [classes.paperIsActive]: this.props.reduxState.infoView === 1 })}>
