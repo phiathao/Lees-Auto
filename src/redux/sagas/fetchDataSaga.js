@@ -4,70 +4,78 @@ import axios from 'axios';
 function* fetchFeature() { // getting customers and vehicles
   try {
     const setFeature = yield axios.get('/api/public/feature');
-    yield put({type: 'SET_FEATURE', payload: setFeature.data[0]})
+    yield put({ type: 'SET_FEATURE', payload: setFeature.data[0] })
   } catch (error) {
-      console.log('Error with fetching feature:', error);
+    console.log('Error with fetching feature:', error);
   }
 }
 
 function* fetchData() { // getting customers and vehicles
   try {
-    const setData = yield axios.get('/api/manage');
-    yield put({type: 'SET_DATA', payload: setData.data})
+    const setData = yield axios.get('/api/manage'); // set customers data
+    const setVehiclesData = yield axios.get('/api/manage/vehicles') // set vehicles data
+    yield put({ type: 'SET_DATA', payload: setData.data }) // set customers data to reducer
+    yield put({ type: 'SET_VEHICLES_DATA', payload: setVehiclesData.data }) // set vehicles data to reducer
   } catch (error) {
-      console.log('Error with fetching data:', error);
+    console.log('Error with fetching data:', error);
   }
 }
 
-function* fetchDataCustomer(action){
+function* fetchDataCustomer(action) {
   try {
     const setDataCustomer = yield axios.get(`/api/manage/get/customer/${action.payload}`); // get customer info
-    const setDataCustomerVehicles = yield axios.get(`/api/manage/get/customer/${action.payload}/vehicles`); // get customer cars
-    yield put({type: 'SET_VIEW_CUSTOMER', payload: setDataCustomer.data[0]}); // store customer info
-    yield put({type: 'SET_CUSTOMER_VEHICLES', payload: setDataCustomerVehicles.data}); // store customer vehicle
+    yield put({ type: 'SET_VIEW_CUSTOMER', payload: setDataCustomer.data[0] }); // store customer info
   } catch (error) {
-      console.log('Error with fetching customer:', error);
+    console.log('Error with fetching customer:', error);
   }
 }
 
-function* fetchDataVehicle(action){
+function* fetchDataVehicle(action) {
   try {
     const setDataVehicle = yield axios.get(`/api/manage/get/vehicle/${action.payload}`); // get vehicle by id
     const setDataVehicleReceipts = yield axios.get(`/api/manage/get/vehicle/${action.payload}/receipts`); // get vehicle receipts
-    yield put({type: 'SET_VIEW_VEHICLE', payload: setDataVehicle.data[0]}); // store vehicle info
-    yield put({type: 'SET_VEHICLE_RECEIPTS', payload: setDataVehicleReceipts.data}); // store vehicle receipts    
+    yield put({ type: 'SET_VIEW_VEHICLE', payload: setDataVehicle.data[0] }); // store vehicle info 
   } catch (error) {
-      console.log('Error with fetching vehicle:', error);
+    console.log('Error with fetching vehicle:', error);
   }
 }
 
-function* fetchDataReceipts(action){
+function* fetchDataReceipts(action) {
   try {
     const setDataReceipts = yield axios.get(`/api/manage/get/receipt/${action.payload}`); // get receipts by id
-    yield put({type: 'SET_VIEW_RECEIPT', payload: setDataReceipts.data}); // store receipts info
-    yield put({type: 'SET_VIEW_RECEIPT_ID', payload: setDataReceipts.data[0].receipt_id}); // store receipts info
+    yield put({ type: 'SET_VIEW_RECEIPT', payload: setDataReceipts.data[0] }); // store receipts info
   } catch (error) {
-      console.log('Error with fetching receipts:', error);
+    console.log('Error with fetching receipts:', error);
   }
 }
 
-function* fetchService(){
+function* fetchServices() {
   try {
-    const setService = yield axios.get(`/api/public/services`); // get services
-    yield put({type: 'SET_SERVICES', payload: setService.data}); // store services info
+    const setServices = yield axios.get(`/api/public/services`); // get services
+    yield put({ type: 'SET_SERVICES', payload: setServices.data }); // store services info
   } catch (error) {
-      console.log('Error with fetching service:', error);
+    console.log('Error with fetching service:', error);
   }
 }
 
 
 function* fetchDataSagaWatcher() {
   yield takeLatest('FETCH_FEATURE', fetchFeature);
+
+  // fetch customers
   yield takeLatest('FETCH_DATA', fetchData);
+
+  // fetch a customer
   yield takeLatest('FETCH_DATA_CUSTOMER', fetchDataCustomer);
+
+  // fetch a vehicle
   yield takeLatest('FETCH_DATA_VEHICLE', fetchDataVehicle);
+
+  // fetch all receipt
   yield takeLatest('FETCH_DATA_RECEIPT', fetchDataReceipts)
-  yield takeLatest('FETCH_SERVICES', fetchService)
+
+  // fetch services
+  yield takeLatest('FETCH_SERVICES', fetchServices)
 
 
 }

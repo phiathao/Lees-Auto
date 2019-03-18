@@ -9,21 +9,9 @@ import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 
 import App from './components/App/App';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import Theme from './Theme';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#455a64',
-    },
-    secondary: {
-      main: '#2196f3',
-    },
-    // contrastThreshold: 3,
-    // tonalOffset: 0.2,
-  },
-});
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -48,7 +36,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={Theme}>
       <App />
     </MuiThemeProvider>
   </Provider>,

@@ -1,61 +1,81 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+
 import LogOutButton from '../LogOutButton/LogOutButton';
-// import LoginButton from '../LoginButton/LoginButton';
-import './Header.css';
 
 class Header extends React.Component {
+
+  handleChange = (event, value) => {
+    this.props.dispatch({
+      type: "SET_HEADER",
+      payload: { value }
+    })
+    console.log(this.props.header)
+    // this.setState({ value });
+  };
+
   render() {
+    const { value } = this.props.header;
+    const { classes } = this.props;
     return (
-      <div className="header">
-        {/* <Link to="/home" className="header-title">
-          <h2>Lee's Auto Shop &amp; Repair</h2>
-        </Link> */}
-        {/* <Link className="nav-link" to="/home">
-          Home
-        </Link> */}
-        {/* Always show this link since the about page is not protected */}
-        {/* <Link className="nav-link" to="/services">
-          Services
-        </Link> */}
-        {/* <Link className="nav-link" to="/carList">
-          Car List
-        </Link> */}
-        {/* Show the link to the info page and the logout button if the user is logged in */}
-        {this.props.user.id && (
-          <>
-            <Link className="nav-link" to="/manage">
-              Manage
-            </Link>
-            {/* <Link className="nav-link" to="/shopService">
-              Shop Services
-            </Link>
-            <Link className="nav-link" to="/carSales">
-              Car Sales
-            </Link> */}
-          </>
-        )}
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-          {this.props.user.id ? <LogOutButton className="float-right nav-link" /> : <Link className="float-right nav-link" to="/login">Login</Link>}
-          {this.props.user.id && (
-          <span className="float-right nav-login">Welcome back, {this.props.user.username}!
-          </span>
-        )}
-      </div>
+      (this.props.info !== 4 || this.props.user.id) ? (<AppBar position={!this.props.user.id ? "static" : "fixed"} className={classes.appBar}>
+        {!this.props.user.id && <Typography variant="h2" style={{ color: "white" }} align="center">Lee's Auto</Typography>}
+        {!this.props.user.id ?
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            variant="fullWidth"
+            centered
+          >
+            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
+          </Tabs>
+          :
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            variant="fullWidth"
+            centered
+          >
+            <Tab className={classes.appTab} label="Home" component={Link} to="/home" />
+            <Tab className={classes.appTab} label="Services" component={Link} to="/services" />
+            <Tab className={classes.appTab} label="Car List" component={Link} to="/carList" />
+            <Tab className={classes.appTab} label="About Us" component={Link} to="/about" />
+            <Tab className={classes.appTab} label="Contact" component={Link} to="/contact" />
+            <Tab className={classes.appTab} label="Manage" component={Link} to="/manage" />
+            <Tab className={classes.appTab} label="Logout" component={LogOutButton} />
+          </Tabs>
+        }
+      </AppBar>)
+      : <></>
     )
   }
 }
 
-// Instead of taking everything from state, we just want the user
-// object to determine if they are logged in
-// if they are logged in, we show them a few more links 
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = state => ({
   user: state.user,
+  header: state.header,
+  info: state.infoView
 });
 
-export default connect(mapStateToProps)(Header);
+const styles = theme => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  appTab: {
+    minWidth: 'auto',
+  },
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));

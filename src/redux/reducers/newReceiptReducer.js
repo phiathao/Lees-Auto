@@ -1,8 +1,8 @@
+var now = new Date().toISOString();
+
 const emptyState = {
   vehicle_id: '',
-  payment_method: '',
-  description: '',
-  due: '',
+  date: now
 }
 
 const newReceiptReducer = (state = emptyState, action) => {

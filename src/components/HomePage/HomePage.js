@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+
 import Slider from 'react-slick';
-import "./HomePage.css";
 import Card from '@material-ui/core/Card';
 import Services from '../Services/Services';
 
@@ -12,34 +14,42 @@ import Services from '../Services/Services';
 
 
 class HomePage extends React.Component {
+  componentDidMount = () => {
+    this.props.dispatch({
+      type: 'SET_HEADER',
+      payload: { value: 0 },
+    })
+  }
   render() {
     let setting = {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 2000,
+      arrows: false,
     }
+    const { classes } = this.props
     return (
       <div>
         <Services />
-        <Slider {...setting}>
-          <div>
-            <Card className="home-card">1</Card>
+        <Slider {...setting} className={classes.slider}>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>1</Card>
           </div>
-          <div>
-            <Card className="home-card">2</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>2</Card>
           </div>
-          <div>
-            <Card className="home-card">3</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>3</Card>
           </div>
-          <div>
-            <Card className="home-card">4</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>4</Card>
           </div>
-          <div>
-            <Card className="home-card">5</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>5</Card>
           </div>
-          <div>
-            <Card className="home-card">6</Card>
+          <div className={classes.sliderDiv}>
+            <Card className={classes.sliderCard}>6</Card>
           </div>
         </Slider>
       </div>
@@ -54,5 +64,19 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
+const styles = theme => ({
+  slider: {
+    padding: 50,
+    backgroundColor: "#f2f2f2",
+  },
+  sliderCard: {
+    minHeight: 50,
+  },
+  sliderDiv: {
+    paddingRight: 10,
+    paddingLeft: 10,
+  },
+});
+
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(withStyles(styles)(HomePage));
