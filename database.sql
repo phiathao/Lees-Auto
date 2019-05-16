@@ -22,11 +22,12 @@ CREATE TABLE "customers" (
 	"first_name" VARCHAR(25),
 	"last_name" VARCHAR(25),
 	"phone" VARCHAR(10),
+	"phone_2" VARCHAR(10),
 	"street" VARCHAR(50),
 	"city" VARCHAR(50),
 	"state" VARCHAR(2),
 	"zip" VARCHAR(5)
-);
+	);
 
 CREATE TABLE "vehicle" (
 	"id" SERIAL PRIMARY KEY,
@@ -36,6 +37,8 @@ CREATE TABLE "vehicle" (
 	"year" DATE,
 	"plate" VARCHAR(25),
 	"color" VARCHAR(15),
+	"vin" VARCHAR(25),
+	"odometer" VARCHAR(25),
 	"other" VARCHAR(100)
 );
 
