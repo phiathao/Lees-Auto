@@ -20,6 +20,7 @@ import Sales from '../Content/Sales';
 import Services from '../Content/Services';
 import Incomes from '../Content/Incomes';
 import CustomerTable from '../CustomerTable/CustomerTable';
+import SearchCustomer from '../SearchCustomer/SearchCustomer';
 
 class ManageDrawer extends React.Component {
     state = {
@@ -157,14 +158,7 @@ class ManageDrawer extends React.Component {
                     }
                     {this.props.reduxState.drawer === 2 &&
                         <List>
-                            <TextField
-                                fullWidth
-                                id="filled-search"
-                                label="Search"
-                                type="search"
-                                margin="normal"
-                                variant="filled"
-                            />
+                            <SearchCustomer />
                             <CustomerTable />
                         </List>
                     }
@@ -202,9 +196,6 @@ const styles = theme => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
-    },
-    searchField: {
-        width: '100%',
     },
 });
 

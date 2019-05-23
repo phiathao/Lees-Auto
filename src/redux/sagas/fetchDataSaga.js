@@ -21,6 +21,15 @@ function* fetchData() { // getting customers and vehicles
   }
 }
 
+function* fetchSearch(action) { // getting searched customers
+  try {
+    const setSearchData = yield axios.get(`/api/manage/search/${action.payload}`); // get search data
+    yield put({ type: 'SET_DATA', payload: setSearchData.data }) // set search data to reducer
+  } catch (error) {
+    console.log('Error with fetching search data:', error);
+  }
+}
+
 function* fetchDataCustomer(action) {
   try {
     const setDataCustomer = yield axios.get(`/api/manage/get/customer/${action.payload}`); // get customer info
@@ -77,6 +86,8 @@ function* fetchDataSagaWatcher() {
   // fetch services
   yield takeLatest('FETCH_SERVICES', fetchServices)
 
+  // fetch search
+  yield takeLatest('FETCH_SEARCH', fetchSearch);
 
 }
 
