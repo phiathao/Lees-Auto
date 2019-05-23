@@ -62,6 +62,71 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
+
+// search for customer
+router.get('/search/:search', (req, res) => {
+    const queryString = `
+        SELECT 
+            first_name, 
+            last_name, 
+            phone,
+            phone_2,
+            street,
+            city,
+            state,
+            zip,
+            customers.id AS id, 
+            vehicle.id AS vehicle_id, 
+            make, 
+            model, 
+            plate, 
+            color,
+            odometer,
+            vin
+        FROM "customers"
+        FULL OUTER JOIN "vehicle" 
+        ON "vehicle".customer_id = "customers".id
+        WHERE customers.first_name ILIKE $1 
+        OR customers.last_name ILIKE $1
+        GROUP BY customers.id, vehicle_id;
+    `;
+    // add % to the search
+    let newSearch = `%${req.params.search}%`;
+    pool.query(queryString, [newSearch])
+        .then(result => {
+            let customer = {};
+            result.rows.forEach(row => {
+                let { id, first_name, last_name, phone, phone_2, street, city, state, zip, ...vehicle } = row;
+
+                if (customer[row.id]) {
+
+                    if (vehicle.vehicle_id) {
+                        customer[row.id].vehicles.push(vehicle);
+                    }
+
+                } else {
+                    customer[row.id] = {
+                        id,
+                        first_name,
+                        last_name,
+                        phone,
+                        phone_2,
+                        street,
+                        city,
+                        state,
+                        zip,
+                        vehicles: vehicle.vehicle_id ? [vehicle] : []
+                    };
+                }
+            });
+            res.send(Object.values(customer));
+        }).catch(error => {
+            console.log(error)
+            res.sendStatus(500);
+        })
+});
+
+
 // GET all vehicles
 router.get('/vehicles', rejectUnauthenticated, (req, res) => {
     const queryString = `
