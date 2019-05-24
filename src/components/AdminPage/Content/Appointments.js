@@ -4,62 +4,61 @@ import Paper from "@material-ui/core/Paper";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
+  MonthView,
+  Toolbar,
+  DateNavigator,
+  Appointments,
   WeekView,
-  Appointments
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 import { blue } from "@material-ui/core/colors";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import data from "../AppointmentData/data";
 
 
-// dummy data to test
-const testAppointments = [
-  {
-    title: "Website Re-Design Plan",
-    startDate: new Date(2019, 5, 25, 9, 30),
-    endDate: new Date(2019, 5, 25, 11, 30),
-    id: 0,
-    location: "Room 1"
-  },
-  {
-    title: "Book Flights to San Fran for Sales Trip",
-    startDate: new Date(2019, 5, 25, 12, 0),
-    endDate: new Date(2019, 5, 25, 13, 0),
-    id: 1,
-    location: "Room 1"
-  },
-]
+class AppointmentPage extends React.Component {
+  // state = {
+  //   data: testAppointments,
+  // };
+  constructor(props) {
+    super(props);
 
-const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
-
-class InfoPage extends React.Component {
-  state = {
-    data: testAppointments,
-  };
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     data: testAppointments
-  //   };
-  // }
+    this.state = {
+      data: data
+    };
+  }
   render() {
     const { data } = this.state;
+    const { classes } = this.props;
     return (
-      <MuiThemeProvider theme={theme}>
-
+      <div>
       <Paper>
           <Scheduler data={data}>
-            <ViewState currentDate="2019-05-24" />
-            <WeekView startDayHour={9} endDayHour={19} />
-            <Appointments />
+            <ViewState currentDate="2019-05-21" />
+            <MonthView />
+            {/* <WeekView /> */}
+            <Toolbar />
+            <DateNavigator />
+            <Appointments appointmentComponent={Appointment} />
           </Scheduler>
         </Paper>
-
-    </MuiThemeProvider>
-
+        </div>
     );
   }
 }
 
-export default InfoPage;
+const Appointment = ({
+  children, style, ...restProps
+}) => (
+  <Appointments.Appointment
+    {...restProps}
+    style={{
+      ...style,
+      backgroundColor: '#FFC107',
+      borderRadius: '8px',
+    }}
+  >
+    {children}
+  </Appointments.Appointment>
+);
+
+export default AppointmentPage;
