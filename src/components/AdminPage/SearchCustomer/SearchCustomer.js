@@ -10,6 +10,13 @@ class SearchCustomer extends React.Component{
     state = {
         search: ''
     }
+    componentDidMount = () => {
+        if(this.state.search === ''){
+            this.props.dispatch({
+                type: 'FETCH_DATA',
+            });
+        }
+    }
     handleChange = (event) => {
         this.setState({
             search: event.target.value
@@ -29,7 +36,6 @@ class SearchCustomer extends React.Component{
         }, 100)
         
     }
-
 render(){
     return (
         <TextField
