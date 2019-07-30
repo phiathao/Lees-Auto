@@ -33,7 +33,7 @@ class AppointmentPage extends React.Component {
       <div>
       <Paper>
           <Scheduler data={data}>
-            <ViewState currentDate="2019-05-21" />
+            <ViewState currentDate={new Date().toJSON().slice(0,10).replace(/-/g,'/')} />
             <MonthView />
             {/* <WeekView /> */}
             <Toolbar />

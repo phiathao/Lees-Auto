@@ -16,6 +16,7 @@ const Theme = createMuiTheme({
   textPrimary: {
     color: 'white',
   },
+  spacing: factor => `${0.25 * factor}rem`,
 });
 
 export default Theme;
