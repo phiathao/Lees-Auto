@@ -24,7 +24,6 @@ class LoginPage extends Component {
 
   login = (event) => {
     event.preventDefault();
-    console.log('got here');
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
@@ -49,7 +48,15 @@ class LoginPage extends Component {
     const { classes } = this.props;
     return (
       this.props.user.id ?
-        <Redirect exact from="/login" to="/manage" />
+        // <Redirect exact from="/login" to="/manage" />
+        <div className={classes.root}>
+          <Paper className={classes.paper2}>
+            <div>
+              <Typography variant="h4" align="center">Login</Typography>
+              <Typography variant="h6" align="center">You are logged in</Typography>
+            </div>
+          </Paper>
+        </div>
         :
         <div className={classes.root}>
           <Paper className={classes.paper}>
@@ -147,6 +154,13 @@ const styles = theme => ({
   },
   paper: {
     marginTop: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`,
+  },
+  paper2: {
+    marginTop: theme.spacing.unit * 10,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

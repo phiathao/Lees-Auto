@@ -22,21 +22,21 @@ class ManageContent extends React.Component {
 
                 <Collapse
                     in={this.props.reduxState.infoView === 3}
-                    timeout={750}
+                    timeout={1000}
                 >
                     <ViewReceipts />
                 </Collapse>
 
                 <Collapse
                     in={this.props.reduxState.infoView === 2}
-                    timeout={750}
+                    timeout={1000}
                 >
                     <ViewVehicleInfo />
                 </Collapse>
 
                 <Collapse
                     in={this.props.reduxState.infoView === 1}
-                    timeout={750}
+                    timeout={1000}
                 >
                     <ViewCustomerInfo />
                 </Collapse>

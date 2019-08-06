@@ -104,7 +104,7 @@ class ManageDrawer extends React.Component {
                                     inset
                                 />
                             </ListItem>
-                            <ListItem
+                            {/* <ListItem
                                 button
                                 selected={this.props.reduxState.drawer === 3}
                                 onClick={() => { this.props.dispatch({ type: 'SET_DRAWER_SERVICES' }); this.props.history.push('/manage/services') }}
@@ -133,7 +133,7 @@ class ManageDrawer extends React.Component {
                                     primary="Income"
                                     inset
                                 />
-                            </ListItem>
+                            </ListItem> */}
                         </List>
                     }
                     {this.props.reduxState.drawer !== 0 &&
